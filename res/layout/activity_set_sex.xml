@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="170dp"
+    android:paddingLeft="20dp"
+    android:paddingStart="20dp"
+    android:paddingTop="10dp"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="性别"/>
+
+    <TextView android:id="@+id/sex_male"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="15sp"
+        android:text="男"/>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:src="@drawable/icon_my_separater"/>
+    
+    <TextView android:id="@+id/sex_female"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="15sp"
+        android:text="女"/>
+</LinearLayout>

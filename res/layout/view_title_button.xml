@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="46dp"
+    android:background="@color/bg_title"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    android:padding="4dp" >
+    <Button 
+        android:id="@+id/btn_left"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_centerVertical="true"
+    	android:layout_marginLeft="6dp"
+    	android:gravity="center"
+    	android:textColor="#ffffff"
+    	android:textSize="14sp"/>
+	<TextView 
+	    android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:layout_gravity="center"
+    	android:layout_centerInParent="true"
+    	android:textSize="18sp"
+    	android:textColor="@color/white"
+    	android:layout_weight="1"/>
+	<Button 
+        android:id="@+id/btn_right"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentRight="true"
+    	android:layout_centerVertical="true"
+    	android:layout_marginRight="10dp"
+    	android:textSize="14sp"
+    	android:gravity="center"
+    	android:paddingLeft="8dp"
+    	android:paddingRight="8dp"
+    	android:textColor="#ffffff"
+    	android:visibility="gone" />
+</RelativeLayout>
+

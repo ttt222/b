@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingStart="20dp"
+    android:paddingRight="20dp"
+    android:paddingEnd="20dp">
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" >
+
+        <TextView
+            android:id="@+id/contact_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赵先生"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/contact_add_watch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_my_contact_add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:textColor="@color/green_contact"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/contact_add_sm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="短信邀请"
+            android:textColor="@color/about_txt"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+    <ImageView android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:src="@drawable/icon_my_separater">
+        
+    </ImageView>
+    
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingStart="20dp"
+    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp" >
+    
+    <LinearLayout android:id="@+id/v_delete_check"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        
+	    <ImageView android:id="@+id/iv_delete_check"
+	        android:layout_width="20dp"
+	        android:layout_height="20dp"
+	        android:src="@drawable/icon_unchecked"/>
+    </LinearLayout>
+    
+    <com.fingertip.blabla.my.widget.RoundImageView android:id="@+id/msg_sender_head"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_head"
+        android:contentDescription="@string/empty" />
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent"
+        	android:layout_height="wrap_content">
+            <TextView android:id="@+id/msg_sender_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="深圳吃货"/>
+            <TextView  
+		        android:layout_width="0dp"  
+		        android:layout_height="0dp"  
+		        android:layout_weight="1" />
+            <TextView android:id="@+id/msg_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_be"
+                android:textSize="15sp"
+                android:text="发表了评论"/>
+        </LinearLayout>
+        
+        <TextView android:id="@+id/msg_title"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/gray_56"
+            android:textSize="18sp"
+            android:background="@drawable/bg_msg_title"
+            android:text="大家好，我是标题"/>
+
+        <TextView android:id="@+id/msg_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:textColor="@color/blue_msg"
+            android:textSize="16sp"
+            android:text="活动要怎么报名，我要报名....活动要怎么报名，我要报名....活动要怎么报名，我要报名...."/>
+
+        <TextView android:id="@+id/msg_send_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:textColor="@color/gray_6c"
+            android:textSize="16sp"
+            android:text="5分钟前"/>
+        
+    </LinearLayout>
+</LinearLayout>

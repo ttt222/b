@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/template_nav_title" />
+    
+    <ListView
+        android:id="@+id/contact_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent">
+    </ListView>
+    
+    <LinearLayout android:id="@+id/contact_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_97"
+            android:textSize="20sp"
+            android:text="通讯录为空"/>
+    </LinearLayout>
+</LinearLayout>

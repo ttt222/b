@@ -1,0 +1,134 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="NothingTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="AnimTop" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_in</item>
+        <item name="android:windowExitAnimation">@anim/push_top_out</item>
+    </style>
+
+    <style name="MyDialogStyleTop" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AnimTop</item>
+        <item name="android:windowFrame">@null</item>
+ 		<!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+		<!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+ 		<!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+ 		<!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+ 		<!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+		 <!-- 模糊 -->
+    </style>
+    
+    <style name="MyDialogStyleNull" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowFrame">@null</item>
+ 		<!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+		<!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+ 		<!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+ 		<!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+ 		<!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+		 <!-- 模糊 -->
+    </style>
+    
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <style name="MyDialogStyleBottom" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+        <item name="android:windowFrame">@null</item>
+ 		<!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+		<!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+ 		<!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+ 		<!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+ 		<!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+		 <!-- 模糊 -->
+    </style>
+    
+    <style 
+        name="dialogAnimationNullStyle"
+        parent="@android:style/Animation.Dialog"
+        mce_bogus="1">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+    </style> 
+    <style name="progressDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item> 
+        <item name="android:windowIsTranslucent">true</item> 
+        <item name="android:windowBackground">@android:color/transparent</item> 
+        <item name="android:windowContentOverlay">@null</item> 
+        <item name="android:backgroundDimEnabled">true</item> 
+        <item name="android:windowAnimationStyle">@style/dialogAnimationNullStyle</item> 
+    </style>
+    
+    <!-- 个人资料大文字样式 -->
+     <style name="userinfoTextBigTheme">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!-- 个人资料内容文字样式 -->
+     <style name="userinfoTextContentTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray_73</item>
+    </style>
+    <!-- 个人资料内容padding -->
+     <style name="userinfoTextContentPaddingTheme">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+    
+    <!-- 个人资料内容padding -->
+     <style name="gameTestThme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    
+    <style name="myIndextheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_box</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
+    </style>
+    
+    <style name="customProgressBar" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:indeterminateDrawable">@drawable/custom_progress_bar</item>
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

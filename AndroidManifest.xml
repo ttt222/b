@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fingertip.blabla"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--  访问精确位置的权限   -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    
+    <uses-permission android:name="android.permission.CAMERA"/>
+   	<uses-permission android:name="android.permission.FLASHLIGHT"/>
+   	<!-- 读取联系人权限 -->  
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
+	<uses-permission android:name="android.permission.SEND_SMS" /> 
+    
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:resizeable="true"
+        android:smallScreens="true" />
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:theme="@style/NothingTheme"
+            android:name="com.fingertip.blabla.guide.GuideActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/NothingTheme"
+            android:name="com.fingertip.blabla.main.SplashActivity">
+        </activity>    
+        <activity
+            android:theme="@style/NothingTheme"
+            android:name="com.fingertip.blabla.main.MainActivity">
+        </activity>    
+        <activity
+            android:name="com.fingertip.blabla.account.LoginActivity"
+            android:theme="@style/NothingTheme" />
+        
+        <activity 
+            android:name="com.fingertip.blabla.main.OverlayBigActivity" 
+            android:theme="@style/MyDialogStyleTop"/>
+        
+        <!-- 大图片 -->
+        <activity android:name="com.fingertip.blabla.main.ImageViewPagerActivity" />
+        
+        <activity 
+            android:name="com.fingertip.blabla.barcode.ScanBarcodeActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.setting.SettingActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.setting.AboutActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.setting.SuggestActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.setting.ReportActivity"
+            android:theme="@style/NothingTheme"  />
+	    
+        <activity 
+            android:name="com.fingertip.blabla.my.MyIndexActivity"
+            android:theme="@style/myIndextheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.MessageCenterActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.MyEventActivity"
+            android:theme="@style/NothingTheme"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.MyInfoActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.SetSexActivity"
+            android:theme="@android:style/Theme.Dialog"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.SetNickActivity"
+            android:theme="@android:style/Theme.Dialog"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.SetMarkActivity"
+            android:theme="@android:style/Theme.Dialog"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.SendMsgActivity"
+            android:theme="@android:style/Theme.Dialog"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.zoom.SetZoomActivity"
+            android:theme="@android:style/Theme.Dialog"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.widget.SetPasswordActivity"
+            android:theme="@style/NothingTheme"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.MyWatchListActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.AddWatchActivity"
+            android:theme="@style/NothingTheme"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.MyBarcodeActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity 
+            android:name="com.fingertip.blabla.my.UserInfoActivity"
+            android:theme="@style/NothingTheme"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.my.MyContactsActivity"
+            android:theme="@style/NothingTheme"  />
+        <activity 
+            android:name="com.fingertip.blabla.account.RegisterActivity"
+            android:theme="@style/NothingTheme"  />
+        <activity 
+            android:name="com.fingertip.blabla.account.AccountActivationActivity"
+            android:theme="@style/NothingTheme"  />
+        
+        <activity  android:name="com.fingertip.blabla.info.PublishInfoActivity" />
+        
+        <activity 
+            android:name="com.fingertip.blabla.attention.AddAttentionActivity" 
+            android:theme="@style/MyDialogStyleNull" />
+        
+        <!-- 图片选择(头像) -->
+        <activity
+            android:name="com.fingertip.blabla.common.SelectPicPopupWindow"
+            android:theme="@style/MyDialogStyleBottom" />		
+        <!-- 图片选择 -->
+        <activity
+            android:name="com.fingertip.blabla.common.SelectPicDialog"
+            android:theme="@style/MyDialogStyleBottom" />		
+        
+        <!-- 检索 -->
+        <activity android:name="com.fingertip.blabla.search.SearchMainActivity" />
+        <!-- 标记位置 -->
+        <activity android:name="com.fingertip.blabla.main.MapPositionSelectionActivity" />
+        <!-- 标记位置 -->
+        <activity android:name="com.fingertip.blabla.main.MapShowPositionActivity" />
+        
+        <!-- 分享 -->
+        <activity 
+            android:name="com.fingertip.blabla.common.ShareDialog" 
+            android:theme="@style/MyDialogStyleBottom"/>
+        
+        <!-- 关注人分享 -->
+        <activity android:name="com.fingertip.blabla.main.AttentionSelectedActivity" />
+        
+        <!-- 发布评论 -->
+        <activity android:name="com.fingertip.blabla.main.PublicRecommendActivity" />
+        
+        
+        <!-- ###################注册SDK使用的Activity###################### -->
+        <!-- 分享编辑页 -->
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        
+        <activity
+		   android:name=".wxapi.WXEntryActivity"
+		   android:theme="@android:style/Theme.Translucent.NoTitleBar"
+		   android:configChanges="keyboardHidden|orientation|screenSize"
+		   android:exported="true"
+		   android:screenOrientation="portrait" />
+         
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID-->
+                <data android:scheme="tencent100424468" /> 
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        
+        <!-- 百度地图 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+        
+        <service android:name="com.fingertip.blabla.services.MessageService" />
+        
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="E1yWMA91u4cO1aCuPG2GgUsB" />
+        
+        <!-- 友盟统计数据 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55a8b8f367e58e1319004135" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="inside" />
+    </application>
+
+</manifest>

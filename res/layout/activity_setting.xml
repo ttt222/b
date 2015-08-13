@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/template_nav_title" />
+    
+    <LinearLayout android:id="@+id/setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_setting_logo"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:text="关于兔丁"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/gray_ad"
+            android:paddingRight="19dp"
+            android:paddingEnd="19dp"
+            android:text="V1.0.0"/>
+        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_setting_forward" />
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/setting_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_setting_suggest"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:text="意见反馈"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+	        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_setting_forward" />
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/setting_delete_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_setting_delete"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:text="清除缓存"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <TextView android:id="@+id/cache_size_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/ffa200"
+            android:paddingRight="19dp"
+            android:paddingEnd="19dp"
+            android:text="0.4M"/>
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/setting_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_setting_logout"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:text="退出登录"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        
+        <ImageView android:src="@drawable/bg_setting_logo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="20dp"
+	        android:paddingStart="20dp"
+	        android:paddingRight="20dp"
+	        android:paddingEnd="20dp"
+	        android:contentDescription="@string/empty"/>
+    </LinearLayout>
+    
+</LinearLayout>

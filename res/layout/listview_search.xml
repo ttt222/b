@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include 
+        android:id="@+id/view_title"
+        layout="@layout/view_title"
+        android:visibility="gone"/>
+    <!-- 
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:visibility="gone" >
+        <com.fingertip.blabla.common.gif.GifView
+            android:id="@+id/gifView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+     -->
+
+    <com.fingertip.blabla.search.widget.RefreshableListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据" />
+     -->
+
+    <ImageView
+        android:id="@+id/hidden_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+</LinearLayout>

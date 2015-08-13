@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="#E9E9E9"
+    android:orientation="vertical"
+    android:paddingTop="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="选择省市"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/zoom_line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/zoom_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </kankan.wheel.widget.WheelView>
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/zoom_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </kankan.wheel.widget.WheelView>
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/zoom_district"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </kankan.wheel.widget.WheelView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/zoom_btn"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/blue_button"
+        android:textSize="18dp"
+        android:text="确定"  />
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/template_nav_title" />
+
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <com.fingertip.blabla.common.gif.GifView
+            android:id="@+id/gifView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
+	    <ListView
+	        android:id="@+id/my_watch_listView"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:cacheColorHint="@android:color/transparent"
+	        android:dividerHeight="5dp"
+	        android:divider="@color/line_listview" >
+	    </ListView>
+	    
+	    <LinearLayout android:id="@+id/my_watch_empty"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical"
+	        android:gravity="center">
+		    
+	        <TextView android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/gray_b9"
+	            android:textSize="20sp"
+	            android:text="你没有关注任何人"/>
+	        
+	        <Button android:id="@+id/my_watch_find_btn"
+	            android:layout_width="150dp"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/blue_button"
+	            android:layout_marginTop="20dp"
+	            android:textSize="20sp"
+	            android:text="添加关注"/>
+	        
+	    </LinearLayout>
+	    
+	    <Button android:id="@+id/btn_delete"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="bottom"
+	        android:gravity="center"
+	        android:background="@drawable/blue_button"
+	        android:visibility="gone"
+	        android:text="删除"/>
+    </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/my_watch_hidden_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+    
+</LinearLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/account_bg" >
+
+    <include layout="@layout/template_nav_title" />
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已发送"
+            android:textColor="#333333" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="短信密码"
+            android:textColor="#ff6633" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="到您手机"
+            android:textColor="#333333" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:text="登陆后请及时修改"
+        android:textColor="#333333" />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/kuang_normal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="18dp"
+        android:padding="12dp" >
+        
+        <EditText android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:inputType="number"
+            android:background="@null"
+            android:layout_marginLeft="4dp"
+            android:textSize="15sp"
+            android:textColor="@color/gray_5f"
+            android:textColorHint="@color/gray_b8"
+            android:hint="请输入密码" />
+    </LinearLayout>
+    
+    <TextView android:id="@+id/tv_noreceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:text="收不到密码短信？"
+        android:textColor="#333333" />
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/kuang_normal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="18dp"
+        android:padding="12dp" >
+        
+        <EditText android:id="@+id/et_invitenum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:inputType="number"
+            android:background="@null"
+            android:layout_marginLeft="4dp"
+            android:textSize="15sp"
+            android:textColor="@color/gray_5f"
+            android:textColorHint="@color/gray_b8"
+            android:hint="请输入邀请码（可不填）" />
+    </LinearLayout>
+    
+    <TextView android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="44dp"
+        android:background="@drawable/selector_bg_ticket_red"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="56dp"
+        android:paddingRight="56dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="提交"/>
+
+</LinearLayout>

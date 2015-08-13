@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <com.fingertip.blabla.common.gif.GifView
+            android:id="@+id/gifView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/event_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:divider="@drawable/icon_my_event_separater" >
+    </ListView>
+    
+    <LinearLayout android:id="@+id/my_event_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+	    
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_b9"
+            android:textSize="20sp"
+            android:text="你没有收藏的活动"/>
+        
+        <Button android:id="@+id/my_event_find_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_button"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="找活动"/>
+        
+        <ImageView android:id="@+id/my_event_hidden_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"/>
+        
+    </LinearLayout>
+</LinearLayout>

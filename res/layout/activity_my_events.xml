@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_title">
+        <ImageView 
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/selector_bg_gray"
+	        android:layout_centerVertical="true"
+	        android:paddingBottom="12dp"
+	        android:paddingLeft="16dp"
+	        android:paddingRight="16dp"
+	        android:paddingTop="12dp"
+	        android:src="@drawable/icon_back"/>
+        <RadioGroup
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_centerInParent="true"
+	        android:layout_marginTop="8dp"
+	        android:layout_marginBottom="8dp"
+	        android:background="@drawable/bg_kuang_rc"
+	        android:padding="1dp">
+	        <RadioButton 
+	            android:id="@+id/radio_my_publish"
+	            android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:button="@null"
+	        	android:background="@drawable/selector_white_transparent"
+	        	android:textSize="20sp"
+	        	android:checked="true"
+	        	android:paddingLeft="12dp"
+	        	android:paddingRight="12dp"
+	        	android:paddingTop="4dp"
+	        	android:paddingBottom="4dp"
+	        	android:textColor="@drawable/selector_blue_white"
+	        	android:text="发布"/>
+	        <RadioButton 
+	            android:id="@+id/radio_my_favor"
+	            android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:button="@null"
+	        	android:background="@drawable/selector_white_transparent"
+	        	android:textSize="20sp"
+	        	android:paddingLeft="12dp"
+	        	android:paddingRight="12dp"
+	        	android:paddingTop="4dp"
+	        	android:paddingBottom="4dp"
+	        	android:textColor="@drawable/selector_blue_white"
+	        	android:text="收藏"/>
+	    </RadioGroup>
+	    
+        <ImageView android:id="@+id/iv_delete"
+	        android:layout_width="50dp"
+	        android:layout_height="30dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="20dp"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:layout_alignParentRight="true"
+        	android:layout_alignParentEnd="true"
+        	android:layout_centerVertical="true"
+	        android:src="@drawable/icon_my_event_delete"
+	        android:contentDescription="@string/empty"/>
+        
+        <TextView android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+	        android:paddingRight="20dp"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:layout_alignParentRight="true"
+        	android:layout_alignParentEnd="true"
+        	android:layout_centerVertical="true"
+        	android:textColor="@color/white"
+        	android:textSize="18sp"
+        	android:visibility="gone"
+            android:text="取消"/>
+    </RelativeLayout>
+    
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
+	    <LinearLayout
+	        android:id="@+id/layout_tabcontent"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="horizontal" />
+	    
+	    <Button android:id="@+id/btn_delete"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="bottom"
+	        android:gravity="center"
+	        android:background="@drawable/blue_button"
+	        android:visibility="gone"
+	        android:text="删除"/>
+    </FrameLayout>
+
+</LinearLayout>

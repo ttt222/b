@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/template_nav_title" />
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:contentDescription="@string/empty"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_about_logo" />
+    
+    <LinearLayout android:id="@+id/about_qq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_about_qq"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="联系QQ"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/about_txt"
+            android:text="2977098848"/>
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/about_wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_about_wx"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="关注微信"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/about_txt"
+            android:text="tudingkefu"/>
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/about_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_about_phone"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="联系电话"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/about_txt"
+            android:text="18588859895"/>
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"/>
+    
+    <LinearLayout android:id="@+id/about_weibo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_about_weibo"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="新浪微博"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_setting_forward" />
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"
+        android:visibility="gone"/>
+    
+    <LinearLayout android:id="@+id/about_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+        
+        <ImageView android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_about_help"
+            android:contentDescription="@string/empty"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="新手指导"
+            android:textColor="@color/gray_67"
+            android:textSize="15sp"/>
+        
+        <TextView  
+	        android:layout_width="0dp"  
+	        android:layout_height="wrap_content"  
+	        android:layout_weight="1" /> 
+        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_setting_forward" />
+
+    </LinearLayout>
+    
+    <ImageView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:src="@drawable/line_setting"
+        android:visibility="gone"/>
+</LinearLayout>
