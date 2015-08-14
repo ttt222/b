@@ -7,7 +7,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragmentActivity;
-import com.fingertip.blabla.search.util.SearchUtil.Type;
+import com.fingertip.blabla.util.http.EventUtil.Type;
 
 public class SearchMainActivity extends BaseFragmentActivity{
 	

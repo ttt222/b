@@ -18,20 +18,22 @@ import android.widget.TextView;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.ImageCache;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.my.adapter.AdapterUserEvent;
-import com.fingertip.blabla.my.util.UserUtil;
 import com.fingertip.blabla.my.widget.SendMsgActivity;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.DefaultCallback;
+import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -138,7 +140,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 				if (user_id == null)
 					toastLong("未选择用户，请返回重试");
 				else {
-					UserUtil.getUserInfo(user_id, new UserUtil.EntityCallback<UserEntity>() {
+					UserUtil.getUserInfo(user_id, new EntityCallback<UserEntity>() {
 						@Override
 						public void succeed(UserEntity user) {
 							UserInfoActivity.this.user = user;
@@ -240,7 +242,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	private void watch() {
 		if (Tools.checkLogin(this)) {
 			showProgressDialog(false);
-			UserUtil.editWatch(user.id, PARAM_VALUES.LINK_WATCH, new UserUtil.DefaultCallback() {
+			UserUtil.editWatch(user.id, PARAM_VALUES.LINK_WATCH, new DefaultCallback() {
 				@Override
 				public void succeed() {
 					toastShort("关注成功");
@@ -270,7 +272,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 
 	private void sendMsg(String msg) {
 		showProgressDialog(false);
-		UserUtil.sendMsg(user.id, msg, new UserUtil.DefaultCallback() {
+		UserUtil.sendMsg(user.id, msg, new DefaultCallback() {
 			@Override
 			public void succeed() {
 				toastShort("发送成功");
@@ -299,7 +301,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	private void mask() {
 		if (Tools.checkLogin(this)) {
 			showProgressDialog(false);
-			UserUtil.editWatch(user.id, PARAM_VALUES.LINK_HEI, new UserUtil.DefaultCallback() {
+			UserUtil.editWatch(user.id, PARAM_VALUES.LINK_HEI, new DefaultCallback() {
 				@Override
 				public void succeed() {
 					toastShort("屏蔽成功");

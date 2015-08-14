@@ -8,9 +8,9 @@ import android.os.Message;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class SplashActivity extends BaseActivity {
 	

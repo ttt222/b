@@ -23,23 +23,23 @@ import android.widget.ListView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.entity.ContactEntity;
 import com.fingertip.blabla.my.adapter.AdapterContact;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.DefaultCallback;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
-import com.lidroid.xutils.util.LogUtils;
 
 public class MyContactsActivity extends BaseNavActivity implements View.OnClickListener {
 	
@@ -56,9 +56,6 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
 		findViews();
 		setupViews();
 		loadData();
-		
-		
-		LogUtils.e("ddddddddddddddddddddddddddddddddddddddddddddddddddd");
 	}
 	
 	protected void findViews() {
@@ -100,7 +97,7 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
 	private void watch(final ContactEntity contact) {
 		final String phone = contact.phone_numbers.get(0);
 		showProgressDialog(false);
-		UserUtil.editWatch(phone, PARAM_VALUES.LINK_WATCH, new UserUtil.DefaultCallback() {
+		UserUtil.editWatch(phone, PARAM_VALUES.LINK_WATCH, new DefaultCallback() {
 			
 			@Override
 			public void succeed() {

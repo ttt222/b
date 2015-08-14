@@ -2,10 +2,9 @@ package com.fingertip.blabla.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -46,29 +45,23 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.fingertip.blabla.Cmd;
-import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.ScrollTouchView;
 import com.fingertip.blabla.common.ScrollTouchView.UpdateNotify;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
+import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.OverlayEntityList;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.my.MyIndexActivity;
 import com.fingertip.blabla.search.SearchMainActivity;
-import com.fingertip.blabla.search.util.SearchUtil;
 import com.fingertip.blabla.services.MessageService;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
+import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.EventUtil;
+import com.fingertip.blabla.util.http.ServerConstants;
 
 public class MainActivity extends BaseActivity implements UpdateNotify{
 	private static final String TAG = "MainActivity";
@@ -278,46 +271,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		baiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {			
 			@Override
 			public boolean onMarkerClick(Marker marker) {
-				
-				final OverlayEntity overlayEntity = hashMap_overlayMarket.get(marker);
-				if(overlayEntity == null){
-					Log.e(TAG, "overlayt is null");
-					return false;
-				}
-				Log.e(TAG, "overlayt zoom......:" + baiduMap.getMapStatus().zoom);
-				MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(marker.getPosition() ,baiduMap.getMapStatus().zoom);
-//				baiduMap.setMapStatus(u);
-				baiduMap.animateMapStatus(u);
-				
-				if(!overlayEntity.isIcon){
-					Intent intent = new Intent();
-					intent.setClass(MainActivity.this, OverlayBigActivity.class);
-					intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
-					startActivity(intent);
-					return true;
-				}
-				
-				ViewMapOverlay viewMapOverlay = new ViewMapOverlay(getApplicationContext());
-				
-				viewMapOverlay.setOverlayEntity(overlayEntity);
-				viewMapOverlay.setOnClickListener(new View.OnClickListener() {					
-					@Override
-					public void onClick(View v) {
-						Toast.makeText(getApplicationContext(), "hide", Toast.LENGTH_SHORT).show();
-						baiduMap.hideInfoWindow();
-						
-						Intent intent = new Intent();
-						intent.setClass(MainActivity.this, OverlayBigActivity.class);
-						intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
-						startActivity(intent);
-						
-					}
-				});
-				LatLng ll = marker.getPosition();
-				InfoWindow mInfoWindow = new InfoWindow(viewMapOverlay, ll, 0);
-				baiduMap.showInfoWindow(mInfoWindow);
-				
-				return true;
+				return clickMarker(marker);
 			}
 		});
 		
@@ -541,7 +495,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 
 	@Override
 	public void notifyUpdata(int index) {
-		SearchUtil.KINDOF = OverlayType.ALL.getType().equals(view_tab.getSelectedText()) ? "" : view_tab.getSelectedText();
+		EventUtil.KINDOF = OverlayType.ALL.getType().equals(view_tab.getSelectedText()) ? "" : view_tab.getSelectedText();
 		
 		showProgressDialog(false);
 		getPosData();
@@ -550,61 +504,118 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	
 	/** 获取地图数据 **/
 	private void getPosData(){
-		HttpUtils http_getpos = Tools.getHttpUtils();
-		
-		JSONObject jsonObject = new JSONObject();
-		try { jsonObject.put("fc", "get_action_bypos"); } catch (Exception e) { }
-		try { jsonObject.put("userid", getSP().getStringValue(SharedPreferenceUtil.LAST_UID)); } catch (Exception e) { }
-		try { jsonObject.put("loginid", getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID)); } catch (Exception e) { }
-		try { jsonObject.put("poslong", getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG)); } catch (Exception e) { }
-		try { jsonObject.put("poslat", getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT)); } catch (Exception e) { }
-		try { 
-			jsonObject.put("kindof", view_tab.getSelectedText()); 
-		} catch (Exception e) { }
-		
-		RequestParams params = new RequestParams();  
-	    params.addQueryStringParameter("command", Tools.encodeString(jsonObject.toString()));  
-	    
-//	    Log.e(TAG, "onLoad before:" + jsonObject.toString());
-		
-		http_getpos.send(HttpRequest.HttpMethod.POST,
-		   Globals.URL + Cmd.ACTION_BYPOS,
-		   params,
-		   new RequestCallBack<String>(){
-		        @Override
-		        public void onLoading(long total, long current, boolean isUploading) {  }
-		        
-		        @Override
-		        public void onStart() {  }
+		EventUtil.searchEvents(EventUtil.Type.nearest, getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG) + "",
+			getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT) + "", 1, new EntityListCallback<EventEntity>(){
 
-		        @Override
-		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dimissProgressDialog();
-		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
-		            
-		            JSONObject jsonObject = null;
-		            try {
-						jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
-						
-						arrayList_overlaytEntity.clear();
-			            arrayList_overlaytEntity.addAll(OverlayEntityList.parseJSONArray(jsonObject.getJSONArray("list")));
-			            resetOverlay(null);
-					} catch (Exception e) {
-						Toast.makeText(MainActivity.this, "数据错误", Toast.LENGTH_SHORT).show();
-						return;
-					}
-		            
-		        }//end onSuccess
+				@Override
+				public void succeed(List<EventEntity> list) {
+					dimissProgressDialog();
+					arrayList_overlaytEntity.clear();
+		            arrayList_overlaytEntity.addAll(OverlayEntityList.fromEventList(list));
+		            resetOverlay(null);
+				}
 
-		        
-
-		        @Override
-		        public void onFailure(HttpException error, String msg) {
-		        	dimissProgressDialog();
-		        	Toast.makeText(MainActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
-		        }
+				@Override
+				public void fail(String error) {
+					dimissProgressDialog();
+					toastShort(error);
+				}
+			
 		});
-		
-	}//end getPosData
+	}
 	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		if (intent.hasExtra(EXTRA_PARAM)) {
+			String event_id = intent.getStringExtra(EXTRA_PARAM);
+			locateEvent(event_id);
+		}
+	}
+	
+	private void locateEvent(String event_id) {
+		showProgressDialog(false);
+		EventUtil.getEventInfo(event_id, new EntityCallback<EventEntity>() {
+			
+			@Override
+			public void succeed(EventEntity entity) {
+				dimissProgressDialog();
+//				LatLng point = new LatLng(entity.poslat, entity.poslong);
+//				InfoWindow mInfoWindow = new InfoWindow(viewMapOverlay, point, 0);
+//				baiduMap...showInfoWindow(mInfoWindow);
+//				mMapView.
+//				MyLocationData locData = new MyLocationData.Builder().accuracy(0).direction(100)
+//						.latitude(entity.poslat).longitude(entity.poslong).build();
+				
+//				LatLng ll = new LatLng(entity.poslat, entity.poslong);
+//				InfoWindow mInfoWindow = new InfoWindow(null, ll, 0);
+//				baiduMap.showInfoWindow(mInfoWindow);
+				
+				Marker marker = getMarker(entity.id);
+				clickMarker(marker);
+				
+//				.accuracy(location.getRadius())
+//				// 此处设置获取到的方向信息，顺时针0-360
+//				.direction(100).latitude(location.getLatitude())
+//				.longitude(location.getLongitude()).build();
+//				baiduMap.setMyLocationData(locData);
+			}
+			
+			@Override
+			public void fail(String error) {
+				toastShort(error);
+				dimissProgressDialog();
+			}
+		});
+	}
+	
+	private Marker getMarker(String event_id) {
+//		Marker, OverlayEntity
+		for (Marker marker : hashMap_overlayMarket.keySet()) {
+			OverlayEntity overlayEntity = hashMap_overlayMarket.get(marker);
+			if (overlayEntity.actionid.equals(event_id))
+				return marker;
+		}
+		return null;
+	}
+	
+	private boolean clickMarker(Marker marker) {
+		final OverlayEntity overlayEntity = hashMap_overlayMarket.get(marker);
+		if(overlayEntity == null){
+			Log.e(TAG, "overlayt is null");
+			return false;
+		}
+		Log.e(TAG, "overlayt zoom......:" + baiduMap.getMapStatus().zoom);
+		MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(marker.getPosition() ,baiduMap.getMapStatus().zoom);
+//		baiduMap.setMapStatus(u);
+		baiduMap.animateMapStatus(u);
+		
+		if(!overlayEntity.isIcon){
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, OverlayBigActivity.class);
+			intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+			startActivity(intent);
+			return true;
+		}
+		
+		ViewMapOverlay viewMapOverlay = new ViewMapOverlay(getApplicationContext());
+		
+		viewMapOverlay.setOverlayEntity(overlayEntity);
+		viewMapOverlay.setOnClickListener(new View.OnClickListener() {					
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "hide", Toast.LENGTH_SHORT).show();
+				baiduMap.hideInfoWindow();
+				
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, OverlayBigActivity.class);
+				intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+				startActivity(intent);
+				
+			}
+		});
+		LatLng ll = marker.getPosition();
+		InfoWindow mInfoWindow = new InfoWindow(viewMapOverlay, ll, 0);
+		baiduMap.showInfoWindow(mInfoWindow);
+		return true;
+	}
 }

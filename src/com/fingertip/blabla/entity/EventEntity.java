@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
 
 /**
  * ÏûÏ¢
@@ -35,7 +35,7 @@ public class EventEntity implements Serializable{
 
 	public String id, title, content, userid, statusof, address, kindof;
 	public long send_time, timeto;
-	public int likedcount, replycount;
+	public int likedcount, replycount, viewcount;
 	public double poslat, poslong;
 	public List<String> pics_small, pics_big;
 	
@@ -43,6 +43,10 @@ public class EventEntity implements Serializable{
 	
 	public String getSendTimeStr() {
 		return SDF.format(new Date(send_time)); 
+	}
+
+	public String getTimeToStr() {
+		return SDF.format(new Date(timeto)); 
 	}
 
 	public String getStatusStr() {
@@ -108,6 +112,7 @@ public class EventEntity implements Serializable{
 		
 		event.likedcount = json.getInt(PARAM_KEYS.LIKEDCOUNT);
 		event.replycount = json.getInt(PARAM_KEYS.REPLYCOUNT);
+		event.viewcount = json.getInt(PARAM_KEYS.VIEWCOUNT);
 
 		event.poslat = json.getDouble(PARAM_KEYS.POSLAT);
 		event.poslong = json.getDouble(PARAM_KEYS.POSLONG);

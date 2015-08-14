@@ -1,22 +1,20 @@
-package com.fingertip.blabla.search.util;
+package com.fingertip.blabla.util.http;
 
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.location.Location;
 import android.util.Base64;
 import android.util.Log;
 
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.OverlayType;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -24,7 +22,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 
-public class SearchUtil {
+public class EventUtil {
 
 	public static String KINDOF = OverlayType.ALL.getType();
 	
@@ -32,7 +30,15 @@ public class SearchUtil {
 		nearest, newest, hotest
 	}
 	
-	public static void searchEvents(Type type, Location location, int page, final EventListCallback callback) {
+	/**
+	 * 查询活动
+	 * 
+	 * @param type
+	 * @param location
+	 * @param page
+	 * @param callback
+	 */
+	public static void searchEvents(Type type, String poslong, String poslat, int page, final EntityListCallback<EventEntity> callback) {
 		UserSession session = UserSession.getInstance();
 		String url = null, fc = null;
 		switch (type) {
@@ -57,11 +63,11 @@ public class SearchUtil {
 			data.put(PARAM_KEYS.USERID, session.getId() == null ? "" : session.getId());
 			data.put(PARAM_KEYS.LOGINID, session.getLogin_id() == null ? "" : session.getLogin_id());
 //			test "poslat":"22.553019","poslong":"113.952339"
-			data.put(PARAM_KEYS.POSLONG, "113.952339");
-			data.put(PARAM_KEYS.POSLAT, "22.553019");
+//			data.put(PARAM_KEYS.POSLONG, "113.952339");
+//			data.put(PARAM_KEYS.POSLAT, "22.553019");
 //			data.put(PARAM_KEYS.KINDOF, "社交/聚会");
-//			data.put(PARAM_KEYS.POSLONG, location == null ? "" : location.getLongitude());
-//			data.put(PARAM_KEYS.POSLAT, location == null ? "" : location.getLatitude());
+			data.put(PARAM_KEYS.POSLONG, poslong);
+			data.put(PARAM_KEYS.POSLAT, poslat);
 			data.put(PARAM_KEYS.KINDOF, KINDOF);
 			data.put(PARAM_KEYS.PAGENO, page);
 		} catch (JSONException e) {
@@ -99,9 +105,52 @@ public class SearchUtil {
 		});
 	}
 	
-	public static interface EventListCallback {
-		public void succeed(List<EventEntity> list);
-
-		public void fail(String error);
+	/**
+	 * 获取活动详情
+	 * @param id
+	 * @param callback
+	 */
+	public static void getEventInfo(final String id, final EntityCallback<EventEntity> callback) {
+		UserSession session = UserSession.getInstance();
+		JSONObject data = new JSONObject();
+//		{"fc":"get_action_byactionid", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",  "actionid":"571f34g-AD1820C-4g"}
+		try {
+			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_GET_EVENT_INFO);
+			data.put(PARAM_KEYS.USERID, session.getId() == null ? "" : session.getId());
+			data.put(PARAM_KEYS.LOGINID, session.getLogin_id() == null ? "" : session.getLogin_id());
+			data.put(PARAM_KEYS.ACTIONID, id);
+		} catch (JSONException e) {
+		}
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+		HttpUtils http = Tools.getHttpUtils();
+		http.send(HttpRequest.HttpMethod.POST, URL.GET_EVENT_INFO, params, new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+				String error = null;
+				JSONObject json = null;
+				EventEntity event = null;
+				try {
+					json = new JSONObject(result);
+					Log.e("getEventInfo", json.toString());
+					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
+						error = json.getString(PARAM_KEYS.RESULT_ERROR);
+					else
+						event = EventEntity.parseJson(json.getJSONObject(PARAM_KEYS.ACTIONINFOR));
+				} catch (Exception e) {
+					error = "查询失败:" + e.getMessage();
+				}
+				if (error != null)
+					callback.fail(error);
+				else
+					callback.succeed(event);
+			}
+			
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				callback.fail(ServerConstants.NET_ERROR_TIP);
+			}
+		});
 	}
 }

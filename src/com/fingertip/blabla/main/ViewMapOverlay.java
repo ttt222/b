@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.entity.OverlayType;
+import com.fingertip.blabla.util.Tools;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;

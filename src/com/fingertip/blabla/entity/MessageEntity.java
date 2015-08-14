@@ -13,9 +13,9 @@ import org.json.JSONObject;
 
 import android.util.Base64;
 
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Table;
 

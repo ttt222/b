@@ -3,6 +3,7 @@ package com.fingertip.blabla.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,9 +14,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.entity.WatchEntity;
+import com.fingertip.blabla.util.Tools;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;

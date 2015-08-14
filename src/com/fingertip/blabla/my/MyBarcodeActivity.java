@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.ImageCache;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.google.zxing.WriterException;
 
 public class MyBarcodeActivity extends BaseNavActivity {

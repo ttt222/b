@@ -7,24 +7,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragment;
-import com.fingertip.blabla.common.LocationUtil;
-import com.fingertip.blabla.common.Tools;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.entity.EventEntity;
-import com.fingertip.blabla.search.util.SearchUtil;
-import com.fingertip.blabla.search.util.SearchUtil.Type;
 import com.fingertip.blabla.search.widget.RefreshableListView;
 import com.fingertip.blabla.search.widget.RefreshableListView.RefreshListener;
+import com.fingertip.blabla.util.LocationUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.EventUtil;
+import com.fingertip.blabla.util.http.EventUtil.Type;
 
 public class SearchFragment extends BaseFragment implements RefreshListener {
 	
 	private View mView;
 	private RefreshableListView listView;
-	private ImageView hidden_img;
 	private AdapterSearch adapterSearch;
 	
 	private Type seach_type;
@@ -54,12 +53,11 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 	
 	private void findViews() {
 		listView = (RefreshableListView)mView.findViewById(R.id.listView);
-		hidden_img = (ImageView)mView.findViewById(R.id.hidden_img);
 	}
 
 
 	private void setupViews() {
-		adapterSearch = new AdapterSearch(mView.getContext(), hidden_img);
+		adapterSearch = new AdapterSearch(mView.getContext());
 		listView.setAdapter(adapterSearch);
 		listView.setOnItemClickListener(adapterSearch);
 		listView.setRefreshListener(this);
@@ -78,24 +76,30 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 	
 	private void loadData(final int page, final boolean append) {
 		Location location = LocationUtil.getLocation(search_activity);
-		SearchUtil.searchEvents(seach_type, location, page, new SearchUtil.EventListCallback() {
-			@Override
-			public void succeed(List<EventEntity> list) {
-				if (append)
-					adapterSearch.appendAllData(list);
-				else
-					adapterSearch.addAllData(list);
-				afterLoad(append, true, Validator.isEmptyList(list) ? 0 : list.size());
-			}
-			
-			@Override
-			public void fail(String error) {
-				Tools.toastShort(search_activity, error);
-				if (append)
-					current_page--;
-				afterLoad(append, false, 0);
-			}
-		});
+		if (location == null) {
+			Tools.toastShort(search_activity, "无法定位当前位置");
+			if (append)
+				current_page--;
+			afterLoad(append, false, 0);
+		} else
+			EventUtil.searchEvents(seach_type, location.getLongitude() + "", location.getLatitude() + "", page, new EntityListCallback<EventEntity>() {
+				@Override
+				public void succeed(List<EventEntity> list) {
+					if (append)
+						adapterSearch.appendAllData(list);
+					else
+						adapterSearch.addAllData(list);
+					afterLoad(append, true, Validator.isEmptyList(list) ? 0 : list.size());
+				}
+				
+				@Override
+				public void fail(String error) {
+					Tools.toastShort(search_activity, error);
+					if (append)
+						current_page--;
+					afterLoad(append, false, 0);
+				}
+			});
 	}
 	
 	private void afterLoad(boolean append, boolean succeed, int size) {

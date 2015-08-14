@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fingertip.blabla.entity.WatchEntity;
+import com.fingertip.blabla.util.Validator;
 
 public class UserSession {
 	
@@ -13,7 +14,6 @@ public class UserSession {
 	private Set<String> watcher_list, favor_event_list;
 
 	private static UserSession session;
-	
 	
 	private UserSession() {
 	}

@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.fingertip.blabla.account.LoginActivity;
+import com.fingertip.blabla.common.UserSession;
 
 public class Validator {
 

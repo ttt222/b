@@ -20,17 +20,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.ImageCache;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.Tools;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.my.MyEventActivity;
 import com.fingertip.blabla.my.widget.Deleteable;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -43,7 +43,6 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 	
 	private MyEventActivity activity;
 	private View empty_view;
-	private ImageView hidden_img;
 	private List<EventEntity> arrayList  = new ArrayList<EventEntity>();
 	private BitmapUtils bitmapUtils;
 	private ImageCache imageCache;
@@ -52,10 +51,9 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 	private List<String> delete_ids = new ArrayList<String>();
 	private boolean delete;
 	
-	public AdapterMyFavorEvent(MyEventActivity activity, View empty_view, ImageView hidden_img){
+	public AdapterMyFavorEvent(MyEventActivity activity, View empty_view){
 		this.activity = activity;
 		this.empty_view = empty_view;
-		this.hidden_img = hidden_img;
 		sp = new SharedPreferenceUtil(activity);
 		bitmapUtils = new BitmapUtils(activity);
 		imageCache = ImageCache.getInstance();
@@ -104,6 +102,7 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 			convertView = LayoutInflater.from(activity).inflate(R.layout.list_item_my_favor_event, parent, false);
 			viewHoler = new ViewHoler();
 			viewHoler.head_img = (ImageView)convertView.findViewById(R.id.event_sender_head);
+			viewHoler.hidden_img = (ImageView)convertView.findViewById(R.id.hidden_img);
 			viewHoler.sender_name_text = (TextView)convertView.findViewById(R.id.event_sender_name);
 			viewHoler.event_title_text = (TextView)convertView.findViewById(R.id.event_title);
 			viewHoler.event_type_text = (TextView)convertView.findViewById(R.id.event_type);
@@ -122,7 +121,7 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 		
 		EventEntity event = (EventEntity)getItem(position);
 		try {
-			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHoler.head_img, hidden_img);
+			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHoler.head_img, viewHoler.hidden_img);
 		} catch (Exception e) {
 		}
 		viewHoler.sender_name_text.setText(event.sender.nick_name);
@@ -155,6 +154,7 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 
 	class ViewHoler{
 		ImageView head_img;
+		ImageView hidden_img;
 		TextView sender_name_text;
 		TextView event_title_text;
 		TextView event_type_text;

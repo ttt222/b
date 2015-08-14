@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util;
 
 import java.io.File;
 
@@ -96,7 +96,7 @@ public class ImageCache {
 		} else {
 			//有头像
 			if (!Validator.isEmptyString(down_url))
-				download_img = last_url != down_url || !has_cache;
+				download_img = !last_url.equals(down_url) || !has_cache;
 		}
 		if (download_img) {
 			//bitmapUtils与RoundImageView不兼容，临时解决办法
@@ -116,7 +116,7 @@ public class ImageCache {
 		} else if (has_cache)
 			image.setImageBitmap(BitmapFactory.decodeFile(local_img_path));
 	}
-	
+
 	public void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils) {
 		final String file_name = IMG_PATH + Base64.encodeToString(url.getBytes(), Base64.NO_WRAP);
 		File cache_fie = new File(file_name);

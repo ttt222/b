@@ -17,11 +17,12 @@ import com.fingertip.blabla.base.BaseNavActivity;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.entity.WatchEntity;
 import com.fingertip.blabla.my.adapter.AdapterMyWatch;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class MyWatchListActivity extends BaseNavActivity implements View.OnClickListener {
 	
-	private ImageView add_watch_btn, delete_watch_btn, my_watch_hidden_img;
+	private ImageView add_watch_btn, delete_watch_btn;
 	private TextView tv_cancel;
 	private ListView listView;
 	private Button my_watch_find_btn, btn_delete;
@@ -47,7 +48,6 @@ public class MyWatchListActivity extends BaseNavActivity implements View.OnClick
 		tv_cancel = (TextView) findViewById(R.id.tv_cancel);
 		add_watch_btn = (ImageView) findViewById(R.id.nav_right_btn);
 		delete_watch_btn = (ImageView) findViewById(R.id.nav_right_btn2);
-		my_watch_hidden_img = (ImageView) findViewById(R.id.my_watch_hidden_img);
 		empty_area = (LinearLayout) findViewById(R.id.my_watch_empty);
 		my_watch_find_btn = (Button) findViewById(R.id.my_watch_find_btn);
 		btn_delete = (Button) findViewById(R.id.btn_delete);
@@ -70,7 +70,7 @@ public class MyWatchListActivity extends BaseNavActivity implements View.OnClick
 		btn_delete.setOnClickListener(this);
 		btn_delete.setBackgroundColor(getResources().getColor(R.color.gray_ad));
 		
-		adapter = new AdapterMyWatch(this, empty_area, my_watch_hidden_img);
+		adapter = new AdapterMyWatch(this, empty_area);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 	}
@@ -166,7 +166,7 @@ public class MyWatchListActivity extends BaseNavActivity implements View.OnClick
 	
 	private void loadData() {
 		loading = true;
-		UserUtil.getUserWatchList(new UserUtil.EntityListCallback<WatchEntity>() {
+		UserUtil.getUserWatchList(new EntityListCallback<WatchEntity>() {
 			
 			@Override
 			public void succeed(List<WatchEntity> list) {

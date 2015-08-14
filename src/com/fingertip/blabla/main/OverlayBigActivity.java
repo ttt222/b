@@ -30,7 +30,6 @@ import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.ShareDialog;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.CommentEntityList;
@@ -42,8 +41,10 @@ import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.entity.ShareEntity;
 import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.my.UserInfoActivity;
-import com.fingertip.blabla.my.util.UserUtil;
 import com.fingertip.blabla.setting.ReportActivity;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
@@ -291,7 +292,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 			return;
 		}
 		
-		UserUtil.getUserFavorEvents(new UserUtil.EntityListCallback<EventEntity>() {
+		UserUtil.getUserFavorEvents(new EntityListCallback<EventEntity>() {
 			@Override
 			public void succeed(List<EventEntity> list) {
 				if(list == null || overlayEntity == null){

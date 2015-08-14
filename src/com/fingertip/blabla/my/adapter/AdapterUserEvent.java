@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.entity.EventEntity;
+import com.fingertip.blabla.util.Tools;
 
 public class AdapterUserEvent extends BaseAdapter implements OnItemClickListener {
 	

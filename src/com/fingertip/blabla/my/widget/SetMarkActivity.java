@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
 
 public class SetMarkActivity extends BaseActivity implements View.OnClickListener {
 	

@@ -59,7 +59,8 @@
         </activity>    
         <activity
             android:theme="@style/NothingTheme"
-            android:name="com.fingertip.blabla.main.MainActivity">
+            android:name="com.fingertip.blabla.main.MainActivity"
+            android:launchMode="singleTask">
         </activity>    
         <activity
             android:name="com.fingertip.blabla.account.LoginActivity"

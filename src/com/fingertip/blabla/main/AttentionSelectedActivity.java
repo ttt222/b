@@ -18,12 +18,13 @@ import com.fingertip.blabla.Cmd;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.ShareEntity;
 import com.fingertip.blabla.entity.WatchEntity;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -104,7 +105,7 @@ public class AttentionSelectedActivity extends BaseActivity implements View.OnCl
 	}
 	
 	private void loadData() {
-		UserUtil.getUserWatchList(new UserUtil.EntityListCallback<WatchEntity>() {
+		UserUtil.getUserWatchList(new EntityListCallback<WatchEntity>() {
 			@Override
 			public void succeed(List<WatchEntity> list) {
 				adapterAttentions.addAllList(list);

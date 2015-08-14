@@ -18,15 +18,16 @@ import android.widget.TextView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.ImageCache;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.info.PublishInfoActivity;
-import com.fingertip.blabla.my.util.UserUtil;
 import com.fingertip.blabla.setting.SettingActivity;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
 
 public class MyIndexActivity extends BaseActivity implements View.OnClickListener {
@@ -155,7 +156,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 	
 	private void loadUserInfo() {
 		if (session.isLogin() && !Validator.isEmptyString(session.getId())) {
-			UserUtil.getUserInfo(session.getId(), new UserUtil.EntityCallback<UserEntity>() {
+			UserUtil.getUserInfo(session.getId(), new EntityCallback<UserEntity>() {
 				@Override
 				public void succeed(UserEntity user) {
 					setUserInfo(user);

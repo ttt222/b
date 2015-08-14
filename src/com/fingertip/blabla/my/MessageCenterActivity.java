@@ -14,18 +14,19 @@ import android.widget.TextView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.MessageEntity;
 import com.fingertip.blabla.my.adapter.AdapterMessage;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class MessageCenterActivity extends BaseNavActivity implements View.OnClickListener {
 	
-	private ImageView msg_hidden_img, nav_delete_btn, nav_right_btn;
+	private ImageView nav_delete_btn, nav_right_btn;
 	private TextView tv_cancel;
 	private Button btn_delete;
 	private LinearLayout msg_empty;
@@ -61,10 +62,9 @@ public class MessageCenterActivity extends BaseNavActivity implements View.OnCli
 		nav_right_btn = (ImageView) findViewById(R.id.nav_right_btn);
 		btn_delete = (Button) findViewById(R.id.btn_delete);
 		
-		msg_hidden_img = (ImageView) findViewById(R.id.msg_hidden_img);
 		msg_empty = (LinearLayout) findViewById(R.id.msg_empty);
 		listView = (ListView) findViewById(R.id.msg_listView);
-		adapter = new AdapterMessage(this, msg_empty, msg_hidden_img);
+		adapter = new AdapterMessage(this, msg_empty);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 	}
@@ -110,7 +110,7 @@ public class MessageCenterActivity extends BaseNavActivity implements View.OnCli
 
 		}.execute();
 		//从服务器读取消息
-		UserUtil.loadUserMsg(new UserUtil.EntityListCallback<MessageEntity>() {
+		UserUtil.loadUserMsg(new EntityListCallback<MessageEntity>() {
 			
 			@Override
 			public void succeed(List<MessageEntity> list) {

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants;
 
 public class SetSexActivity extends BaseActivity implements View.OnClickListener {
 	

@@ -19,17 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.ImageCache;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.WatchEntity;
 import com.fingertip.blabla.my.MyWatchListActivity;
 import com.fingertip.blabla.my.widget.Deleteable;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -42,7 +42,6 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 	
 	private MyWatchListActivity activity;
 	private View empty_view;
-	private ImageView hidden_img;
 	private List<WatchEntity> arrayList  = new ArrayList<WatchEntity>();
 	
 	private BitmapUtils bitmapUtils;
@@ -52,10 +51,9 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 	private boolean delete;
 	private List<String> delete_ids = new ArrayList<String>();
 	
-	public AdapterMyWatch(MyWatchListActivity activity, View empty_view, ImageView hidden_img){
+	public AdapterMyWatch(MyWatchListActivity activity, View empty_view){
 		this.activity = activity;
 		this.empty_view = empty_view;
-		this.hidden_img = hidden_img;
 		
 		sp = new SharedPreferenceUtil(activity);
 		bitmapUtils = new BitmapUtils(activity);
@@ -105,6 +103,7 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 			convertView = LayoutInflater.from(activity).inflate(R.layout.list_item_my_watch, parent, false);
 			viewHoler = new ViewHoler();
 			viewHoler.my_watcher_head = (ImageView)convertView.findViewById(R.id.my_watcher_head);
+			viewHoler.hidden_img = (ImageView)convertView.findViewById(R.id.hidden_img);
 			viewHoler.my_watcher_name = (TextView)convertView.findViewById(R.id.my_watcher_name);
 			viewHoler.my_watcher_mark = (TextView)convertView.findViewById(R.id.my_watcher_mark);
 			viewHoler.my_watcher_place = (TextView)convertView.findViewById(R.id.my_watcher_place);
@@ -118,7 +117,7 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 		}
 		WatchEntity watch = (WatchEntity)getItem(position);
 		try {
-			imageCache.loadUserHeadImg(watch.user.head_img_url, watch.user.id, sp, bitmapUtils, viewHoler.my_watcher_head, hidden_img);
+			imageCache.loadUserHeadImg(watch.user.head_img_url, watch.user.id, sp, bitmapUtils, viewHoler.my_watcher_head, viewHoler.hidden_img);
 		} catch (Exception e) {
 		}
 		viewHoler.my_watcher_name.setText(watch.user.nick_name);
@@ -140,7 +139,7 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 	}
 
 	class ViewHoler{
-		ImageView my_watcher_head;
+		ImageView my_watcher_head, hidden_img;;
 		TextView my_watcher_name, my_watcher_mark, my_watcher_place, my_watcher_up_count;
 		LinearLayout v_delete_check;
 		ImageView iv_delete_check;

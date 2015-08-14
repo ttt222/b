@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.Tools;
+import com.fingertip.blabla.util.Tools;
 
 /**
  * @author SunnyCoffee

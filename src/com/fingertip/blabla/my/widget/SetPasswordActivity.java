@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;

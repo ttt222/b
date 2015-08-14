@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,13 +27,14 @@ import android.widget.Toast;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.account.LoginActivity;
 import com.fingertip.blabla.base.BaseActivity;
+import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.entity.MessageEntity;
 import com.fingertip.blabla.entity.MessageEntity.MessageDbEntity;
-import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.info.PublishInfoActivity;
-import com.fingertip.blabla.main.MapShowPositionActivity;
+import com.fingertip.blabla.main.MainActivity;
 import com.fingertip.blabla.my.UserInfoActivity;
+import com.fingertip.blabla.util.http.ServerConstants;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -122,9 +123,20 @@ public class Tools {
 	 * @param formatString
 	 * @return date
 	 */
-	public static Date StrToDate(String str, String formatString) {
+	public static Date strToDate(String str) {
+		return strToDate(str, null);
+	}
+
+	/**
+	 * 字符串转换成日期
+	 * 
+	 * @param str
+	 * @param formatString
+	 * @return date
+	 */
+	public static Date strToDate(String str, String formatString) {
 		if(formatString == null){
-			formatString = "yyyy-MM-dd hh:mm:ss";
+			formatString = "yyyy-MM-dd HH:mm:ss";
 		}
 		SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.getDefault());
 		Date date = null;
@@ -181,11 +193,15 @@ public class Tools {
 	 * @param event_id
 	 */
 	public static void openEvent(Context context, String event_id) {
-		OverlayEntity overlayEntity = new OverlayEntity();
-		overlayEntity.actionid = event_id;
+//		OverlayEntity overlayEntity = new OverlayEntity();
+//		overlayEntity.actionid = event_id;
+//		Intent intent = new Intent();
+//		intent.setClass(context, MapShowPositionActivity.class);
+//		intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+//		context.startActivity(intent);
 		Intent intent = new Intent();
-		intent.setClass(context, MapShowPositionActivity.class);
-		intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+		intent.setClass(context, MainActivity.class);
+		intent.putExtra(BaseActivity.EXTRA_PARAM, event_id);
 		context.startActivity(intent);
 	}
 	

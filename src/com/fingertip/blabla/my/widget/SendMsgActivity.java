@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.Validator;
+import com.fingertip.blabla.util.Validator;
 
 public class SendMsgActivity extends BaseActivity implements View.OnClickListener {
 	

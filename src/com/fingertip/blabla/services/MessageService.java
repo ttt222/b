@@ -8,13 +8,14 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.MessageEntity;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class MessageService extends Service {
 	
@@ -35,7 +36,7 @@ public class MessageService extends Service {
 			public void run() {
 				boolean has_new = sp.getBooleanValue(SharedPreferenceUtil.HAS_NEW_MESSAGE, false);
 				if (!has_new && Tools.isNetworkConnected(MessageService.this)) {
-					UserUtil.loadUserMsg(new UserUtil.EntityListCallback<MessageEntity>() {
+					UserUtil.loadUserMsg(new EntityListCallback<MessageEntity>() {
 						@Override
 						public void succeed(List<MessageEntity> list) {
 							if (!Validator.isEmptyList(list)) {

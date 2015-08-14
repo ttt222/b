@@ -13,9 +13,9 @@ import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.account.LoginActivity;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.FileUtil;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
+import com.fingertip.blabla.util.FileUtil;
 
 public class SettingActivity extends BaseNavActivity implements View.OnClickListener {
 	

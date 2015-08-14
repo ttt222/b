@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util;
 
 import android.content.Context;
 import android.location.Location;

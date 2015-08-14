@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util.http;
 
 public class ServerConstants {
 
@@ -30,6 +30,8 @@ public class ServerConstants {
 		public static String GET_NEAREST_EVENT = BASE_URL + "/_action/get_action_bypos.php";
 		public static String GET_NEWEST_EVENT = BASE_URL + "/_action/get_action_bynew.php";
 		public static String GET_HOTEST_EVENT = BASE_URL + "/_action/get_action_byhot.php";
+
+		public static String GET_EVENT_INFO = BASE_URL + "/_action/get_action_byactionid.php";
 		
 		/**
 		 * msg
@@ -107,6 +109,7 @@ public class ServerConstants {
 		public static String PICOF = "picof";
 		public static String REPLYCOUNT = "replycount";
 		public static String LIKEDCOUNT = "likedcount";
+		public static String VIEWCOUNT = "viewcount";
 		public static String CONTENT = "content";
 		public static String STATUSOF = "statusof";
 		public static String ACTIONID = "actionid";
@@ -115,6 +118,7 @@ public class ServerConstants {
 		public static String KINDOF = "kindof";
 		public static String B = "b";
 		public static String S = "s";
+		public static String ACTIONINFOR = "actioninfor";
 		
 		/**
 		 * msg
@@ -166,6 +170,8 @@ public class ServerConstants {
 		public static String FC_GET_NEAREST_EVENT = "get_action_bypos";
 		public static String FC_GET_NEWEST_EVENT = "get_action_bynew";
 		public static String FC_GET_HOTEST_EVENT = "get_action_byhot";
+
+		public static String FC_GET_EVENT_INFO = "get_action_byactionid";
 		
 		/**
 		 * msg

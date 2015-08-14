@@ -14,16 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fingertip.blabla.R;
-import com.fingertip.blabla.common.ImageCache;
-import com.fingertip.blabla.common.Tools;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.EventEntity;
+import com.fingertip.blabla.util.ImageCache;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
 import com.lidroid.xutils.BitmapUtils;
 
 public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 	private Context context;
-	private ImageView hidden_img;
 	
 	private List<EventEntity> arrayList = new ArrayList<EventEntity>();
 	
@@ -31,9 +30,8 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
-	public AdapterSearch(Context context, ImageView hidden_img){
+	public AdapterSearch(Context context){
 		this.context = context;
-		this.hidden_img = hidden_img;
 		sp = new SharedPreferenceUtil(context);
 		bitmapUtils = new BitmapUtils(context);
 		imageCache = ImageCache.getInstance();
@@ -77,6 +75,7 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 			viewHolder.iv_head = (ImageView)convertView.findViewById(R.id.iv_head);
 			viewHolder.iv_type = (ImageView)convertView.findViewById(R.id.iv_type);
 			viewHolder.iv_topic = (ImageView)convertView.findViewById(R.id.image);
+			viewHolder.hidden_img = (ImageView)convertView.findViewById(R.id.hidden_img);
 			viewHolder.tv_name = (TextView)convertView.findViewById(R.id.tv_name);
 			viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
 			viewHolder.tv_type = (TextView)convertView.findViewById(R.id.tv_type);
@@ -90,8 +89,9 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		
 		final EventEntity event = (EventEntity)getItem(position);
 		viewHolder.tv_name.setText(event.sender.nick_name);
+		viewHolder.iv_head.setTag(event.sender.id);
 		try {
-			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHolder.iv_head, hidden_img);				
+			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHolder.iv_head, viewHolder.hidden_img);				
 		} catch (Exception e) {
 		}
 		try {
@@ -106,7 +106,6 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		viewHolder.tv_type.setText(event.kindof);
 		viewHolder.tv_popularity.setText("" + event.likedcount);
 		viewHolder.tv_recommend.setText("" + event.replycount);
-		viewHolder.iv_head.setTag(event.sender.id);
 		viewHolder.iv_head.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -123,6 +122,7 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		ImageView iv_head;
 		ImageView iv_type;
 		ImageView iv_topic;
+		ImageView hidden_img;
 		TextView tv_name;
 		TextView tv_title;
 		TextView tv_type;
@@ -134,6 +134,6 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Tools.openEvent(context, arrayList.get(position).id);
+		Tools.openEvent(context, ((EventEntity)(parent.getAdapter().getItem(position))).id);
 	}
 }

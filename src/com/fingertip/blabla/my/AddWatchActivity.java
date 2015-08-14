@@ -14,10 +14,11 @@ import com.fingertip.blabla.R;
 import com.fingertip.blabla.barcode.ScanBarcodeActivity;
 import com.fingertip.blabla.barcode.ScanBarcodeActivity.BarcodeValidator;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.Tools;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.entity.UserEntity;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 import com.google.zxing.Result;
 
 public class AddWatchActivity extends BaseNavActivity implements View.OnClickListener {
@@ -92,7 +93,7 @@ public class AddWatchActivity extends BaseNavActivity implements View.OnClickLis
 			toastShort("请输入手机号码或昵称");
 		} else {
 			showProgressDialog(false);
-			UserUtil.getUserInfo(search_key, new UserUtil.EntityCallback<UserEntity>() {
+			UserUtil.getUserInfo(search_key, new EntityCallback<UserEntity>() {
 				@Override
 				public void succeed(UserEntity user) {
 					Tools.openUser(AddWatchActivity.this, user);

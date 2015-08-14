@@ -1,4 +1,4 @@
-package com.fingertip.blabla.common;
+package com.fingertip.blabla.util;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

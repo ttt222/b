@@ -33,11 +33,6 @@
             android:textSize="20sp"
             android:text="你还没有收到消息"/>
         
-        <ImageView android:id="@+id/msg_hidden_img"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"/>
-        
     </LinearLayout>
     
     

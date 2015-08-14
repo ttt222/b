@@ -7,22 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragment;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.my.MyEventActivity;
 import com.fingertip.blabla.my.adapter.AdapterMyFavorEvent;
-import com.fingertip.blabla.my.util.UserUtil;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class MyFavorEventFragment extends BaseFragment implements Deleteable {
 	
 	private View mView;
-	private ImageView my_event_hidden_img;
 	
 	private ListView listView;
 	private View view_nodata;
@@ -61,13 +60,12 @@ public class MyFavorEventFragment extends BaseFragment implements Deleteable {
 		listView = (ListView)mView.findViewById(R.id.event_listView);
 		view_nodata = mView.findViewById(R.id.my_event_empty);
 		my_event_find_btn = (Button)mView.findViewById(R.id.my_event_find_btn);
-		my_event_hidden_img = (ImageView)mView.findViewById(R.id.my_event_hidden_img);
 	}
 
 	private void setupViews() {
 		layout_loading.setVisibility(View.VISIBLE);
 		gifView.setGifImage(R.drawable.loading2);
-		adapter = new AdapterMyFavorEvent(activity, view_nodata, my_event_hidden_img);
+		adapter = new AdapterMyFavorEvent(activity, view_nodata);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 		my_event_find_btn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +84,7 @@ public class MyFavorEventFragment extends BaseFragment implements Deleteable {
 	}
 
 	private void loadData() {
-		UserUtil.getUserFavorEvents(new UserUtil.EntityListCallback<EventEntity>() {
+		UserUtil.getUserFavorEvents(new EntityListCallback<EventEntity>() {
 			@Override
 			public void succeed(List<EventEntity> list) {
 				adapter.addAllList(list);

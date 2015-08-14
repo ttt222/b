@@ -1,4 +1,4 @@
-package com.fingertip.blabla.my.util;
+package com.fingertip.blabla.util.http;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -12,17 +12,16 @@ import android.graphics.Bitmap;
 import android.util.Base64;
 import android.util.Log;
 
-import com.fingertip.blabla.common.ServerConstants;
-import com.fingertip.blabla.common.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.common.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.common.ServerConstants.URL;
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.common.Validator;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.MessageEntity;
 import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.entity.WatchEntity;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -454,23 +453,5 @@ public class UserUtil {
 				return result;
 		}
 		return null;
-	}
-	
-	public static interface DefaultCallback {
-		public void succeed();
-
-		public void fail(String error);
-	}
-	
-	public static interface EntityCallback<E> {
-		public void succeed(E entity);
-		
-		public void fail(String error);
-	}
-
-	public static interface EntityListCallback<E> {
-		public void succeed(List<E> list);
-		
-		public void fail(String error);
 	}
 }

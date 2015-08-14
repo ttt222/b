@@ -2,13 +2,15 @@ package com.fingertip.blabla.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.fingertip.blabla.common.Tools;
 import com.fingertip.blabla.entity.CommentEntityList.CommentEntity;
 import com.fingertip.blabla.entity.ImgEntityList.ImgEntity;
+import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
 
 public class OverlayEntityList{
 	
@@ -43,7 +45,7 @@ public class OverlayEntityList{
 		try { overlayEntity.detail = jsonObject.getString("content"); } catch (Exception e) { }
 		try { overlayEntity.addr = jsonObject.getString("address"); } catch (Exception e) { }
 		try { 
-			overlayEntity.ptime = Tools.getTimeStr(Tools.StrToDate(jsonObject.getString("publictime"), null).getTime()); 
+			overlayEntity.ptime = Tools.getTimeStr(Tools.strToDate(jsonObject.getString("publictime"), null).getTime()); 
 		} catch (Exception e) { }
 		try { overlayEntity.status = jsonObject.getString("statusof"); } catch (Exception e) { }
 		/** 发布人信息 **/
@@ -54,6 +56,46 @@ public class OverlayEntityList{
 		
 		return overlayEntity;
 	}//end parseJSON
+	
+	public static ArrayList<OverlayEntity> fromEventList(List<EventEntity> list) {
+		ArrayList<OverlayEntity> arrayList = new ArrayList<OverlayEntity>();
+		if (!Validator.isEmptyList(list)) {
+			for (int i = 0; i < list.size(); i++) {
+				arrayList.add(fromEvent(list.get(i)));
+			}
+		}
+		return arrayList;
+	}
+	
+	public static OverlayEntity fromEvent(EventEntity event) {
+		OverlayEntity overlayEntity = new OverlayEntity();
+		
+		overlayEntity.actionid = event.id;
+		overlayEntity.lng = event.poslong;
+		overlayEntity.lat = event.poslat;
+		overlayEntity.type = OverlayType.getOverlayType(event.kindof);
+		overlayEntity.expiretime = event.getTimeToStr();
+		overlayEntity.appraiseCount = event.likedcount;
+		overlayEntity.replyCount = event.replycount;
+		overlayEntity.viewCount = event.viewcount;
+		overlayEntity.title = event.title;
+		overlayEntity.detail = event.content;
+		overlayEntity.addr = event.address;
+		overlayEntity.ptime = Tools.getTimeStr(event.send_time);
+		overlayEntity.status = event.statusof;
+		overlayEntity.userEntity = event.sender;
+		
+		List<String> pics_small = event.pics_small, pics_big = event.pics_big;
+		if (!Validator.isEmptyList(pics_small) && !Validator.isEmptyList(pics_big)) {
+			for (int i = 0; i < pics_small.size(); i++) {
+				ImgEntity img = new ImgEntity();
+				img.small = pics_small.get(i);
+				img.big = pics_big.get(i);
+				overlayEntity.arrayList_img.add(img);
+			}
+		}
+		return overlayEntity;
+	}
 	
 	public static class OverlayEntity implements Serializable{
 		/**  **/
