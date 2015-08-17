@@ -87,7 +87,10 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
 		
 		list = getLocalContactsInfos();
 		listAdapter.addAllList(list);
-		
+		if (Validator.isEmptyList(list))
+			listView.setVisibility(View.GONE);
+		else
+			listView.setVisibility(View.VISIBLE);
 		if (!list.isEmpty()){
 			showProgressDialog(false);
 			checkReg();

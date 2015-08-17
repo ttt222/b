@@ -1,6 +1,5 @@
 package com.fingertip.blabla.my;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class MyBarcodeActivity extends BaseNavActivity {
 			e.printStackTrace();
 			toastShort("Éú³É¶þÎ¬ÂëÊ§°Ü\n" + e.getMessage());
 		}
-		my_head_img.setImageBitmap(BitmapFactory.decodeFile(imageCache.getUserImgPath(session.getId())));
+		imageCache.setUserHeadImg(session.getId(), my_head_img);
 	}
 
 }

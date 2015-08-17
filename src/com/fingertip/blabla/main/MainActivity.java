@@ -603,4 +603,19 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		baiduMap.showInfoWindow(mInfoWindow);
 		return true;
 	}
+	
+	private long exitTime;
+	private int quit_idle = 2000;
+	
+	@Override
+	public void onBackPressed() {
+		boolean quit = true;
+		if (System.currentTimeMillis() - exitTime > quit_idle) {
+			toastShort("再按一次退出图丁");
+			exitTime = System.currentTimeMillis();
+			quit = false;
+		}
+		if (quit)
+			finish();
+	}
 }

@@ -114,11 +114,7 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 			my_sex_img.setImageResource(R.drawable.icon_male);
 		}
 		
-		String small_head = imageCache.getUserImgPath(session.getId());
-		File head_file = new File(small_head);
-		if (head_file.exists())
-			my_head_img.setImageBitmap(BitmapFactory.decodeFile(small_head));
-		else
+		if (!imageCache.setUserHeadImg(session.getId(), my_head_img))
 			imageCache.loadUserHeadImg(session.getHead_url(), session.getId(), getSP(), bitmapUtils, my_head_img, hidden_img);
 	}
 
@@ -355,7 +351,7 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 			if (PARAM_KEYS.USER_HEAD.equals(key)) {
 				imageCache.saveTmpImg(user_id, true);
 				getSP().setStringValue(user_id, SharedPreferenceUtil.HEADIMAGE, value);
-				my_head_img.setImageBitmap(BitmapFactory.decodeFile(imageCache.getUserImgPath(user_id)));
+				imageCache.setUserHeadImg(session.getId(), my_head_img);
 			} else if (PARAM_KEYS.USER_HEAD_BIG.equals(key)) {
 				imageCache.saveTmpImg(user_id, false);
 				getSP().setStringValue(user_id, SharedPreferenceUtil.HEADIMAGE_FULL, value);

@@ -16,6 +16,7 @@ import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.my.MyEventActivity;
 import com.fingertip.blabla.my.adapter.AdapterMyFavorEvent;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.UserUtil;
 
@@ -88,6 +89,10 @@ public class MyFavorEventFragment extends BaseFragment implements Deleteable {
 			@Override
 			public void succeed(List<EventEntity> list) {
 				adapter.addAllList(list);
+				if (Validator.isEmptyList(list))
+					listView.setVisibility(View.GONE);
+				else
+					listView.setVisibility(View.VISIBLE);
 				afterLoad();
 			}
 			

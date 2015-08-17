@@ -75,6 +75,15 @@ public class ImageCache {
 		return true;
 	}
 	
+	public boolean setUserHeadImg(String user_id, ImageView head_img) {
+		String img_path = getUserImgPath(user_id);
+		if (new File(img_path).exists()) {
+			head_img.setImageBitmap(BitmapFactory.decodeFile(img_path));
+			return true;
+		}
+		return false;
+	}
+	
 	public void loadUserHeadImg(final String down_url, final String user_id, final SharedPreferenceUtil sp,
 			final BitmapUtils bitmapUtils, final ImageView image, final ImageView hidden_image) {
 		String last_url = sp.getStringValue(user_id, SharedPreferenceUtil.HEADIMAGE);

@@ -423,6 +423,106 @@ public class UserUtil {
 			}
 		});
 	}
+	
+	/**
+	 * 获取自己发布的活动
+	 * @param callback
+	 */
+	public static void getMyEvents(int page, final EntityListCallback<EventEntity> callback) {
+		UserSession session = UserSession.getInstance();
+		JSONObject data = new JSONObject();
+//		{"fc":"action_ofmy", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs"}
+		try {
+			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_GET_MY_EVENT);
+			data.put(PARAM_KEYS.USERID, session.getId());
+			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
+			data.put(PARAM_KEYS.PAGENO, page);
+		} catch (JSONException e) {
+		}
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+		HttpUtils http = Tools.getHttpUtils();
+		http.send(HttpRequest.HttpMethod.POST, URL.GET_MY_EVENT, params, new RequestCallBack<String>() {
+			
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+				String error = null;
+				JSONObject json = null;
+				List<EventEntity> list = new ArrayList<EventEntity>();
+				try {
+					json = new JSONObject(result);
+					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
+						error = json.getString(PARAM_KEYS.RESULT_ERROR);
+					else 
+						list = EventEntity.parseList(json);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					error = "获取活动列表失败:" + e.getMessage();
+				}
+				if (error != null)
+					callback.fail(error);
+				else
+					callback.succeed(list);
+			}
+			
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				callback.fail(ServerConstants.NET_ERROR_TIP);
+			}
+		});
+	}
+	
+	/**
+	 * 获取用户发布的活动
+	 * @param user_id
+	 * @param callback
+	 */
+	public static void getUserEvents(String user_id, final EntityListCallback<EventEntity> callback) {
+		UserSession session = UserSession.getInstance();
+		JSONObject data = new JSONObject();
+//		{"fc":"action_list_byuser", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs", "byuser":13641411876}
+		try {
+			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_GET_USER_EVENT);
+			data.put(PARAM_KEYS.USERID, session.getId());
+			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
+			data.put(PARAM_KEYS.BYUSER, user_id);
+		} catch (JSONException e) {
+		}
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+		HttpUtils http = Tools.getHttpUtils();
+		http.send(HttpRequest.HttpMethod.POST, URL.GET_USER_EVENT, params, new RequestCallBack<String>() {
+			
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				
+				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+				String error = null;
+				JSONObject json = null;
+				List<EventEntity> list = new ArrayList<EventEntity>();
+				try {
+					json = new JSONObject(result);
+					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
+						error = json.getString(PARAM_KEYS.RESULT_ERROR);
+					else
+						list = EventEntity.parseList(json);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					error = "获取活动列表失败:" + e.getMessage();
+				}
+				if (error != null)
+					callback.fail(error);
+				else
+					callback.succeed(list);
+			}
+			
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				callback.fail(ServerConstants.NET_ERROR_TIP);
+			}
+		});
+	}
 
 	private static final int BLACK = 0xff000000;
 	

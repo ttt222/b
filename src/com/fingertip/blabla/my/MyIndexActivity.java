@@ -1,11 +1,9 @@
 package com.fingertip.blabla.my;
 
-import java.io.File;
 import java.util.Timer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -212,11 +210,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 		my_nick_txt.setText(session.getNick_name());
 		my_place_txt.setText(session.getPlace());
 		String head_img_url = session.getHead_url();
-		String small_head = imageCache.getUserImgPath(session.getId());
-		File head_file = new File(small_head);
-		if (head_file.exists())
-			my_head_img.setImageBitmap(BitmapFactory.decodeFile(small_head));
-		else if (!Validator.isEmptyString(head_img_url))
+		if (!imageCache.setUserHeadImg(session.getId(), my_head_img) && !Validator.isEmptyString(head_img_url))
 			imageCache.loadUserHeadImg(head_img_url, session.getId(), sp, bitmapUtils, my_head_img, hidden_img);
 	}
 }

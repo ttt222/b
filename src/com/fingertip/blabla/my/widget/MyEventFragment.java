@@ -2,11 +2,7 @@ package com.fingertip.blabla.my.widget;
 
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +11,14 @@ import android.widget.ListView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragment;
-import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.my.MyEventActivity;
 import com.fingertip.blabla.my.adapter.AdapterMyEvent;
 import com.fingertip.blabla.util.Tools;
-import com.fingertip.blabla.util.http.ServerConstants;
-import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
-import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.util.http.ServerConstants.URL;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
+import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.UserUtil;
 
 public class MyEventFragment extends BaseFragment implements Deleteable {
 	
@@ -44,7 +32,6 @@ public class MyEventFragment extends BaseFragment implements Deleteable {
 	private GifView gifView;
 	private boolean loaded;
 	
-	private UserSession session;
 	private MyEventActivity activity;
 	
 	public MyEventFragment(MyEventActivity activity) {
@@ -88,7 +75,6 @@ public class MyEventFragment extends BaseFragment implements Deleteable {
 				Tools.pubEvent(activity);
 			}
 		});
-		session = UserSession.getInstance();
 	}
 	
 	@Override
@@ -99,48 +85,21 @@ public class MyEventFragment extends BaseFragment implements Deleteable {
 	}
 
 	private void loadData() {
-		JSONObject data = new JSONObject();
-//		{"fc":"action_ofmy", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs"}
-		try {
-			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_GET_MY_EVENT);
-			data.put(PARAM_KEYS.USERID, session.getId());
-			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
-			data.put(PARAM_KEYS.PAGENO, 1);
-		} catch (JSONException e) {
-		}
-		RequestParams params = new RequestParams();
-		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
-		HttpUtils http = Tools.getHttpUtils();
-		http.send(HttpRequest.HttpMethod.POST, URL.GET_MY_EVENT, params, new RequestCallBack<String>() {
+		UserUtil.getMyEvents(1, new EntityListCallback<EventEntity>() {
 			
 			@Override
-			public void onSuccess(ResponseInfo<String> responseInfo) {
-				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
-				String error = null;
-				JSONObject json = null;
-				try {
-					json = new JSONObject(result);
-					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
-						error = json.getString(PARAM_KEYS.RESULT_ERROR);
-				} catch (JSONException e) {
-					e.printStackTrace();
-					error = "获取活动列表失败:" + e.getMessage();
-				}
-				if (error != null)
-					activity.toastShort(error);
-				else if (json != null) {
-					try {
-						List<EventEntity> list = EventEntity.parseList(json);
-						adapter.addAllList(list);
-					} catch (Exception e) {
-					}
-				}
+			public void succeed(List<EventEntity> list) {
+				adapter.addAllList(list);
+				if (Validator.isEmptyList(list))
+					listView.setVisibility(View.GONE);
+				else
+					listView.setVisibility(View.VISIBLE);
 				afterLoad();
 			}
 			
 			@Override
-			public void onFailure(HttpException error, String msg) {
-				activity.toastShort(ServerConstants.NET_ERROR_TIP);
+			public void fail(String error) {
+				activity.toastShort(error);
 				afterLoad();
 			}
 		});

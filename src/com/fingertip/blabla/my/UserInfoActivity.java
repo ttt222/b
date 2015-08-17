@@ -2,12 +2,8 @@ package com.fingertip.blabla.my;
 
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,20 +23,14 @@ import com.fingertip.blabla.my.adapter.AdapterUserEvent;
 import com.fingertip.blabla.my.widget.SendMsgActivity;
 import com.fingertip.blabla.util.ImageCache;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.DefaultCallback;
 import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.ServerConstants;
-import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
 import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
-import com.fingertip.blabla.util.http.ServerConstants.URL;
 import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 public class UserInfoActivity extends BaseNavActivity implements View.OnClickListener {
 	
@@ -181,57 +171,20 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	}
 	
 	private void loadUserEvents() {
-		JSONObject data = new JSONObject();
-//		{"fc":"action_list_byuser", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs", "byuser":13641411876}
-		try {
-			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_GET_USER_EVENT);
-			data.put(PARAM_KEYS.USERID, session.getId());
-			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
-			data.put(PARAM_KEYS.BYUSER, user.id);
-		} catch (JSONException e) {
-		}
-		RequestParams params = new RequestParams();
-		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
-		HttpUtils http = Tools.getHttpUtils();
-		http.send(HttpRequest.HttpMethod.POST, URL.GET_USER_EVENT, params, new RequestCallBack<String>() {
+		UserUtil.getUserEvents(user.id, new EntityListCallback<EventEntity>() {
 			
 			@Override
-			public void onSuccess(ResponseInfo<String> responseInfo) {
-				
-				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
-				String error = null;
-				JSONObject json = null;
-				try {
-					json = new JSONObject(result);
-					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
-						error = json.getString(PARAM_KEYS.RESULT_ERROR);
-				} catch (JSONException e) {
-					e.printStackTrace();
-					error = "获取活动列表失败:" + e.getMessage();
-				}
-				if (error == null && json != null) {
-					try {
-						List<EventEntity> list = EventEntity.parseList(json);
-						adapter.addAllList(list);
-						if (list.isEmpty())
-							event_empty_txt.setVisibility(View.VISIBLE);
-						else
-							empty_area.setVisibility(View.GONE);
-					} catch (JSONException e) {
-						e.printStackTrace();
-						error = "获取用户活动失败:" + e.getMessage();
-					}
-				}
-				if (error != null) {
+			public void succeed(List<EventEntity> list) {
+				adapter.addAllList(list);
+				if (Validator.isEmptyList(list))
 					event_empty_txt.setVisibility(View.VISIBLE);
-					event_empty_txt.setText(error);
-				}
+				else
+					empty_area.setVisibility(View.GONE);
 				gifView.setVisibility(View.GONE);
 			}
 			
 			@Override
-			public void onFailure(HttpException error, String msg) {
-				toastShort(ServerConstants.NET_ERROR_TIP);
+			public void fail(String error) {
 				gifView.setVisibility(View.GONE);
 				event_empty_txt.setVisibility(View.VISIBLE);
 				event_empty_txt.setText("获取用户活动失败");

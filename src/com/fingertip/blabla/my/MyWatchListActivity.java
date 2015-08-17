@@ -17,6 +17,7 @@ import com.fingertip.blabla.base.BaseNavActivity;
 import com.fingertip.blabla.common.gif.GifView;
 import com.fingertip.blabla.entity.WatchEntity;
 import com.fingertip.blabla.my.adapter.AdapterMyWatch;
+import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.UserUtil;
 
@@ -171,6 +172,10 @@ public class MyWatchListActivity extends BaseNavActivity implements View.OnClick
 			@Override
 			public void succeed(List<WatchEntity> list) {
 				adapter.addAllList(list);
+				if (Validator.isEmptyList(list))
+					listView.setVisibility(View.GONE);
+				else
+					listView.setVisibility(View.VISIBLE);
 				afterLoad();
 			}
 			

@@ -75,7 +75,8 @@
         
         <activity 
             android:name="com.fingertip.blabla.barcode.ScanBarcodeActivity"
-            android:theme="@style/NothingTheme"  />
+            android:theme="@style/NothingTheme" 
+            android:screenOrientation="portrait"/>
         
         <activity 
             android:name="com.fingertip.blabla.setting.SettingActivity"
