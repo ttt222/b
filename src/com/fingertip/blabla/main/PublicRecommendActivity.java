@@ -14,7 +14,7 @@ import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
-import com.fingertip.blabla.entity.CommentEntityList.CommentEntity;
+import com.fingertip.blabla.entity.CommentEntity;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.util.Tools;
 import com.lidroid.xutils.HttpUtils;

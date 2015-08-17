@@ -32,6 +32,7 @@ public class ServerConstants {
 		public static String GET_HOTEST_EVENT = BASE_URL + "/_action/get_action_byhot.php";
 
 		public static String GET_EVENT_INFO = BASE_URL + "/_action/get_action_byactionid.php";
+		public static String GET_EVENT_COMMENTS = BASE_URL + "/_action/get_action_reply_list.php";
 		
 		/**
 		 * msg
@@ -121,6 +122,13 @@ public class ServerConstants {
 		public static String ACTIONINFOR = "actioninfor";
 		
 		/**
+		 * comment
+		 */
+		public static String REPLYID = "replyid";
+		public static String STIME = "stime";
+		public static String REPLYLIST = "replylist";
+		
+		/**
 		 * msg
 		 */
 //		{"chatid":"56u9223-599CF648CC56B4EA","userid":"18979528420",
@@ -172,6 +180,7 @@ public class ServerConstants {
 		public static String FC_GET_HOTEST_EVENT = "get_action_byhot";
 
 		public static String FC_GET_EVENT_INFO = "get_action_byactionid";
+		public static String FC_GET_EVENT_COMMENTS = "get_action_reply_list";
 		
 		/**
 		 * msg

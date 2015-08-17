@@ -331,7 +331,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		
 	}//end setOverlayData
 	
-	private void setZoomOverlayData(OverlayEntity overlayEntity){
+	private Marker setZoomOverlayData(OverlayEntity overlayEntity){
 		LatLng point = new LatLng(overlayEntity.lat, overlayEntity.lng);
 		
 		ViewMapOverlay viewMapOverlay = new ViewMapOverlay(getApplicationContext());
@@ -347,6 +347,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		hashMap_overlayMarket.put(marker, overlayEntity);
 		
 		overlayEntity.isIcon = false;
+		return marker;
 	}
 	/* 从view 得到图片
 	 * @param view
@@ -539,25 +540,10 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			@Override
 			public void succeed(EventEntity entity) {
 				dimissProgressDialog();
-//				LatLng point = new LatLng(entity.poslat, entity.poslong);
-//				InfoWindow mInfoWindow = new InfoWindow(viewMapOverlay, point, 0);
-//				baiduMap...showInfoWindow(mInfoWindow);
-//				mMapView.
-//				MyLocationData locData = new MyLocationData.Builder().accuracy(0).direction(100)
-//						.latitude(entity.poslat).longitude(entity.poslong).build();
-				
-//				LatLng ll = new LatLng(entity.poslat, entity.poslong);
-//				InfoWindow mInfoWindow = new InfoWindow(null, ll, 0);
-//				baiduMap.showInfoWindow(mInfoWindow);
-				
 				Marker marker = getMarker(entity.id);
+				if (marker == null)
+					marker = setZoomOverlayData(OverlayEntityList.fromEvent(entity));
 				clickMarker(marker);
-				
-//				.accuracy(location.getRadius())
-//				// 此处设置获取到的方向信息，顺时针0-360
-//				.direction(100).latitude(location.getLatitude())
-//				.longitude(location.getLongitude()).build();
-//				baiduMap.setMyLocationData(locData);
 			}
 			
 			@Override
@@ -603,7 +589,6 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		viewMapOverlay.setOnClickListener(new View.OnClickListener() {					
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "hide", Toast.LENGTH_SHORT).show();
 				baiduMap.hideInfoWindow();
 				
 				Intent intent = new Intent();

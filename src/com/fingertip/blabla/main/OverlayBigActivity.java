@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -32,8 +31,7 @@ import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.ShareDialog;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
-import com.fingertip.blabla.entity.CommentEntityList;
-import com.fingertip.blabla.entity.CommentEntityList.CommentEntity;
+import com.fingertip.blabla.entity.CommentEntity;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.ImgEntityList.ImgEntity;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
@@ -44,6 +42,7 @@ import com.fingertip.blabla.my.UserInfoActivity;
 import com.fingertip.blabla.setting.ReportActivity;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.http.EntityListCallback;
+import com.fingertip.blabla.util.http.EventUtil;
 import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -361,15 +360,14 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		ArrayList<CommentEntity> commentList = overlayEntity.getCommentList();
 		tv_recommendTopic.setText("评论（" + overlayEntity.replyCount + "）");
 		
-		CommentEntity commentEntity = null;
+		CommentEntity comment = null;
 		View view_line = null;
 
 		View view_commend = null;
 		ImageView iv_commendHead;
 		TextView tv_commendName;
+		TextView tv_commendReply;
 		TextView tv_commendContent;
-
-		Resources resources = getResources();
 
 		for (int i = 0; i < commentList.size(); i++) {
 			LogUtils.i("i:" + i + ",i*2:" + (i*2) + ",count:" + layout_commend.getChildCount());
@@ -386,14 +384,15 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 				layout_commend.addView(view_line, layoutParams);
 			}
 			
-			commentEntity = commentList.get(i);
+			comment = commentList.get(i);
 			iv_commendHead = (ImageView) view_commend.findViewById(R.id.iv_head);
 			tv_commendName = (TextView) view_commend.findViewById(R.id.tv_name);
+			tv_commendReply = (TextView) view_commend.findViewById(R.id.tv_reply);
 			tv_commendContent = (TextView) view_commend.findViewById(R.id.tv_content);
 
 			try {
 				iv_commendHead.setImageDrawable(getResources().getDrawable(R.drawable.bg_head_default_little));
-				bitmapUtils.display(iv_commendHead, "" + commentEntity.userEntity.head_img_url, new BitmapLoadCallBack<ImageView>() {
+				bitmapUtils.display(iv_commendHead, "" + comment.userEntity.head_img_url, new BitmapLoadCallBack<ImageView>() {
 					@Override
 					public void onLoadCompleted(ImageView container, String uri, Bitmap bitmap, BitmapDisplayConfig config, BitmapLoadFrom from) {
 						try {
@@ -411,26 +410,24 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			tv_commendName.setText("" + commentEntity.userEntity.nick_name);
-			tv_commendContent.setText("" + commentEntity.commend);
-
-			tv_commendName.setTextSize(14);
-			tv_commendContent.setTextSize(12);
-
-			tv_commendName.setTextColor(resources.getColor(R.color.blue_overlaybig));
-			tv_commendContent.setTextColor(resources.getColor(R.color.black_33));
+			tv_commendName.setText(comment.userEntity.nick_name);
+			if (comment.reply != null) {
+				tv_commendReply.setText(comment.reply);
+				tv_commendReply.setVisibility(View.VISIBLE);
+			}
+			tv_commendContent.setText(comment.comment);
 			
-			iv_commendHead.setTag(commentEntity.userEntity);
+			iv_commendHead.setTag(comment.userEntity);
 		    iv_commendHead.setOnClickListener(onClickListener);
 		    
-		    view_commend.setTag(commentEntity);
+		    view_commend.setTag(comment);
 		    view_commend.setBackgroundResource(R.drawable.selector_bg_gray);
 		    view_commend.setOnClickListener(onClickListener_reply);
 		    
 		}
 
 		commentList = null;
-		commentEntity = null;
+		comment = null;
 
 		view_commend = null;
 		iv_commendHead = null;
@@ -507,8 +504,6 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		
 		pageIndex_recommend = 1;
 		requestRecommendList();
 	}
@@ -571,66 +566,21 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	
 	/** 评论列表 **/
 	private void requestRecommendList(){
-		HttpUtils http_getpos = Tools.getHttpUtils();
-		
-		JSONObject jsonObject = new JSONObject();
-		try { jsonObject.put("fc", "get_action_reply_list"); } catch (Exception e) { }
-		try { jsonObject.put("userid", getSP().getStringValue(SharedPreferenceUtil.LAST_UID)); } catch (Exception e) { }
-		try { jsonObject.put("loginid", getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID)); } catch (Exception e) { }
-		try { jsonObject.put("actionid", "" + overlayEntity.actionid); } catch (Exception e) { }
-		try { jsonObject.put("pageno", pageIndex_recommend); } catch (Exception e) { }
-		
-		RequestParams params = new RequestParams();  
-	    params.addQueryStringParameter("command", Tools.encodeString(jsonObject.toString()));  
-	    
-	    Log.e(TAG, "onLoad before:" + jsonObject.toString());
-		
-		http_getpos.send(HttpRequest.HttpMethod.POST,
-		   Globals.URL + Cmd.ACTION_RECOMMENDLIST,
-		   params,
-		   new RequestCallBack<String>(){
-		        @Override
-		        public void onLoading(long total, long current, boolean isUploading) { }
-		        @Override
-		        public void onSuccess(ResponseInfo<String> responseInfo) {
-//		        	dimissProgressDialog();
-		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
-		            
-		            JSONObject jsonObject = null;
-		            try {
-						jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
-						
-						if(!"y".equals(jsonObject.getString("ok"))){
-//							Toast.makeText(OverlayBigActivity.this, "收藏失败", Toast.LENGTH_SHORT).show();
-							return;
-						}
-						if(pageIndex_recommend == 1){
-							overlayEntity.getCommentList().clear();
-						}
-						
-						overlayEntity.getCommentList().addAll(CommentEntityList.parseJSONArray(jsonObject.getJSONArray("replylist")));
-						overlayEntity.replyCount = overlayEntity.getCommentList().size();
-						setComment();
-						
-						pageIndex_recommend++;
-					} catch (Exception e) {
-						e.printStackTrace();
-						Toast.makeText(OverlayBigActivity.this, "数据错误", Toast.LENGTH_SHORT).show();
-						return;
-					}
-		        }//end onSuccess
-		        @Override
-		        public void onStart() { }
-		        @Override
-		        public void onFailure(HttpException error, String msg) {
-//		        	dimissProgressDialog();
-		        	Toast.makeText(OverlayBigActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
-		        	Log.e(TAG, "............onFailure:" + msg);
-		        }//end onFailure
+		EventUtil.getEventComments(overlayEntity.actionid, pageIndex_recommend, new EntityListCallback<CommentEntity>() {
+			@Override
+			public void succeed(List<CommentEntity> list) {
+				if(pageIndex_recommend == 1)
+					overlayEntity.getCommentList().clear();
+				overlayEntity.getCommentList().addAll(list);
+				overlayEntity.replyCount = overlayEntity.getCommentList().size();
+				setComment();
+				pageIndex_recommend++;
+			}
+			
+			@Override
+			public void fail(String error) {
+				toastShort(error);
+			}
 		});
-		
-	}//end requestCollecion
-	
-
-	
+	}
 }

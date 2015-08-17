@@ -7,7 +7,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.fingertip.blabla.entity.CommentEntityList.CommentEntity;
 import com.fingertip.blabla.entity.ImgEntityList.ImgEntity;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
