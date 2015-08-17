@@ -178,8 +178,6 @@
         <activity android:name="com.fingertip.blabla.search.SearchMainActivity" />
         <!-- 标记位置 -->
         <activity android:name="com.fingertip.blabla.main.MapPositionSelectionActivity" />
-        <!-- 标记位置 -->
-        <activity android:name="com.fingertip.blabla.main.MapShowPositionActivity" />
         
         <!-- 分享 -->
         <activity 
