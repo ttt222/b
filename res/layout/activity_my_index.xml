@@ -4,225 +4,262 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_my_index"
     android:orientation="vertical" >
-    
-    <LinearLayout android:id="@+id/my_info"
+
+    <LinearLayout
+        android:id="@+id/my_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingRight="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <com.fingertip.blabla.my.widget.RoundImageView android:id="@+id/my_head_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_head"
-            android:contentDescription="@string/empty" />
-        
+        android:paddingBottom="10dp"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp" >
+
+        <com.fingertip.blabla.my.widget.RoundImageView
+            android:id="@+id/my_head_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_head"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_head" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingStart="20dp"
-            android:orientation="vertical" >
-            <TextView android:id="@+id/my_nick_txt"
+            android:paddingStart="20dp" >
+
+            <TextView
+                android:id="@+id/my_nick_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="饭冰冰"
                 android:textColor="@color/black_39"
-                android:textSize="20sp"
-                android:text=""/>
-            <TextView android:id="@+id/my_place_txt"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/my_place_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=""
                 android:textColor="@color/gray_b5"
-                android:textSize="18sp"
-                android:text=""/>
+                android:textSize="28px" />
         </LinearLayout>
-        
-        <TextView  
-	        android:layout_width="0dp"  
-	        android:layout_height="0dp"  
-	        android:layout_weight="1" />
-	        
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:contentDescription="@string/empty"
             android:src="@drawable/icon_setting_forward" />
-        
     </LinearLayout>
-    
-    
-    <LinearLayout android:id="@+id/my_pub_event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingStart="40dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <ImageView android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_my_pub_event"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingStart="20dp"
-            android:text="发布活动"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
 
-    </LinearLayout>
-    
-    <LinearLayout android:id="@+id/my_events"
+    <LinearLayout
+        android:id="@+id/my_pub_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingStart="40dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <ImageView android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_my_event"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingStart="20dp"
-            android:text="我的活动"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
+        android:paddingStart="40dp"
+        android:paddingTop="20dp" >
 
-    </LinearLayout>
-    
-    <LinearLayout android:id="@+id/my_msg_center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingStart="40dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <ImageView android:id="@+id/msg_img"
+        <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_my_msg"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_my_pub_event1" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingLeft="28dp"
+            android:paddingStart="20dp"
+            android:text="发布活动"
+            android:textColor="@color/black_42"
+            android:textSize="28px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
+        android:paddingStart="40dp"
+        android:paddingTop="10dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/re_iv_my_evetn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_my_event1" />
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/re_tv_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/re_iv_my_evetn"
+                android:paddingLeft="28dp"
+                android:paddingStart="20dp"
+                android:text="我的活动"
+                android:textColor="@color/black_42"
+                android:textSize="28px" />
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/re_tv_mysay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="33px"
+                android:text="我是说明文字" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_msg_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
+        android:paddingStart="40dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:id="@+id/msg_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_my_msg1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="28dp"
             android:paddingStart="20dp"
             android:text="消息中心"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
-
+            android:textColor="@color/black_42"
+            android:textSize="28px" />
     </LinearLayout>
-    
-    <ImageView 
-        android:layout_width="match_parent" 
-        android:layout_height="wrap_content" 
-        android:src="@drawable/icon_my_separater"/>
-    
-    <LinearLayout android:id="@+id/my_watch_area"
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
+        android:src="@drawable/icon_my_separater" />
+
+    <LinearLayout
+        android:id="@+id/my_watch_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
         android:paddingStart="40dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:visibility="gone" >
-        
-        <ImageView android:layout_width="30dp"
+
+        <ImageView
+            android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_my_watch_area"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_my_watch_area1" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingLeft="28dp"
             android:paddingStart="20dp"
             android:text="关注圈"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
-
+            android:textColor="@color/black_42"
+            android:textSize="28px" />
     </LinearLayout>
-    
-    <LinearLayout android:id="@+id/my_watch_list"
+
+    <LinearLayout
+        android:id="@+id/my_watch_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingStart="40dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <ImageView android:layout_width="30dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
+        android:paddingStart="40dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_my_watch_list"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_my_watch_list1" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingLeft="28dp"
             android:paddingStart="20dp"
             android:text="关注列表"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
-
+            android:textColor="@color/black_42"
+            android:textSize="28px" />
     </LinearLayout>
-    
-    <ImageView 
-        android:layout_width="match_parent" 
-        android:layout_height="wrap_content" 
-        android:src="@drawable/icon_my_separater"/>
-    
-    <LinearLayout android:id="@+id/my_setting"
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingStart="40dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:src="@drawable/icon_my_separater" />
+
+    <LinearLayout
+        android:id="@+id/my_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical" >
-        
-        <ImageView android:layout_width="30dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="46px"
+        android:paddingStart="40dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_my_setting"
-            android:contentDescription="@string/empty"/>
-        
-        <TextView android:layout_width="wrap_content"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_my_setting1" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingLeft="28dp"
             android:paddingStart="20dp"
             android:text="设置"
-            android:textColor="@color/black_53"
-            android:textSize="18sp"/>
-
+            android:textColor="@color/black_42"
+            android:textSize="28px" />
     </LinearLayout>
-    
-    <ImageView android:id="@+id/hidden_img"
+
+    <ImageView
+        android:id="@+id/hidden_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/empty"
-        android:visibility="invisible"/>
-    
+        android:visibility="invisible" />
+
 </LinearLayout>

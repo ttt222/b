@@ -3,103 +3,181 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="20dp"
-    android:paddingStart="20dp"
-    android:paddingRight="10dp"
+    android:paddingBottom="12dp"
     android:paddingEnd="10dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp" >
-    
-    <LinearLayout android:id="@+id/v_delete_check"
+    android:paddingLeft="20dp"
+    android:paddingRight="10dp"
+    android:paddingStart="20dp"
+    android:paddingTop="12dp" >
+
+    <LinearLayout
+        android:id="@+id/v_delete_check"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:visibility="visible">
         
-	    <ImageView android:id="@+id/iv_delete_check"
-	        android:layout_width="20dp"
-	        android:layout_height="20dp"
-	        android:src="@drawable/icon_unchecked"/>
+        android:layout_marginRight="5dp"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/iv_delete_check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_unchecked" />
     </LinearLayout>
-    
-    <com.fingertip.blabla.my.widget.RoundImageView android:id="@+id/event_sender_head"
+
+    <com.fingertip.blabla.my.widget.RoundImageView
+        android:id="@+id/event_sender_head"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/icon_head"
-        android:contentDescription="@string/empty" />
-    
-    <LinearLayout android:layout_width="0dp"
+        android:background="@drawable/bg_head"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/icon_head" />
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingStart="10dp"
-        android:paddingRight="10dp"
+        android:orientation="vertical"
         android:paddingEnd="10dp"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-        	android:layout_height="wrap_content">
-            <TextView android:id="@+id/event_sender_name"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/event_sender_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="深圳吃货"
                 android:textColor="@color/gray_97"
-                android:textSize="12sp"
-                android:text="深圳吃货"/>
-            <TextView  
-		        android:layout_width="0dp"  
-		        android:layout_height="0dp"  
-		        android:layout_weight="1" />
-            <TextView android:id="@+id/event_type"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_marginRight="15px"
+               android:layout_alignParentRight="true"
+                android:id="@+id/event_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="运动/户外"
                 android:textColor="@color/gray_97"
-                android:textSize="12sp"
-                android:text="运动/户外"/>
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/event_sender_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="深圳吃货"
+                android:textColor="@color/gray_97"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/event_type1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="运动/户外"
+                android:textColor="@color/gray_97"
+                android:textSize="12sp" />
         </LinearLayout>
-        
-        <TextView android:id="@+id/event_title"
+
+        <TextView
+            android:id="@+id/event_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
+            android:text="珠三角相亲大会"
             android:textColor="@color/blue_msg"
-            android:textSize="20sp"
-            android:text="珠三角相亲大会"/>
-
-        <LinearLayout android:layout_width="match_parent"
-        	android:layout_height="wrap_content">
-            <ImageView android:layout_width="15dp"
+            android:textSize="30px" />
+        <RelativeLayout 
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+             <ImageView
+                 android:id="@+id/iv_black_heart"
+                android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/icon_heart"
-                android:contentDescription="@string/empty" />
-            <TextView android:id="@+id/event_up_count"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/black_heart" />
+             <TextView
+                 android:layout_marginLeft="5dp"
+                 android:layout_toRightOf="@id/iv_black_heart"
+                android:id="@+id/event_up_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="8888"
                 android:textColor="@color/gray_97"
-                android:textSize="12sp"
-                android:text="8888"/>
-            <TextView  
-		        android:layout_width="0dp"  
-		        android:layout_height="0dp"  
-		        android:layout_weight="1" />
-            <TextView android:id="@+id/event_send_time"
+                android:textSize="12sp" />
+              <TextView
+                  android:layout_marginLeft="150px"
+                  android:layout_toRightOf="@id/event_up_count"
+                android:id="@+id/event_send_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="2015/04/21"
                 android:textColor="@color/gray_97"
-                android:textSize="12sp"
-                android:text="2015/04/21"/>
-        </LinearLayout>
+                android:textSize="12sp" />
+        </RelativeLayout>
         
+        
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_heart" />
+
+            <TextView
+                android:id="@+id/event_up_count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8888"
+                android:textColor="@color/gray_97"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/event_send_time1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015/04/21"
+                android:textColor="@color/gray_97"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
-    
-    <TextView android:id="@+id/event_status"
+
+    <TextView
+        android:id="@+id/event_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="20sp"
+        android:text="进行中"
         android:textColor="@color/green_event"
-        android:text="进行中"/>
-    
-    <!-- 
+        android:textSize="30px" />
+
+    <!--
     <TextView android:id="@+id/tv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,11 +187,6 @@
         android:textColor="@color/red_event"
         android:visibility="gone"
         android:text="删除"/>
-     -->
-     
-     <ImageView
-        android:id="@+id/hidden_img"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
+    -->
+
 </LinearLayout>

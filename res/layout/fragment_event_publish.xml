@@ -19,6 +19,7 @@
     </LinearLayout>
 	
     <ListView
+        android:visibility="visible"
         android:id="@+id/event_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,20 +32,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center_horizontal">
 	    
-        <TextView android:layout_width="wrap_content"
+        <TextView 
+            android:layout_marginTop="318px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_b9"
-            android:textSize="20sp"
+            android:textSize="36px"
+            android:paddingBottom="48px"
             android:text="你没有发布的活动"/>
         
         <Button android:id="@+id/my_event_pub_btn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:background="@drawable/blue_button"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="30px"
             android:text="马上发布"/>
         
     </LinearLayout>
