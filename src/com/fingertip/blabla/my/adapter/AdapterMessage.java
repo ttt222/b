@@ -124,7 +124,7 @@ public class AdapterMessage extends BaseAdapter implements OnItemClickListener, 
 			viewHoler.msg_title_text.setVisibility(View.GONE);
 		else
 			viewHoler.msg_title_text.setText(msg.says.quote);
-		viewHoler.msg_type_text.setText(msg.type);
+		viewHoler.msg_type_text.setText(msg.getTypeStr());
 		viewHoler.msg_content_text.setText(msg.says.content);
 		viewHoler.id = msg.id;
 		viewHoler.msg_send_time_text.setText(Tools.getTimeStr(msg.send_time));

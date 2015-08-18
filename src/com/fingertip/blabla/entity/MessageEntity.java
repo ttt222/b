@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,18 @@ public class MessageEntity implements Serializable{
 	public long send_time;
 	public SaysEntity says;
 	public MessageDbEntity msg_db;
+	
+	public static Map<String, String> type_map = new HashMap<String, String>();
+	static {
+//		评论：新的活动评论
+//		回复：回复了你
+//		关注：新的关注信息
+//		邀请：新的活动邀请
+		type_map.put("评论", "新的活动评论");
+		type_map.put("回复", "回复了你");
+		type_map.put("关注", "新的关注信息");
+		type_map.put("邀请", "新的活动邀请");
+	}
 	
 	public static List<MessageEntity> parseList(JSONObject json) throws JSONException {
 		List<MessageEntity> list = new ArrayList<MessageEntity>();
@@ -127,6 +141,9 @@ public class MessageEntity implements Serializable{
 		return null;
 	}
 	
+	public String getTypeStr() {
+		return type_map.get(type) == null ? type : type_map.get(type);
+	}
 
 	public static class SaysEntity implements Serializable {
 		

@@ -60,7 +60,6 @@
             android:paddingTop="3dp"
             android:textColor="@color/gray_56"
             android:textSize="18sp"
-            android:background="@drawable/bg_msg_title"
             android:text="大家好，我是标题"/>
 
         <TextView android:id="@+id/msg_content"
