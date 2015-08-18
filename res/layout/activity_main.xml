@@ -12,7 +12,7 @@
         android:id="@+id/iv_icon_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_main_info_black"
+        android:src="@drawable/icon_main_info"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp" />
     
@@ -20,7 +20,7 @@
         android:id="@+id/iv_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_main_search_black"
+        android:src="@drawable/icon_main_search"
         android:layout_gravity="right"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"

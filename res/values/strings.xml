@@ -47,6 +47,4 @@
     <string name="load_full">已加载全部</string>
     <string name="no_data">暂无数据</string>
     <string name="more">加载中</string>
-    
-    <drawable  name="bg_listview">#00000000</drawable>
 </resources>

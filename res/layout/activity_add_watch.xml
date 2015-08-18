@@ -4,76 +4,57 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-
+    
     <include layout="@layout/template_nav_title" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    
+    <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical" >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:layout_centerVertical="true"
-                android:id="@+id/ln_edittext"
+        android:orientation="vertical">
+        
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <ImageView android:layout_width="20dp"
+	            android:layout_height="20dp"
+	            android:layout_gravity="center_vertical"
+	            android:src="@drawable/icon_my_watch_search"/>
+            
+            <EditText android:id="@+id/my_watch_search_edt"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16px"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_my_watch_search" />
-
-                <EditText
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/my_watch_search_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:textSize="24px"
-                    android:digits="1234567890abcdefghijklmnopqrstuvwxyz"
-                    android:hint="手机号/昵称"
-                    android:imeOptions="actionSearch"
-                    android:paddingLeft="15px"
-                    android:singleLine="true"
-                    android:textColor="@color/gray_b9" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_below="@id/ln_edittext"
-                android:id="@+id/iv_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/line_input" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+	            android:background="@null"
+	            android:imeOptions="actionSearch"
+	            android:digits="1234567890abcdefghijklmnopqrstuvwxyz"
+	            android:textColor="@color/black"
+	            android:hint="手机号/昵称"/>
+            
+        </LinearLayout>
+        
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/blue_msg"/>
+        
+        <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="搜索关注人的手机号或昵称"
             android:textColor="@color/gray_b9"
-            android:textSize="22px" />
+            android:textSize="15sp"
+            android:text="搜索关注人的手机号或昵称"/>
+        
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
+    
+    <ImageView android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_marginTop="30dp"
-        android:contentDescription="@string/empty"
-        android:src="@drawable/icon_my_event_separater" />
-
+        android:src="@drawable/icon_my_event_separater"
+        android:contentDescription="@string/empty"/>
+    
     <LinearLayout
         android:id="@+id/my_watch_myinfo"
         android:layout_width="match_parent"
@@ -100,7 +81,7 @@
             android:paddingStart="10dp"
             android:text="我的资料"
             android:textColor="@color/blue_msg"
-            android:textSize="24px" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -117,13 +98,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/empty"
         android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingStart="20dp"
-        android:src="@drawable/line_setting" />
-
+        android:src="@drawable/line_setting"
+        android:contentDescription="@string/empty"/>
+    
     <LinearLayout
         android:id="@+id/my_watch_scan"
         android:layout_width="match_parent"
@@ -150,7 +131,7 @@
             android:paddingStart="10dp"
             android:text="扫一扫"
             android:textColor="@color/blue_msg"
-            android:textSize="24px" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -167,13 +148,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/empty"
         android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingStart="20dp"
-        android:src="@drawable/line_setting" />
-
+        android:src="@drawable/line_setting"
+        android:contentDescription="@string/empty"/>
+    
     <LinearLayout
         android:id="@+id/my_watch_contacts"
         android:layout_width="match_parent"
@@ -200,7 +181,7 @@
             android:paddingStart="10dp"
             android:text="手机联系人"
             android:textColor="@color/blue_msg"
-            android:textSize="24px" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -217,11 +198,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/empty"
         android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingStart="20dp"
-        android:src="@drawable/line_setting" />
+        android:src="@drawable/line_setting"
+        android:contentDescription="@string/empty"/>
 
 </LinearLayout>

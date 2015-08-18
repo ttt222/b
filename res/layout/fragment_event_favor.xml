@@ -19,7 +19,6 @@
     </LinearLayout>
     
     <ListView
-        android:visibility="visible"
         android:id="@+id/event_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,28 +31,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 	    
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_b9"
-            android:textSize="36px"
-            android:layout_marginTop="318px"
+            android:textSize="20sp"
             android:text="你没有收藏的活动"/>
         
         <Button android:id="@+id/my_event_find_btn"
-            android:layout_width="130dp"
-            android:layout_height="40dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/blue_button"
-            android:layout_marginTop="48px"
-            android:textSize="30px"
-            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
             android:text="找活动"/>
-        
-        <ImageView android:id="@+id/my_event_hidden_img"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible"/>
         
     </LinearLayout>
 </LinearLayout>

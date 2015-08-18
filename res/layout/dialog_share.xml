@@ -4,21 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/background"
     android:orientation="vertical" >
-
-    <TextView
-        android:textColor="@color/gray_b6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:textSize="24px"
-        android:layout_marginBottom="12px"
-        android:layout_marginLeft="15dp"
-        android:text="邀请好友 :" />
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
         <LinearLayout
             android:id="@+id/tuding"
             android:layout_width="0dp"
@@ -29,12 +17,10 @@
             android:orientation="vertical"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" >
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:src="@drawable/icon1" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +29,6 @@
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/wechat_friend"
             android:layout_width="0dp"
@@ -54,12 +39,10 @@
             android:orientation="vertical"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" >
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:src="@drawable/icon2" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +51,6 @@
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/wechat"
             android:layout_width="0dp"
@@ -79,12 +61,10 @@
             android:orientation="vertical"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" >
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:src="@drawable/icon3" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +73,6 @@
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/sms"
             android:layout_width="0dp"
@@ -104,12 +83,10 @@
             android:orientation="vertical"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" >
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:src="@drawable/icon4" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +95,6 @@
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/qq"
             android:layout_width="0dp"
@@ -129,17 +105,15 @@
             android:orientation="vertical"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" >
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:src="@drawable/icon5" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="分享到微博"
+                android:text="QQ好友"
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -147,21 +121,17 @@
 
     <Button
         android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="28px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:layout_marginTop="40px"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp"
-        android:background="@drawable/selector_pic_blue"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/selector_pic_red"
         android:minHeight="41dp"
         android:text="取消"
         android:textColor="@color/white"
         android:textSize="16sp"
-         />
+        android:textStyle="bold" />
 
 </LinearLayout>

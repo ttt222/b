@@ -10,41 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@drawable/bg_head_default" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13px"
             android:orientation="vertical"
-            android:paddingLeft="21px" >
-
+            android:paddingLeft="12dp" >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="饭冰冰"
+                    android:text="未知"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
-
+                    android:textSize="12sp" />
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="left"
@@ -52,7 +46,6 @@
                     android:text="未知"
                     android:textColor="@color/white"
                     android:textSize="11sp" />
-
                 <TextView
                     android:id="@+id/tv_collection"
                     android:layout_width="wrap_content"
@@ -66,7 +59,6 @@
                     android:textColor="@color/white"
                     android:textSize="11sp" />
             </LinearLayout>
-
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -86,25 +78,20 @@
         android:layout_weight="1"
         android:background="@drawable/kuang_normal"
         android:scrollbars="none" >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
             <ImageView
                 android:id="@+id/iv_topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true" />
-
+                android:adjustViewBounds="true"
+                android:layout_gravity="center" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/title_bg" >
-
+                android:layout_marginTop="6dp" >
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -113,7 +100,6 @@
                     android:text="活动内容"
                     android:textColor="@color/blue_39db"
                     android:textSize="14sp" />
-
                 <TextView
                     android:id="@+id/tv_accusation"
                     android:layout_width="wrap_content"
@@ -130,16 +116,13 @@
                     android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
-
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="0.8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="3dp"
-                android:background="@color/blue_39db"
-                android:visibility="gone" />
-
+                android:background="@color/blue_39db" />
             <TextView
                 android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
@@ -150,26 +133,21 @@
                 android:text="未知"
                 android:textColor="@color/gray_6c"
                 android:textSize="13sp" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/title_bg"
                 android:paddingLeft="12dp"
                 android:text="活动图片"
                 android:textColor="@color/blue_39db"
                 android:textSize="14sp" />
-
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="0.8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="3dp"
-                android:background="@color/blue_39db"
-                android:visibility="gone" />
-
+                android:background="@color/blue_39db" />
             <LinearLayout
                 android:id="@+id/layout_img"
                 android:layout_width="match_parent"
@@ -177,14 +155,11 @@
                 android:layout_marginBottom="14dp"
                 android:layout_marginTop="14dp"
                 android:orientation="vertical" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:background="@drawable/title_bg"
                 android:orientation="horizontal" >
-
                 <TextView
                     android:id="@+id/tv_recommend_topic"
                     android:layout_width="0dp"
@@ -196,7 +171,6 @@
                     android:text="评论"
                     android:textColor="@color/blue_39db"
                     android:textSize="14sp" />
-
                 <TextView
                     android:id="@+id/tv_recommend"
                     android:layout_width="wrap_content"
@@ -213,16 +187,13 @@
                     android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
-
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="0.8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="3dp"
-                android:background="@color/blue_39db"
-                android:visibility="gone" />
-
+                android:background="@color/blue_39db" />
             <LinearLayout
                 android:id="@+id/layout_commend"
                 android:layout_width="match_parent"
@@ -240,105 +211,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:visibility="gone" >
-
+        android:gravity="center" >
         <TextView
-            android:id="@+id/btn_collection1"
+            android:id="@+id/btn_collection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="6dp"
             android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="收藏"
             android:textColor="@color/white" />
-
-        <View
-            android:layout_width="0.8dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="0.5"
-            android:background="@color/white"
-            android:visibility="visible" />
-
         <TextView
-            android:id="@+id/btn_share1"
+            android:id="@+id/btn_share"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="6dp"
             android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="分享"
             android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal" >
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/iv_collection_starts"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="45dp"
-                android:background="@drawable/collection_starts_n" />
-
-            <TextView
-                android:id="@+id/btn_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/iv_collection_starts"
-                
-                android:gravity="center_vertical"
-                android:text="收藏"
-                android:paddingLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/iv_img_invite"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="45dp"
-                android:background="@drawable/img_invite" />
-
-            <TextView
-                android:id="@+id/btn_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="45dp"
-                android:text="邀请"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

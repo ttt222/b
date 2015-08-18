@@ -68,10 +68,6 @@
 	<color name="account_bg">#F0F0F0</color>
 
 	<color name="blue_39db">#3399db</color> 
-	<color name="black_42">#424141</color>
-	<color name="gray_b6">#b6b6b6</color>
-	<color name="gray_96">#969696</color>
-	<color name="bg_listview">#00000000</color>
 	
 	
 </resources>
