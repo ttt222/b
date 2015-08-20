@@ -58,7 +58,7 @@ public class EventEntity implements Serializable{
 	}
 	
 	public int getKindImgInt() {
-		if ("学习/交流".equals(kindof))
+		if ("学习/沙龙".equals(kindof))
 			return R.drawable.icon_classify_1;
 		else if ("优惠/特价".equals(kindof))
 			return R.drawable.icon_classify_2;
@@ -68,7 +68,7 @@ public class EventEntity implements Serializable{
 			return R.drawable.icon_classify_4;
 		else if ("运动/户外".equals(kindof))
 			return R.drawable.icon_classify_5;
-		return R.drawable.icon_classify_6;
+		return R.drawable.icon_classify_12;
 	}
 
 //	"publictime":"2015-07-07 11:03:04","userinfor":

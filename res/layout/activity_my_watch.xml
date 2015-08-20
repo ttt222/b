@@ -27,8 +27,10 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:cacheColorHint="@android:color/transparent"
+
 	        android:dividerHeight="1dp"
 	        android:divider="@color/line_listview" >
+
 	    </ListView>
 	    
 	    <LinearLayout android:id="@+id/my_watch_empty"
@@ -62,5 +64,11 @@
 	        android:visibility="gone"
 	        android:text="删除"/>
     </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/my_watch_hidden_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
     
 </LinearLayout>

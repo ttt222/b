@@ -202,7 +202,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 			if (sp.getBooleanValue(SharedPreferenceUtil.HAS_NEW_MESSAGE, false))
 				msg_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_my_msg_red));
 			else
-				msg_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_my_msg));
+				msg_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_my_msg1));
 		}
 	}
 	

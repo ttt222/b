@@ -2,6 +2,9 @@ package com.fingertip.blabla.search;
 
 import java.util.List;
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,6 +56,8 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 	
 	private void findViews() {
 		listView = (RefreshableListView)mView.findViewById(R.id.listView);
+		listView.setBackgroundResource(R.color.white);
+		listView.setDividerHeight(0);
 	}
 
 

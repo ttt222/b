@@ -2,195 +2,229 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white" >
-    
-	    <include layout="@layout/template_nav_title" />
-	    
-	    <LinearLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center_horizontal"
-	        android:paddingTop="20dp"
-	        android:paddingBottom="10dp"
-	        android:orientation="vertical">
-	        <com.fingertip.blabla.my.widget.RoundImageView android:id="@+id/user_info_head_img"
-	            android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:src="@drawable/icon_head"
-	            android:contentDescription="@string/empty" />
-	        
-	        <LinearLayout android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:paddingTop="5dp"
-	            android:gravity="center_vertical">
-	            <TextView android:id="@+id/user_info_name_txt"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:textColor="@color/blue_msg"
-	                android:textSize="24sp"
-	                android:text=""/>
-	            
-	            <ImageView android:id="@+id/user_info_sex_img"
-	                android:layout_width="20dp"
-	                android:layout_height="20dp"
-	                android:layout_marginLeft="5dp"
-	                android:src="@drawable/icon_male"/>
-	        </LinearLayout>
-	        
-	        <LinearLayout android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:paddingTop="5dp"
-	            android:gravity="center_vertical">
-	            <TextView android:id="@+id/user_info_up_count_txt"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:textColor="@color/gray_97"
-	                android:textSize="18sp"
-	                android:text="0"/>
-	            
-	            <TextView android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:textColor="@color/gray_97"
-	                android:textSize="18sp"
-	                android:text="人关注"/>
-	        </LinearLayout>
-	    </LinearLayout>
-	    
-	    <ImageView android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/icon_my_separater"/>
-	    
-	    <LinearLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="10dp"
-	        android:paddingBottom="10dp"
-	        android:paddingLeft="20dp">
-	        
-	        <TextView android:layout_width="60dp"
-	            android:layout_height="wrap_content"
-	            android:textSize="12sp"
-	            android:textColor="@color/black"
-	            android:text="地区"/>
-	
-	        <TextView android:id="@+id/user_info_place_txt"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp"
-	            android:textSize="12sp"
-	            android:textColor="@color/gray_b9"
-	            android:text=""/>
-	        
-	    </LinearLayout>
-	    
-	    <ImageView android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/icon_my_separater"/>
-	    
-	    <LinearLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="10dp"
-	        android:paddingBottom="10dp"
-	        android:paddingLeft="20dp">
-	        
-	        <TextView android:layout_width="60dp"
-	            android:layout_height="wrap_content"
-	            android:textSize="12sp"
-	            android:textColor="@color/black"
-	            android:text="个性签名"/>
-	
-	        <TextView android:id="@+id/user_info_mark_txt"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp"
-	            android:textSize="12sp"
-	            android:textColor="@color/gray_b9"
-	            android:text=""/>
-	    </LinearLayout>
-	    
-	    <TextView android:layout_width="match_parent"
-	        android:layout_height="40dp"
-	        android:background="@drawable/bg_userinfo_event"
-	        android:paddingTop="3dp"
-	        android:paddingLeft="20dp"
-	        android:textSize="18sp"
-	        android:textColor="@color/white"
-	        android:text="TA的活动"/>
-	    
-	    <LinearLayout android:id="@+id/user_info_event_empty"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="10dp"
-	        android:paddingBottom="10dp"
-	        android:background="@color/gray_f6"
-	        android:gravity="center">
-	        
-	        <TextView android:id="@+id/user_info_event_empty_txt"
-	            android:layout_width="wrap_content"
-	            android:layout_height="30dp"
-	            android:gravity="center"
-	            android:textSize="18sp"
-	            android:textColor="@color/gray_b9"
-	            android:visibility="gone"
-	            android:text="暂无活动"/>
-	        
-	        <com.fingertip.blabla.common.gif.GifView
-	            android:id="@+id/gifView"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	    </LinearLayout>
-	    
-	    <ListView android:id="@+id/user_info_event_listview"
-	        android:layout_width="match_parent"
-	        android:layout_weight="1"
-	        android:layout_height="0dp">
-	    </ListView>
-	    
-	    <LinearLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center"
-	        android:layout_gravity="bottom"
-	        android:background="@color/white" >
-	        
-	        <Button android:id="@+id/user_info_watch_btn"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/blue_button"
-	            android:layout_marginLeft="5dp"
-	            android:layout_marginRight="5dp"
-	            android:paddingLeft="30dp"
-	            android:paddingRight="30dp"
-	            android:textColor="@color/white"
-	            android:textSize="18sp"
-	            android:text="关注"/>
-	        
-	        <Button android:id="@+id/user_info_chat_btn"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/blue_button"
-	            android:layout_marginLeft="5dp"
-	            android:layout_marginRight="5dp"
-	            android:paddingLeft="30dp"
-	            android:paddingRight="30dp"
-	            android:textColor="@color/white"
-	            android:textSize="18sp"
-	            android:text="私聊"/>
-	        
-	        <Button android:id="@+id/user_info_mask_btn"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/blue_button"
-	            android:layout_marginLeft="5dp"
-	            android:layout_marginRight="5dp"
-	            android:paddingLeft="30dp"
-	            android:paddingRight="30dp"
-	            android:textColor="@color/white"
-	            android:textSize="18sp"
-	            android:text="屏蔽"/>
-	    </LinearLayout>
-    
-	    <ImageView android:id="@+id/hidden_img"
-	        android:layout_width="0dp"
-	        android:layout_height="0dp"
-	        android:visibility="gone"/>
-    
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/template_nav_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp" >
+
+        <com.fingertip.blabla.my.widget.RoundImageView
+            android:id="@+id/user_info_head_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_head"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/icon_head" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/user_info_name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_msg"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/user_info_sex_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_female" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/user_info_up_count_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_97"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人关注"
+                android:textColor="@color/gray_97"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_my_separater" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="地区"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/user_info_place_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="广东 广州"
+            android:textColor="@color/gray_b9"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_my_separater" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="个性签名"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/user_info_mark_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="关于我的个性签名，我想我不太习惯写文章，所以暂时就不写了"
+            android:textColor="@color/gray_b9"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_userinfo_event"
+        android:paddingLeft="20dp"
+        android:paddingTop="3dp"
+        android:text="TA的活动"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/user_info_event_listview"
+        android:layout_width="match_parent"
+        android:divider="#00000000"
+        
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/user_info_event_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_f6"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/user_info_event_empty_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="暂无活动"
+            android:textColor="@color/gray_b9"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <com.fingertip.blabla.common.gif.GifView
+            android:id="@+id/gifView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:gravity="center" >
+
+        
+
+        <Button
+            android:id="@+id/user_info_watch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:drawableLeft="@drawable/user_info_watch_n"
+            android:background="@drawable/blue_button"
+            android:drawablePadding="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="关注"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/user_info_chat_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/blue_button"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="私聊"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/user_info_mask_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/blue_button"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="屏蔽"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/hidden_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
 </LinearLayout>

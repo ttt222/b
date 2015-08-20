@@ -2,79 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/gray_f6" >
-	<include 
-	    android:id="@+id/view_title"
-	    layout="@layout/view_title"/>
-    
+    android:background="@color/gray_f6"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/view_title"
+        layout="@layout/view_title" />
+
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            
-            <EditText
-                android:id="@+id/et_title"
+
+            <LinearLayout
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_kuang_rc"
-                android:singleLine="true"
-                android:hint="活动主题"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"  />
-            <EditText
-                android:id="@+id/et_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_kuang_rc"
-                android:minLines="7"
-                android:gravity="top"
-                android:hint="活动内容，详细说明时间、地点、事件等"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="8dp" />
-            
-            
+                android:orientation="vertical" >
+
+                <EditText
+                    
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_kuang_rc"
+                    android:hint="活动主题"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_kuang_rc"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="false"
+                    android:text="活动介绍:\n活动地点:\n活动时间:\n报名方式:\n活动费用:\n提示:\n\n"
+                    android:textSize="28px" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_type_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray_e5"
+                android:drawableRight="@drawable/icon_arrow_down"
                 android:gravity="center_vertical"
                 android:paddingBottom="6dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="16dp"
                 android:paddingTop="6dp"
-                android:singleLine="true"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:drawableRight="@drawable/icon_arrow_down"
-                android:background="@color/gray_e5"
-                android:text="活动类型"
-                android:textColor="@color/black_2d"
+                android:textColor="@color/black"
+                android:hint="活动类型"
                 android:textSize="14sp" />
-            
+
             <LinearLayout
                 android:id="@+id/layout_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_marginBottom="31px"
+                android:layout_marginLeft="43px"
+                android:layout_marginRight="43px"
+                android:layout_marginTop="30px"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" >
+
                     <TextView
                         android:id="@+id/tv_special"
                         android:layout_width="0dp"
@@ -89,10 +105,12 @@
                         android:text="优惠/特价"
                         android:textColor="#2E3246"
                         android:textSize="14sp" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray_d7" />
+
                     <TextView
                         android:id="@+id/tv_perform"
                         android:layout_width="0dp"
@@ -107,10 +125,12 @@
                         android:text="娱乐/表演"
                         android:textColor="#2E3246"
                         android:textSize="14sp" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray_d7" />
+
                     <TextView
                         android:id="@+id/tv_sociality"
                         android:layout_width="0dp"
@@ -133,8 +153,10 @@
                     android:background="@color/gray_d7" />
 
                 <LinearLayout
+                    
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
+
                     <TextView
                         android:id="@+id/tv_sports"
                         android:layout_width="0dp"
@@ -149,10 +171,12 @@
                         android:text="运动/户外"
                         android:textColor="#2E3246"
                         android:textSize="14sp" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray_d7" />
+
                     <TextView
                         android:id="@+id/tv_study"
                         android:layout_width="0dp"
@@ -167,10 +191,12 @@
                         android:text="学习/沙龙"
                         android:textColor="#2E3246"
                         android:textSize="14sp" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray_d7" />
+
                     <TextView
                         android:id="@+id/tv_other"
                         android:layout_width="0dp"
@@ -187,95 +213,143 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
-            
+
             <TextView
                 android:id="@+id/tv_img_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray_e5"
+                android:drawableRight="@drawable/icon_arrow_down"
                 android:gravity="center_vertical"
+                android:hint="活动图片上传"
                 android:paddingBottom="6dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="16dp"
                 android:paddingTop="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:drawableRight="@drawable/icon_arrow_down"
-                android:background="@color/gray_e5"
-                android:textColor="@color/black_2d"
-                android:hint="活动图片上传" />
+                android:textColor="@color/black" />
+
             <LinearLayout
                 android:id="@+id/layout_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:paddingLeft="8dp"
+                android:paddingLeft="31px"
                 android:paddingRight="8dp" >
-               <!-- <ImageView 
-                	    android:id="@+id/iv_imgadd1"
-                	    android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:background="@drawable/selector_bg_gray"
-                        android:src="@drawable/icon_add_big"/> -->
-                
             </LinearLayout>
-            
+
             <TextView
                 android:id="@+id/tv_time_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray_e5"
+                android:drawableRight="@drawable/icon_arrow_down"
                 android:gravity="center_vertical"
+                android:hint="信息截止时间"
                 android:paddingBottom="6dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="16dp"
                 android:paddingTop="6dp"
-                android:singleLine="true"
-                android:layout_marginTop="6dp"
-                android:drawableRight="@drawable/icon_arrow_right2"
-                android:background="@color/gray_e5"
-                android:textColor="@color/black_2d"
-                android:hint="信息截止时间" />
-            
-            <LinearLayout 
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <!-- 布局添加一个滑轮视图 -->
+
+                <com.fingertip.blabla.common.wheelview.WheelView
+                    android:id="@+id/fast_year"
+                    android:layout_width="0dip"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0" />
+
+                <com.fingertip.blabla.common.wheelview.WheelView
+                    android:id="@+id/fast_month"
+                    android:layout_width="0dip"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0" />
+
+                <com.fingertip.blabla.common.wheelview.WheelView
+                    android:id="@+id/fast_day"
+                    android:layout_width="0dip"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0" />
+
+                <com.fingertip.blabla.common.wheelview.WheelView
+                    android:id="@+id/fast_hours"
+                    android:layout_width="0dip"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0" />
+
+                <com.fingertip.blabla.common.wheelview.WheelView
+                    android:id="@+id/fast_mintue"
+                    android:layout_width="0dip"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/layout_position"
                 android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="12dp"
-	            android:layout_marginBottom="12dp"
-	            android:paddingLeft="4dp"
-	            android:paddingRight="4dp"
-	            android:paddingTop="6dp"
-	            android:paddingBottom="6dp"
-	            android:background="@color/gray_e5">
-	            <TextView
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:hint="标记活动位置 " />
-	            <TextView
-	                android:id="@+id/tv_positon"
-	                android:layout_width="0dp"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:singleLine="true"
-	                android:hint="未知 " />
-	            
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray_e5"
+                android:paddingBottom="6dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="6dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="标记活动位置 "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_positon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="未知 "
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/iv_position_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/icon_arrow_down" />
             </LinearLayout>
-            
-            
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_d7" />
+
             <TextView
                 android:id="@+id/tv_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="24dp"
                 android:layout_marginBottom="36dp"
-                android:background="@drawable/bg_btn_publish"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_btn_publish_blue"
                 android:gravity="center"
                 android:text="立即发布"
                 android:textColor="@color/white"

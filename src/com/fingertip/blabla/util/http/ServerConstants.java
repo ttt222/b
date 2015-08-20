@@ -87,6 +87,7 @@ public class ServerConstants {
 		public static String USER_NEW_PASS = "newpass";
 		public static String USER_FANS = "fans";
 		public static String USER_FANS_G = "g";
+		public static String USER_FANS_F = "f";
 		
 		/**
 		 * upload file
@@ -189,8 +190,8 @@ public class ServerConstants {
 		public static String FC_SEND_MSG = "send_msg";
 		
 		public static String SAYS_TEXT = "text";
-		public static String MSG_TYPE_COMMENT = "评论";
-		public static String MSG_TYPE_CHAT = "对话";
+		public static String MSG_TYPE_COMMENT = "新的活动评论";
+		public static String MSG_TYPE_CHAT = "新的对话";
 
 		/**
 		 * watch

@@ -94,6 +94,9 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	/** 当前评论页数 **/
 	private int pageIndex_recommend= 1;
 	
+	//马上举报
+	private TextView tv_accusation;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -126,6 +129,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		iv_head = (ImageView)findViewById(R.id.iv_head);
 		
 		iv_topic = (ImageView)findViewById(R.id.iv_topic);
+		tv_accusation=(TextView) findViewById(R.id.tv_accusation);
 	}
 
 	private void setupViews() {		
@@ -145,7 +149,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		});
 		
 		
-		findViewById(R.id.tv_accusation).setOnClickListener(this);
+		tv_accusation.setOnClickListener(this);
 		tv_recommend.setOnClickListener(this);
 		tv_btnCollection.setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
@@ -165,8 +169,8 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		tv_title.setText("" + overlayEntity.title);
 		tv_name.setText("" + overlayEntity.userEntity.nick_name);
 		tv_detail.setText("" + overlayEntity.detail);
-//		tv_collection.setText("" + overlayEntity.viewCount);
-		tv_collection.setText("" + overlayEntity.appraiseCount);
+	tv_collection.setText("" + overlayEntity.viewCount);//调用浏览次数
+	//	tv_collection.setText("" + overlayEntity.appraiseCount);
 		tv_recommendTopic.setText("评论（" + overlayEntity.replyCount + "）");
 		tv_time.setText("" + overlayEntity.ptime);
 		
@@ -328,21 +332,27 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	private void setOverlayType(){
 		if(overlayEntity.type == OverlayType.SPORTS){
 			layout_main.setBackgroundResource(R.drawable.bg_recommend);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_recommend);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_recommend);
 		}else if(overlayEntity.type == OverlayType.SOCIALITY){
 			layout_main.setBackgroundResource(R.drawable.bg_friend);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_friend);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_friend);
 		}else if(overlayEntity.type == OverlayType.PERFORM){
 			layout_main.setBackgroundResource(R.drawable.bg_activity);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_activity);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_activity);
 		}else if(overlayEntity.type == OverlayType.STUDY){
 			layout_main.setBackgroundResource(R.drawable.bg_event);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_event);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_event);
 		}else if(overlayEntity.type == OverlayType.SPECIAL){
 			layout_main.setBackgroundResource(R.drawable.bg_buy);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_buy);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_buy);
 		}else if(overlayEntity.type == OverlayType.OTHER){
 			layout_main.setBackgroundResource(R.drawable.bg_activity);
+			tv_accusation.setBackgroundResource(R.drawable.bg_btn_activity);
 			tv_recommend.setBackgroundResource(R.drawable.bg_btn_activity);
 		}else {
 			layout_main.setBackgroundResource(R.drawable.bg_activity);

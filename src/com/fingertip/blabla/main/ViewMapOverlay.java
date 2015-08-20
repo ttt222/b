@@ -68,7 +68,7 @@ public class ViewMapOverlay extends FrameLayout{
 		
 //		int width = getContext().getResources().getDisplayMetrics().widthPixels - 180;
 		int width = getContext().getResources().getDisplayMetrics().widthPixels - 170;
-		tv_title.setMaxWidth(width);
+//		tv_title.setMaxWidth(width);
 		tv_name.setMaxWidth(width);
 		
 		
@@ -85,8 +85,8 @@ public class ViewMapOverlay extends FrameLayout{
 		}
 		tv_title.setText("" + overlayEntity.title);
 		tv_name.setText("" + overlayEntity.userEntity.nick_name);
-//		tv_collection.setText("" + overlayEntity.viewCount);
-		tv_collection.setText("" + overlayEntity.appraiseCount);
+	tv_collection.setText("" + overlayEntity.viewCount);//µ˜”√‰Ø¿¿¡ø
+		//tv_collection.setText("" + overlayEntity.appraiseCount);
 		tv_time.setText("" + overlayEntity.ptime);
 
 

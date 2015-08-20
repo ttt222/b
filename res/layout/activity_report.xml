@@ -4,190 +4,217 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-    
+
     <include layout="@layout/template_nav_title" />
-    
-    <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingRight="20dp"
+        android:orientation="vertical"
         android:paddingEnd="20dp"
-        android:paddingTop="20dp"
-        android:orientation="vertical">
-        
-        <TextView android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请选择举报原因"
             android:textColor="@color/blue_msg"
-            android:textSize="18sp"/>
-        
-        <RelativeLayout android:id="@+id/line1"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/line1"
             android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:gravity="center_vertical" >
-	        
-            <TextView android:id="@+id/text1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="整治违规"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="政治违规"/>
-	        
-	        <ImageView android:id="@+id/check1"
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:layout_alignParentRight="true"
-	            android:layout_alignParentEnd="true"
-	            android:src="@drawable/icon_unchecked"
-	            android:contentDescription="@string/empty"/>
+                android:textSize="18sp" />
 
-    	</RelativeLayout>
-    	
-        <ImageView android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/check1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_unchecked" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_my_separater"/>
-        
-        <RelativeLayout android:id="@+id/line2"
+            android:src="@drawable/icon_my_separater" />
+
+        <RelativeLayout
+            android:id="@+id/line2"
             android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:gravity="center_vertical" >
-	        
-            <TextView  android:id="@+id/text2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="色情"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="色情"/>
-	        
-	        <ImageView android:id="@+id/check2"
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:layout_alignParentRight="true"
-	            android:layout_alignParentEnd="true"
-	            android:src="@drawable/icon_unchecked"
-	            android:contentDescription="@string/empty"/>
+                android:textSize="18sp" />
 
-    	</RelativeLayout>
-    	
-        <ImageView android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/check2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_unchecked" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_my_separater"/>
-    	
-        <RelativeLayout android:id="@+id/line3"
+            android:src="@drawable/icon_my_separater" />
+
+        <RelativeLayout
+            android:id="@+id/line3"
             android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:gravity="center_vertical" >
-	        
-            <TextView android:id="@+id/text3"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="虚假活动"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="虚假活动"/>
-	        
-	        <ImageView android:id="@+id/check3"
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:layout_alignParentRight="true"
-	            android:layout_alignParentEnd="true"
-	            android:src="@drawable/icon_unchecked"
-	            android:contentDescription="@string/empty"/>
+                android:textSize="18sp" />
 
-    	</RelativeLayout>
-    	
-        <ImageView android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/check3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_unchecked" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_my_separater"/>
-        
-        <RelativeLayout android:id="@+id/line4"
+            android:src="@drawable/icon_my_separater" />
+
+        <RelativeLayout
+            android:id="@+id/line4"
             android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:gravity="center_vertical" >
-	        
-            <TextView android:id="@+id/text4"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="垃圾信息"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="垃圾信息"/>
-	        
-	        <ImageView android:id="@+id/check4"
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:layout_alignParentRight="true"
-	            android:layout_alignParentEnd="true"
-	            android:src="@drawable/icon_unchecked"
-	            android:contentDescription="@string/empty"/>
+                android:textSize="18sp" />
 
-    	</RelativeLayout>
-    	
-        <ImageView android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/check4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/icon_unchecked" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_my_separater"/>
+            android:src="@drawable/icon_my_separater" />
+    </LinearLayout>
 
-     </LinearLayout>
-     
-     <ImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:src="@drawable/icon_my_event_separater" />
-     
-	<LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingRight="20dp"
+        android:orientation="vertical"
         android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:orientation="vertical">
-        
-        
-        <TextView android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="其它举报理由"
             android:layout_marginTop="10dp"
+            android:text="其它举报理由"
             android:textColor="@color/blue_msg"
-            android:textSize="18sp"/>
-        
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-	        <ImageView android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:layout_gravity="bottom"
-	            android:src="@drawable/icon_suggest_pen"/>
-	        
-	        <EditText android:id="@+id/report_content"
-	            android:layout_width="match_parent"
-	            android:layout_height="60dp"
-	            android:textSize="18sp"
-	            android:textColor="@color/gray_67"
-	            android:gravity="bottom"
-	            android:layout_marginTop="10dp"
-	            android:text="" />
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_marginTop="49px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/suggest_pen"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                   android:layout_centerVertical="true"
+                    android:src="@drawable/icon_suggest_pen" />
+
+                <EditText
+                    android:id="@+id/report_content"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/suggest_pen"
+                    android:hint="请输入"
+                    
+                    android:textColor="@color/gray_67"
+                    android:textSize="18sp" />
+            </RelativeLayout>
         </LinearLayout>
-        
-        <Button android:id="@+id/report_commit"
+
+        <Button
+            android:id="@+id/report_commit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:background="@drawable/blue_button"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:text="提交"
-            android:textSize="18sp"
             android:textColor="@color/white"
-            android:background="@drawable/blue_button"/>
+            android:textSize="18sp" />
     </LinearLayout>
-    
+
 </LinearLayout>

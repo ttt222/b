@@ -485,7 +485,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		if (getSP().getBooleanValue(SharedPreferenceUtil.HAS_NEW_MESSAGE, false))
 			iv_icon_info.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_info_red));
 		else
-			iv_icon_info.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_info));
+			iv_icon_info.setImageDrawable(getResources().getDrawable(R.drawable.icon_main_info_black));
 	}
 	
 	@Override

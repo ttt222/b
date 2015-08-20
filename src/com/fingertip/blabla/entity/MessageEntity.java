@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.string;
 import android.util.Base64;
 
 import com.fingertip.blabla.common.UserSession;
@@ -41,22 +42,28 @@ public class MessageEntity implements Serializable{
 	
 	public String id, receiver_id;
 	public UserEntity sender;
-	public String type;
+	public  String type;
 	public long send_time;
 	public SaysEntity says;
 	public MessageDbEntity msg_db;
 	
+	
+
 	public static Map<String, String> type_map = new HashMap<String, String>();
 	static {
 //		评论：新的活动评论
 //		回复：回复了你
 //		关注：新的关注信息
 //		邀请：新的活动邀请
-		type_map.put("评论", "新的活动评论");
+		
+			type_map.put("关注", "新的关注信息");
+	 		type_map.put("对话", "新的关注信息");
 		type_map.put("回复", "回复了你");
-		type_map.put("关注", "新的关注信息");
+		type_map.put("评论", "新的活动评论");
+	
 		type_map.put("邀请", "新的活动邀请");
 	}
+	
 	
 	public static List<MessageEntity> parseList(JSONObject json) throws JSONException {
 		List<MessageEntity> list = new ArrayList<MessageEntity>();
@@ -141,9 +148,13 @@ public class MessageEntity implements Serializable{
 		return null;
 	}
 	
+	
+	
 	public String getTypeStr() {
 		return type_map.get(type) == null ? type : type_map.get(type);
 	}
+
+	
 
 	public static class SaysEntity implements Serializable {
 		

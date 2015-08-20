@@ -89,7 +89,7 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		
 		final EventEntity event = (EventEntity)getItem(position);
 		viewHolder.tv_name.setText(event.sender.nick_name);
-		viewHolder.iv_head.setTag(event.sender.id);
+	viewHolder.iv_head.setTag(event.sender.id);
 		try {
 			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHolder.iv_head, viewHolder.hidden_img);				
 		} catch (Exception e) {
@@ -104,7 +104,8 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		viewHolder.tv_title.setText(event.title);
 		viewHolder.iv_type.setImageDrawable(context.getResources().getDrawable(event.getKindImgInt()));
 		viewHolder.tv_type.setText(event.kindof);
-		viewHolder.tv_popularity.setText("" + event.likedcount);
+		//viewHolder.tv_popularity.setText("" + event.likedcount);
+		viewHolder.tv_popularity.setText(""+event.viewcount);
 		viewHolder.tv_recommend.setText("" + event.replycount);
 		viewHolder.iv_head.setOnClickListener(new View.OnClickListener() {
 			

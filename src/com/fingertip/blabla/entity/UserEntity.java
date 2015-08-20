@@ -35,7 +35,7 @@ public class UserEntity implements Serializable{
 		try {user.place = json.getString(PARAM_KEYS.USER_PLACE);} catch (Exception e) { }	
 		user.sex = json.getString(PARAM_KEYS.USER_SEX);
 		try { user.mark = json.getString(PARAM_KEYS.USER_MARK);} catch (Exception e) { }	
-		try { user.up_count = json.getJSONObject(PARAM_KEYS.USER_FANS).getInt(PARAM_KEYS.USER_FANS_G);} catch (Exception e) { }	
+		try { user.up_count = json.getJSONObject(PARAM_KEYS.USER_FANS).getInt(PARAM_KEYS.USER_FANS_F);} catch (Exception e) { }	
 		return user;
 	}
 	

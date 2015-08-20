@@ -2,6 +2,7 @@ package com.fingertip.blabla.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,9 +15,11 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.fingertip.blabla.R;
 
 public class ScrollTouchView extends HorizontalScrollView{
@@ -93,7 +96,6 @@ public class ScrollTouchView extends HorizontalScrollView{
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			
 			break;
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
@@ -111,12 +113,17 @@ public class ScrollTouchView extends HorizontalScrollView{
 		int scrollX = getScrollX();
 		
 		if(itemWidth != 0){
+			
 			int remainder = scrollX % itemWidth;
 			
 			if(remainder < itemWidth / 2){
 				scrollTo((scrollX / itemWidth) * itemWidth, 0);
-			}else{
-				scrollTo(itemWidth + (scrollX / itemWidth) * itemWidth, 0);
+				
+				//scrollTo(itemWidth+(scrollX / itemWidth) * itemWidth, 0);
+			}
+			else{
+				//scrollTo(itemWidth+(scrollX / itemWidth) * itemWidth, 0);
+				scrollTo(itemWidth+(scrollX / itemWidth) * itemWidth, 0);
 			}
 		}
 	}//end computeScrollPosition
