@@ -3,9 +3,9 @@ package com.fingertip.blabla.common.gif;
 public interface GifAction {
 
 	/**
-	 * gifè§£ç è§‚å¯Ÿè€…
-	 * @param parseStatus è§£ç æ˜¯å¦æˆåŠŸï¼ŒæˆåŠŸä¼šä¸ºtrue
-	 * @param frameIndex å½“å‰è§£ç çš„ç¬¬å‡ å¸§ï¼Œå½“å…¨éƒ¨è§£ç æˆåŠŸåï¼Œè¿™é‡Œä¸º-1
+	 * gif½âÂë¹Û²ìÕß
+	 * @param parseStatus ½âÂëÊÇ·ñ³É¹¦£¬³É¹¦»áÎªtrue
+	 * @param frameIndex µ±Ç°½âÂëµÄµÚ¼¸Ö¡£¬µ±È«²¿½âÂë³É¹¦ºó£¬ÕâÀïÎª-1
 	 */
 	public void parseOk(boolean parseStatus,int frameIndex);
 }

@@ -4,18 +4,18 @@ import android.graphics.Bitmap;
 
 public class GifFrame {
 	/**
-	 * 构造函数
-	 * @param im 图片
-	 * @param del 延时
+	 * ���캯��
+	 * @param im ͼƬ
+	 * @param del ��ʱ
 	 */
 	public GifFrame(Bitmap im, int del) {
 		image = im;
 		delay = del;
 	}
-	/**图片*/
+	/**ͼƬ*/
 	public Bitmap image;
-	/**延时*/
+	/**��ʱ*/
 	public int delay;
-	/**下一帧*/
+	/**��һ֡*/
 	public GifFrame nextFrame = null;
 }
