@@ -1,4 +1,4 @@
 .settings/
 bin/
 gen/
-/project.properties
+project.properties
