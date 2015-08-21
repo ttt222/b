@@ -126,11 +126,7 @@ public class SetZoomActivity extends BaseActivity implements OnClickListener, On
 		if (wheel == mViewProvince) {
 			updateCities();
 		} else if (wheel == mViewCity) {
-			if (load_district)
-				updateAreas();
-			else {
-				
-			}
+			updateAreas();
 		} else if (load_district && wheel == mViewDistrict) {
 			mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
 			mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
@@ -178,7 +174,7 @@ public class SetZoomActivity extends BaseActivity implements OnClickListener, On
 
 	private void showSelectedResult() {
 		String result = mCurrentProviceName;
-		if (!isDirectCiry(mCurrentProviceName)) {
+		if (!isDirectCity(mCurrentProviceName)) {
 			result += " " + mCurrentCityName;
 			if (load_district)
 				result += " " + mCurrentDistrictName;
@@ -189,7 +185,7 @@ public class SetZoomActivity extends BaseActivity implements OnClickListener, On
 		finish();
 	}
 	
-	private boolean isDirectCiry(String proviceName) {
+	private boolean isDirectCity(String proviceName) {
 		for (int i = 0; i < DIRECT_CITYS.length; i++) {
 			if (DIRECT_CITYS[i].equals(proviceName))
 				return true;

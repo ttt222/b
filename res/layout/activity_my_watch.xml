@@ -28,7 +28,6 @@
 	        android:layout_height="match_parent"
 	        android:cacheColorHint="@android:color/transparent"
 
-	        android:dividerHeight="1dp"
 	        android:divider="@color/line_listview" >
 
 	    </ListView>
