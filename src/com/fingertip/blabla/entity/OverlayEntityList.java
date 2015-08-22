@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.fingertip.blabla.entity.ImgEntityList.ImgEntity;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
+import com.fingertip.blabla.util.http.ServerConstants.URL;
 
 public class OverlayEntityList{
 	
@@ -140,6 +141,17 @@ public class OverlayEntityList{
 		
 		public ArrayList<CommentEntity> getCommentList(){
 			return arrayList_comment;
+		}
+		
+		public String getShareContent() {
+			StringBuilder buffer = new StringBuilder();
+			buffer.append("图丁用户（").append(userEntity.nick_name)
+				.append("）邀请您参加活动。").append(addr);
+			return buffer.toString();
+		}
+		
+		public String getShareUrl() {
+			return URL.SHARE_EVENT_URL + actionid;
 		}
 		
 	}//end OverlayEntity

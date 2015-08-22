@@ -5,6 +5,8 @@ public class ServerConstants {
 	public static class URL {
 		public static String BASE_URL = "http://tutuapp.aliapp.com";
 		
+		public static String SHARE_EVENT_URL = "http://tutuapp.aliapp.com/tzadminnn/index.php?m=home&aid=";
+		
 		/**
 		 * user
 		 */
@@ -222,9 +224,11 @@ public class ServerConstants {
 	public static String SEX_MALE = "m", SEX_FEMALE = "f", SEX_UNKNOW = "x",
 			SEX_MALE_S = "男", SEX_FEMALE_S = "女", SEX_UNKNOW_S = "未知";
 	
+	//从服务器获取消息的时间间隔
 	public static int GET_MESSAGE_GAP = 30;
 
-	public static int HTTP_TIME_OUT = 10 * 1000;
+	//http请求的超时时间
+	public static int HTTP_TIME_OUT = 15 * 1000;
 	
 	public static String NET_ERROR_TIP = "网络异常，请确认打开网络或稍后再试";
 }

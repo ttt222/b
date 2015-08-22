@@ -163,9 +163,12 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 	}
 	
 	private void setHead() {
-		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SelectPicPopupWindow.class);
-		startActivityForResult(intent, R.id.my_info_set_head);
+		if (Tools.hasSDCard()) {
+			Intent intent = new Intent();
+			intent.setClass(MyInfoActivity.this, SelectPicPopupWindow.class);
+			startActivityForResult(intent, R.id.my_info_set_head);
+		} else
+			toastShort("ÎÞsd¿¨£¬²»ÄÜ²Ã¼ôÍ¼Æ¬");
 	}
 	
 	private void setPlace() {

@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="分享到微博"
+                android:text="QQ"
                 android:textColor="@color/umeng_socialize_list_item_textcolor"
                 android:textSize="12sp" />
         </LinearLayout>

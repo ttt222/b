@@ -487,8 +487,8 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		case R.id.relayout_share://
 			ShareEntity shareEntity = new ShareEntity();
 			shareEntity.shareTitle = overlayEntity.title;
-			shareEntity.shareContent = overlayEntity.detail;
-			shareEntity.targetUrl = Globals.URL;
+			shareEntity.shareContent = overlayEntity.getShareContent();
+			shareEntity.targetUrl = overlayEntity.getShareUrl();
 			shareEntity.aid = overlayEntity.actionid;
 			
 			intent = new Intent();

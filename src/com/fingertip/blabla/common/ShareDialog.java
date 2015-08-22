@@ -1,6 +1,7 @@
 package com.fingertip.blabla.common;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.umeng.socialize.controller.listener.SocializeListeners.UMAuthListener
 import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.SmsShareContent;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SmsHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
@@ -32,13 +34,13 @@ import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 public class ShareDialog extends BaseActivity {
-	public static final String EXTRA_TYPE = "extra_type";
-	/** 软件分享 **/
-	public static final String TYPE_SOFTSHARE = "type_softshare";
-	/** 活动分享 **/
-	public static final String TYPE_ACTIVITY = "type_activity";
-	/** 商品分享 **/
-	public static final String TYPE_GOODS = "type_goods";
+//	public static final String EXTRA_TYPE = "extra_type";
+//	/** 软件分享 **/
+//	public static final String TYPE_SOFTSHARE = "type_softshare";
+//	/** 活动分享 **/
+//	public static final String TYPE_ACTIVITY = "type_activity";
+//	/** 商品分享 **/
+//	public static final String TYPE_GOODS = "type_goods";
 
 	private ShareEntity shareEntity;
 
@@ -46,8 +48,8 @@ public class ShareDialog extends BaseActivity {
 //	private boolean isExistSina = false;
 //	private boolean isExistQQ = false;
 
-	@SuppressWarnings("unused")
-	private String type_share;
+//	@SuppressWarnings("unused")
+//	private String type_share;
 	
 //	final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share", RequestType.SOCIAL);
 	final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
@@ -82,7 +84,6 @@ public class ShareDialog extends BaseActivity {
 
 	private void initData() {
 		shareEntity = (ShareEntity)getIntent().getSerializableExtra(EXTRA_PARAM);
-		type_share = getIntent().getStringExtra(EXTRA_TYPE);
 		
 		if(shareEntity == null){
 			Toast.makeText(ShareDialog.this, "分享内容不能为空", Toast.LENGTH_SHORT).show();
@@ -149,6 +150,7 @@ public class ShareDialog extends BaseActivity {
     
 	
 	private void jumpToShare(SHARE_MEDIA shareMedia){
+		mController.getConfig().closeToast();
 		if(SHARE_MEDIA.WEIXIN == shareMedia){
 //			if(TYPE_SOFTSHARE.equals(type_share)){
 				WeiXinShareContent weiXinShareContent = new WeiXinShareContent();
@@ -195,6 +197,7 @@ public class ShareDialog extends BaseActivity {
 			qqShareContent.setShareContent(shareEntity.shareContent);
 			qqShareContent.setTargetUrl(shareEntity.targetUrl);
 			qqShareContent.setTitle(shareEntity.shareTitle);
+			qqShareContent.setShareImage(new UMImage(this, BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher)));
 			mController.setShareMedia(qqShareContent);
 			
 			mController.directShare(ShareDialog.this, shareMedia, snsPostListener);
@@ -315,42 +318,42 @@ public class ShareDialog extends BaseActivity {
 		}//endonClick
 	};
 	
-	UMAuthListener umAuthListener = new UMAuthListener() {
-		@Override
-		public void onStart(SHARE_MEDIA arg0) {
-			Toast.makeText(ShareDialog.this, "授权开始", Toast.LENGTH_SHORT).show();
-		}
-		
-		@Override
-		public void onError(SocializeException arg0, SHARE_MEDIA arg1) {
-			Toast.makeText(ShareDialog.this, "授权错误", Toast.LENGTH_SHORT).show();
-		}
-		
-		@Override
-		public void onComplete(Bundle value, SHARE_MEDIA platform) {
-			Toast.makeText(ShareDialog.this, "授权完成", Toast.LENGTH_SHORT).show();
-		}
-		
-		@Override
-		public void onCancel(SHARE_MEDIA arg0) {
-			Toast.makeText(ShareDialog.this, "授权取消", Toast.LENGTH_SHORT).show();
-		}
-	};
+//	UMAuthListener umAuthListener = new UMAuthListener() {
+//		@Override
+//		public void onStart(SHARE_MEDIA arg0) {
+//			Toast.makeText(ShareDialog.this, "授权开始", Toast.LENGTH_SHORT).show();
+//		}
+//		
+//		@Override
+//		public void onError(SocializeException arg0, SHARE_MEDIA arg1) {
+//			Toast.makeText(ShareDialog.this, "授权错误", Toast.LENGTH_SHORT).show();
+//		}
+//		
+//		@Override
+//		public void onComplete(Bundle value, SHARE_MEDIA platform) {
+//			Toast.makeText(ShareDialog.this, "授权完成", Toast.LENGTH_SHORT).show();
+//		}
+//		
+//		@Override
+//		public void onCancel(SHARE_MEDIA arg0) {
+//			Toast.makeText(ShareDialog.this, "授权取消", Toast.LENGTH_SHORT).show();
+//		}
+//	};
 
 	private SnsPostListener snsPostListener = new SnsPostListener() {					
 		@Override
 		public void onStart() {
-			Toast.makeText(ShareDialog.this, "分享开始", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(ShareDialog.this, "分享开始", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 		
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int eCode, SocializeEntity entity) {
-			if(eCode == StatusCode.ST_CODE_SUCCESSED){
-				Toast.makeText(ShareDialog.this, "分享成功", Toast.LENGTH_SHORT).show();
-			}else {
-				Toast.makeText(ShareDialog.this, "分享失败", Toast.LENGTH_SHORT).show();
-			}
+//			if(eCode == StatusCode.ST_CODE_SUCCESSED){
+//				Toast.makeText(ShareDialog.this, "分享成功", Toast.LENGTH_SHORT).show();
+//			}else {
+//				Toast.makeText(ShareDialog.this, "分享失败", Toast.LENGTH_SHORT).show();
+//			}
 			finish();
 		}//end onComplete
 	};//end snsPostListener

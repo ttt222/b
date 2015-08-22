@@ -85,7 +85,20 @@ public class SelectPicPopupWindow extends BaseActivity implements OnClickListene
 				Intent intent = new Intent();
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
+				intent.addCategory(Intent.CATEGORY_OPENABLE);
 				startActivityForResult(intent, REQUEST_CUTPICTURE);
+				
+//				
+//				intent=new Intent(Intent.ACTION_GET_CONTENT);  
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);  
+//                intent.setType("image/*");  
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {  
+//                    startActivityForResult(intent,SELECT_PIC_KITKAT);  
+//                } else {  
+//                    startActivityForResult(intent,IMAGE_REQUEST_CODE);  
+//                }  
+				
+				
 			} catch (Exception e) {
 			}
 			break;

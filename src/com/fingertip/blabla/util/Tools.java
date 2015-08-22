@@ -20,6 +20,7 @@ import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -76,6 +77,9 @@ public class Tools {
 		return new String(Base64.encodeToString(encode_string.getBytes(), Base64.DEFAULT));
 	}
 	
+	public static boolean hasSDCard() {
+		return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+	}
 	
 	/**
 	 * ×Ö·û´®¸ñÊ½
