@@ -16,6 +16,23 @@
         android:layout_height="wrap_content"
         android:src="@drawable/icon_back"
         android:contentDescription="@string/empty"/>
+    
+    <!-- 
+    <TextView
+        android:id="@+id/nav_back_txt"
+        android:layout_toRightOf="@+id/nav_back_btn"
+        android:layout_toEndOf="@+id/nav_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:focusable="true"
+        android:gravity="center" 
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text=""/>
+     -->
 
     <TextView
         android:id="@+id/nav_title_txt"
@@ -65,7 +82,7 @@
 	        android:layout_height="30dp"
 	        android:layout_marginRight="10dp"
 	        android:layout_marginEnd="10dp"
-	        android:paddingLeft="10dp"
+	         android:paddingLeft="10dp"
 	        android:paddingRight="10dp"
 	        android:paddingTop="5dp"
 	        android:paddingBottom="5dp"

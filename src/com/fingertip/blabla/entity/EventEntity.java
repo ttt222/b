@@ -102,7 +102,7 @@ public class EventEntity implements Serializable{
 		event.id = json.getString(PARAM_KEYS.ACTIONID);
 		event.title = json.getString(PARAM_KEYS.TITLEOF);
 		event.content = json.getString(PARAM_KEYS.CONTENT);
-		event.userid = json.getString(PARAM_KEYS.USERID);
+		event.userid = json.getString(PARAM_KEYS.USERID); 
 		event.statusof = json.getString(PARAM_KEYS.STATUSOF);
 		event.address = json.getString(PARAM_KEYS.ADDRESS);
 		event.kindof = json.getString(PARAM_KEYS.KINDOF);

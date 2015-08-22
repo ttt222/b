@@ -14,7 +14,7 @@ public class CommentEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	/** 评论人信息 **/
+	/** 评论人信息 **/  
 	public UserEntity userEntity;
 	/** 评论id **/
 	public String id;
