@@ -75,6 +75,13 @@ public class ImageCache {
 		return true;
 	}
 	
+	/**
+	 * 加载本地用户头像
+	 * 
+	 * @param user_id
+	 * @param head_img
+	 * @return
+	 */
 	public boolean setUserHeadImg(String user_id, ImageView head_img) {
 		String img_path = getUserImgPath(user_id);
 		if (new File(img_path).exists()) {
@@ -84,6 +91,16 @@ public class ImageCache {
 		return false;
 	}
 	
+	/**
+	 * 加载用户头像，优先从缓存加载
+	 * 
+	 * @param down_url
+	 * @param user_id
+	 * @param sp
+	 * @param bitmapUtils
+	 * @param image
+	 * @param hidden_image
+	 */
 	public void loadUserHeadImg(final String down_url, final String user_id, final SharedPreferenceUtil sp,
 			final BitmapUtils bitmapUtils, final ImageView image, final ImageView hidden_image) {
 		String last_url = sp.getStringValue(user_id, SharedPreferenceUtil.HEADIMAGE);
@@ -110,6 +127,25 @@ public class ImageCache {
 		if (download_img) {
 			//bitmapUtils与RoundImageView不兼容，临时解决办法
 			bitmapUtils.display(hidden_image, down_url, new BitmapLoadCallBack<View>() {
+				
+				@Override
+				public void onLoading(View container, String uri,
+						BitmapDisplayConfig config, long total, long current) {
+					super.onLoading(container, uri, config, total, current);
+				}
+				
+				@Override
+				public void onPreLoad(View container, String uri,
+						BitmapDisplayConfig config) {
+					super.onPreLoad(container, uri, config);
+				}
+				
+				@Override
+				public void onLoadStarted(View container, String uri,
+						BitmapDisplayConfig config) {
+					super.onLoadStarted(container, uri, config);
+				}
+				
 				@Override
 				public void onLoadCompleted(View container, String uri, Bitmap bitmap, BitmapDisplayConfig config, BitmapLoadFrom from) {
 					image.setImageBitmap(bitmap);
@@ -126,17 +162,44 @@ public class ImageCache {
 			image.setImageBitmap(BitmapFactory.decodeFile(local_img_path));
 	}
 
+	/**
+	 * 加载网络图片，不缓存
+	 * 
+	 * @param url
+	 * @param image
+	 * @param bitmapUtils
+	 */
 	public void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils) {
+		loadUrlImg(url, image, bitmapUtils, false);
+	}
+
+	/**
+	 * 加载网络图片
+	 * 
+	 * @param url
+	 * @param image
+	 * @param bitmapUtils
+	 * @param cache	是否缓存到本地
+	 */
+	public void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils, final boolean cache) {
+		if (Validator.isEmptyString(url))
+			return;
+		boolean has_cache = false;
 		final String file_name = IMG_PATH + Base64.encodeToString(url.getBytes(), Base64.NO_WRAP);
-		File cache_fie = new File(file_name);
-		if (cache_fie.exists()) 
+		if (cache) {
+			File cache_fie = new File(file_name);
+			if (cache_fie.exists()) 
+				has_cache = true;
+		}
+		if (has_cache)
 			image.setImageBitmap(BitmapFactory.decodeFile(file_name));
 		else
 			bitmapUtils.display(image, url, new BitmapLoadCallBack<View>() {
 				@Override
 				public void onLoadCompleted(View container, String uri, Bitmap bitmap, BitmapDisplayConfig config, BitmapLoadFrom from) {
 					image.setImageBitmap(bitmap);
-					FileUtil.saveImage(bitmap, file_name);
+					if (cache)
+						FileUtil.saveImage(bitmap, file_name);
 				}
 				
 				@Override

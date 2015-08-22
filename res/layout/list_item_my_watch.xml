@@ -111,4 +111,10 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         android:src="@drawable/icon_my_event_separater"/>
+     
+     <ImageView
+        android:id="@+id/hidden_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
 </LinearLayout>

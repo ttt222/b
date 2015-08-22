@@ -2,10 +2,6 @@ package com.fingertip.blabla.search;
 
 import java.util.List;
 
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +9,10 @@ import android.view.ViewGroup;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragment;
+import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.search.widget.RefreshableListView;
 import com.fingertip.blabla.search.widget.RefreshableListView.RefreshListener;
-import com.fingertip.blabla.util.LocationUtil;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.EntityListCallback;
@@ -32,6 +28,8 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 	private Type seach_type;
 	private SearchMainActivity search_activity;
 	private int current_page;
+	
+	private SharedPreferenceUtil sp;
 	
 	public SearchFragment(SearchMainActivity search_activity, Type seach_type) {
 		super();
@@ -67,6 +65,8 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 		listView.setOnItemClickListener(adapterSearch);
 		listView.setRefreshListener(this);
 		listView.setPageSize(20);
+		
+		sp = new SharedPreferenceUtil(search_activity);
 	}
 
 	@Override
@@ -80,14 +80,10 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 	}
 	
 	private void loadData(final int page, final boolean append) {
-		Location location = LocationUtil.getLocation(search_activity);
-		if (location == null) {
-			Tools.toastShort(search_activity, "无法定位当前位置");
-			if (append)
-				current_page--;
-			afterLoad(append, false, 0);
-		} else
-			EventUtil.searchEvents(seach_type, location.getLongitude() + "", location.getLatitude() + "", page, new EntityListCallback<EventEntity>() {
+		float latitude = sp.getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT);
+		float longitude = sp.getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG);
+		if (latitude != 0 && longitude!= 0) {
+			EventUtil.searchEvents(seach_type, longitude + "", latitude + "", page, new EntityListCallback<EventEntity>() {
 				@Override
 				public void succeed(List<EventEntity> list) {
 					if (append)
@@ -105,6 +101,13 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 					afterLoad(append, false, 0);
 				}
 			});
+		} else {
+			Tools.toastShort(search_activity, "无法定位当前位置");
+			if (append)
+				current_page--;
+			afterLoad(append, false, 0);
+		}
+		
 	}
 	
 	private void afterLoad(boolean append, boolean succeed, int size) {

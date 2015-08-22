@@ -220,18 +220,8 @@ public class ScanBarcodeActivity extends BaseNavActivity implements SurfaceHolde
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		cameraManager.closeDriver();
 	}
-
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		switch (keyCode) {
-//			case KeyEvent.KEYCODE_BACK:
-//				setResult(RESULT_CANCELED);
-//				finish();
-//				return true;
-//		}
-//		return super.onKeyDown(keyCode, event);
-//	}
 
 	public ScanBarcodeHandler getHandler() {
 		return scanBarcodeHandler;
