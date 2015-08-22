@@ -70,16 +70,17 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	private BaiduMap baiduMap;
 	private LocationClient mLocationClient;
 	private MyLocationListenner myLocationListenner = new MyLocationListenner();
-	
 	private ScrollTouchView  view_tab;
-	
 	
 	/** 地图数据 **/
 	private ArrayList<OverlayEntity> arrayList_overlaytEntity = new ArrayList<OverlayEntity>();
+	private ArrayList<Marker> arrayList_marker = new ArrayList<Marker>();
+	private HashMap<Marker, OverlayEntity> hashMap_overlayMarket = new HashMap<Marker, OverlayEntity>();
 	
 	private ImageView iv_icon_info;
 	private Intent service;
 	private Timer timer;
+	
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -247,16 +248,12 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		view_tab.addItem(OverlayType.OTHER.getType(), drawableUnSelection, resources.getDrawable(R.drawable.icon_classify_12));
 		
 		view_tab.setSelectionPosition(0);
-		
-	}//end initTabeData
+	}
 	
 	private void initMyData(){
-		
 		MapStatus mapStatus = baiduMap.getMapStatus();
 		lastZoom = mapStatus.zoom;
-		
 		clearMarkerList();
-		
 		baiduMap.setOnMapClickListener(new OnMapClickListener() {			
 			@Override
 			public boolean onMapPoiClick(MapPoi arg0) {
@@ -268,14 +265,14 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 				baiduMap.hideInfoWindow();
 			}
 		});
+		
 		baiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {			
 			@Override
 			public boolean onMarkerClick(Marker marker) {
 				return clickMarker(marker);
 			}
 		});
-		
-	}//end initMyData
+	}
 	
 	private void clearMarkerList(){
 		Marker marker = null;
@@ -283,12 +280,13 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			marker = arrayList_marker.get(i);
 			marker.remove();
 		}
+		arrayList_marker.clear();
+		hashMap_overlayMarket.clear();
 	}
 	
 	@SuppressLint("InflateParams")
 	private void setOverlayData(OverlayEntity overlayEntity){
 		LatLng point = new LatLng(overlayEntity.lat, overlayEntity.lng);
-		BitmapDescriptor bitmapDescriptor = null;
 		Context context = MainActivity.this;
 		View view_markerImage = LayoutInflater.from(context).inflate(R.layout.view_marker_img, null);
 		ImageView iv_markerImg = (ImageView)view_markerImage.findViewById(R.id.image);
@@ -315,21 +313,15 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			view_markerImage.setBackgroundResource(R.drawable.bg_icon_6);
 			iv_markerImg.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_classify_6));
 		}
-		
-		
-		bitmapDescriptor = BitmapDescriptorFactory.fromView(view_markerImage);
+		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromView(view_markerImage);
 		
 		OverlayOptions options = new MarkerOptions().position(point).icon(bitmapDescriptor).draggable(false);
 		Marker marker = (Marker)(baiduMap.addOverlay(options));
-		
-		if(!arrayList_marker.contains(marker)){
+		if(!arrayList_marker.contains(marker))
 			arrayList_marker.add(marker);
-		}
 		hashMap_overlayMarket.put(marker, overlayEntity);
-		
 		overlayEntity.isIcon = true;
-		
-	}//end setOverlayData
+	}
 	
 	private Marker setZoomOverlayData(OverlayEntity overlayEntity){
 		LatLng point = new LatLng(overlayEntity.lat, overlayEntity.lng);
@@ -362,16 +354,13 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
         return bitmap;
 	}
 	
-	private ArrayList<Marker> arrayList_marker = new ArrayList<Marker>();
-	private HashMap<Marker, OverlayEntity> hashMap_overlayMarket = new HashMap<Marker, OverlayEntity>();
-	
 	private void resetOverlay(MapStatus mapStatus){
 		clearMarkerList();
-		if(lastZoom >= 17){
-			resetZoomData(mapStatus);
-		}else {
+//		if(lastZoom >= 17){
+//			resetZoomData(mapStatus);
+//		}else {
 			resetOverlayData(mapStatus);
-		}
+//		}
 	}//end resetOverlay
 	
 	private void resetOverlayData(MapStatus mapStatus){
@@ -380,28 +369,34 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		}
 	}
 	
-	private void resetZoomData(MapStatus mapStatus){
-		for (int i = 0; i < arrayList_overlaytEntity.size(); i++) {
-			setZoomOverlayData(arrayList_overlaytEntity.get(i));
-		}
-	}//end resetData
+//	private void resetZoomData(MapStatus mapStatus){
+//		for (int i = 0; i < arrayList_overlaytEntity.size(); i++) {
+//			setZoomOverlayData(arrayList_overlaytEntity.get(i));
+//		}
+//	}//end resetData
 	
 	private float lastZoom = 16;
 	private OnMapStatusChangeListener onMapStatusChangeListener = new OnMapStatusChangeListener() {		
 		@Override
-		public void onMapStatusChangeStart(MapStatus mapStatus) { }		
+		public void onMapStatusChangeStart(MapStatus mapStatus) {
+			Log.e("onMapStatusChangeStart", mapStatus.target.latitude + "  " + mapStatus.target.longitude);
+		}
+		
 		@Override
-		public void onMapStatusChangeFinish(MapStatus mapStatus) { }		
+		public void onMapStatusChangeFinish(MapStatus mapStatus) {
+			Log.e("onMapStatusChangeFinish", mapStatus.target.latitude + "  " + mapStatus.target.longitude);	
+			getPosData();
+		}
+		
 		@Override
 		public void onMapStatusChange(MapStatus mapStatus) {
 			if(lastZoom == mapStatus.zoom){
 				return;
 			}
-			
 			lastZoom = mapStatus.zoom;
-			
 			resetOverlay(mapStatus);
-		}//end onMapStatusChange
+			Log.e("onMapStatusChange", mapStatus.toString());	
+		}
 	};
 	
 	private boolean isFirstLoc = true;	
@@ -490,24 +485,28 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	
 	@Override
 	protected void onPause(){
-//		mMapView.onPause();
+		mMapView.onPause();
 		super.onPause();
 	}
 
 	@Override
 	public void notifyUpdata(int index) {
 		EventUtil.KINDOF = OverlayType.ALL.getType().equals(view_tab.getSelectedText()) ? "" : view_tab.getSelectedText();
-		
 		showProgressDialog(false);
 		getPosData();
-	}//end notifyUpdata
+	}
 	
 	
 	/** 获取地图数据 **/
 	private void getPosData(){
-		EventUtil.searchEvents(EventUtil.Type.nearest, getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG) + "",
-			getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT) + "", 1, new EntityListCallback<EventEntity>(){
-
+		double latitude = getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT);
+		double longitude = getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG);
+		LatLng ll = mMapView.getMap().getMapStatus().bound.getCenter();
+		if (ll != null && ll.latitude != 0 && ll.longitude != 0) {
+			latitude = ll.latitude;
+			longitude = ll.longitude;
+		}
+		EventUtil.searchEvents(EventUtil.Type.nearest, longitude + "", latitude + "", 1, new EntityListCallback<EventEntity>(){
 				@Override
 				public void succeed(List<EventEntity> list) {
 					dimissProgressDialog();
@@ -555,7 +554,6 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	}
 	
 	private Marker getMarker(String event_id) {
-//		Marker, OverlayEntity
 		for (Marker marker : hashMap_overlayMarket.keySet()) {
 			OverlayEntity overlayEntity = hashMap_overlayMarket.get(marker);
 			if (overlayEntity.actionid.equals(event_id))
@@ -570,11 +568,6 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			Log.e(TAG, "overlayt is null");
 			return false;
 		}
-		Log.e(TAG, "overlayt zoom......:" + baiduMap.getMapStatus().zoom);
-		MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(marker.getPosition() ,baiduMap.getMapStatus().zoom);
-//		baiduMap.setMapStatus(u);
-		baiduMap.animateMapStatus(u);
-		
 		if(!overlayEntity.isIcon){
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, OverlayBigActivity.class);
@@ -582,15 +575,12 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			startActivity(intent);
 			return true;
 		}
-		
 		ViewMapOverlay viewMapOverlay = new ViewMapOverlay(getApplicationContext());
-		
 		viewMapOverlay.setOverlayEntity(overlayEntity);
 		viewMapOverlay.setOnClickListener(new View.OnClickListener() {					
 			@Override
 			public void onClick(View v) {
 				baiduMap.hideInfoWindow();
-				
 				Intent intent = new Intent();
 				intent.setClass(MainActivity.this, OverlayBigActivity.class);
 				intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
@@ -601,6 +591,12 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		LatLng ll = marker.getPosition();
 		InfoWindow mInfoWindow = new InfoWindow(viewMapOverlay, ll, 0);
 		baiduMap.showInfoWindow(mInfoWindow);
+		MapStatus mMapStatus = new MapStatus.Builder().target(new LatLng(ll.latitude, ll.longitude))
+				.zoom(baiduMap.getMapStatus().zoom).build();
+        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        //改变地图状态
+        baiduMap.setMapStatus(mMapStatusUpdate);
 		return true;
 	}
 	

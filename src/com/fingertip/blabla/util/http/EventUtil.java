@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Base64;
-import android.util.Log;
 
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.entity.CommentEntity;
@@ -85,7 +84,7 @@ public class EventUtil {
 				List<EventEntity> list = null;
 				try {
 					json = new JSONObject(result);
-					Log.e("searchEvents", json.toString());
+//					Log.e("searchEvents", json.toString());
 					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
 						error = json.getString(PARAM_KEYS.RESULT_ERROR);
 					else
@@ -134,7 +133,7 @@ public class EventUtil {
 				EventEntity event = null;
 				try {
 					json = new JSONObject(result);
-					Log.e("getEventInfo", json.toString());
+//					Log.e("getEventInfo", json.toString());
 					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
 						error = json.getString(PARAM_KEYS.RESULT_ERROR);
 					else
@@ -179,7 +178,7 @@ public class EventUtil {
 				List<CommentEntity> list = null;
 				try {
 					json = new JSONObject(result);
-					Log.e("getEventComments", json.toString());
+//					Log.e("getEventComments", json.toString());
 					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
 						error = json.getString(PARAM_KEYS.RESULT_ERROR);
 					else
