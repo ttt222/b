@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,6 +98,10 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	//马上举报
 	private TextView tv_accusation;
 	
+	//收藏和邀请的布局
+	private RelativeLayout relayout_collection,relayout_share;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -130,6 +135,10 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		
 		iv_topic = (ImageView)findViewById(R.id.iv_topic);
 		tv_accusation=(TextView) findViewById(R.id.tv_accusation);
+		
+		
+		relayout_collection=(RelativeLayout) findViewById(R.id.relayout_collection);
+		relayout_share = (RelativeLayout) findViewById(R.id.relayout_share);
 	}
 
 	private void setupViews() {		
@@ -154,6 +163,9 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		tv_btnCollection.setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
 		iv_head.setOnClickListener(this);
+		
+		relayout_collection.setOnClickListener(this);
+		relayout_share.setOnClickListener(this);
 	}//end setupViews
 	private boolean isFirst = true;
 	
@@ -467,11 +479,12 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 			intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
 			startActivity(intent);
 			break;
-		case R.id.btn_collection://
+		case R.id.relayout_collection://
+			findViewById(R.id.iv_collection_starts).setBackgroundResource(R.drawable.collection_starts_p);
 			showProgressDialog(false);
 			requestCollecion();
 			break;
-		case R.id.btn_share://
+		case R.id.relayout_share://
 			ShareEntity shareEntity = new ShareEntity();
 			shareEntity.shareTitle = overlayEntity.title;
 			shareEntity.shareContent = overlayEntity.detail;

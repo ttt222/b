@@ -174,7 +174,7 @@ public class SetZoomActivity extends BaseActivity implements OnClickListener, On
 
 	private void showSelectedResult() {
 		String result = mCurrentProviceName;
-		if (!isDirectCity(mCurrentProviceName)) {
+		if (!isDirectCiry(mCurrentProviceName)) {
 			result += " " + mCurrentCityName;
 			if (load_district)
 				result += " " + mCurrentDistrictName;
@@ -185,7 +185,7 @@ public class SetZoomActivity extends BaseActivity implements OnClickListener, On
 		finish();
 	}
 	
-	private boolean isDirectCity(String proviceName) {
+	private boolean isDirectCiry(String proviceName) {
 		for (int i = 0; i < DIRECT_CITYS.length; i++) {
 			if (DIRECT_CITYS[i].equals(proviceName))
 				return true;
