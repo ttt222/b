@@ -87,7 +87,7 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 				
 				Intent intent = new Intent();
 				intent.putExtra(RETURN_VALUE, tv_marker.getText().toString());
-				setResult(RESULT_POS, intent);
+				setResult(RESULT_OK, intent);
 				finish();
 			}
 		});

@@ -10,10 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,9 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +26,14 @@ import com.fingertip.blabla.Cmd;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.common.SelectPicDialog;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.main.DialogDate;
 import com.fingertip.blabla.main.MapPositionSelectionActivity;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.widget.SelectPicActivity;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -51,19 +47,23 @@ public class PublishInfoActivity extends BaseActivity{
 	
 	private static final int REQUEST_POS = 1000;
 	private static final int REQUEST_PIC = 1001;
+	public static int MAX_PIC_SIZE = 9;
 	
-	private LinearLayout layout_img;
+//	private LinearLayout layout_img;
+	
+	private GridView img_gridView;
+	private PublishPicAdapter pic_adapter;
+	
 	@SuppressWarnings("unused")
 	private TextView tv_submit;
 	
 	@SuppressWarnings("unused")
 	private View view_title;
 	private TextView tv_position;
-	
 	private TextView tv_type_hint;
 	private TextView tv_img_hint;
 	private TextView tv_time_hint;
-	private ImageView iv_img_add;
+//	private ImageView iv_img_add;
 	
 	private TextView tv_special,tv_perform,tv_sociality,tv_sports,tv_study,tv_other;
 	
@@ -89,11 +89,10 @@ public class PublishInfoActivity extends BaseActivity{
 	}
 
 	private void setupViews() {
-		layout_img = (LinearLayout)findViewById(R.id.layout_img);
+		img_gridView = (GridView)findViewById(R.id.img_gridView);
 		tv_submit = (TextView)findViewById(R.id.tv_submit);
 		view_title = findViewById(R.id.view_title);
-		tv_position = (TextView)findViewById(R.id.tv_positon);
-		
+		tv_position = (TextView)findViewById(R.id.tv_position);
 		et_title = (EditText)findViewById(R.id.et_title);
 		et_content =(EditText)findViewById(R.id.et_content);
 		
@@ -124,58 +123,22 @@ public class PublishInfoActivity extends BaseActivity{
 		tv_sports.setOnClickListener(onClickListener);
 		tv_study.setOnClickListener(onClickListener);
 		tv_other.setOnClickListener(onClickListener);
+		tv_position.setOnClickListener(onClickListener);
 		setTypeBackground(OverlayType.SOCIALITY);
 		
-		findViewById(R.id.layout_position).setOnClickListener(onClickListener);
-		
-	}//end setupViews
+		pic_adapter = new PublishPicAdapter(this, new ArrayList<String>());
+		img_gridView.setAdapter(pic_adapter);
+		img_gridView.setOnItemClickListener(pic_adapter);
+	}
 	
 	
 	private void initData() {
 		et_content.setText("" + hintText);
-		
-		Context context = PublishInfoActivity.this;
-		int displayWidth = context.getResources().getDisplayMetrics().widthPixels;
-		int rightMargin = 16;
-		
-		iv_img_add = new ImageView(context);
-		iv_img_add.setBackgroundResource(R.drawable.selector_bg_gray);
-		iv_img_add.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_add_big));
-		iv_img_add.setScaleType(ScaleType.FIT_XY);
-		iv_img_add.setAdjustViewBounds(true);
-		
-		LinearLayout view_img = new LinearLayout(context);
-		params_horizontal = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//		params_vertical = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		params_horizontal.width = (displayWidth - rightMargin) / 3;
-//		imgParams.weight = 1;
-		params_horizontal.rightMargin = rightMargin;
-		params_horizontal.topMargin = rightMargin;
-		params_horizontal.bottomMargin = rightMargin;
-		view_img.addView(iv_img_add, params_horizontal);
-		layout_img.addView(view_img);
-		
-		iv_img_add.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View arg0) {
-//				addImgView();
-				
-				String localPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + Globals.PATH_CACH + File.separator + arrayList_pic.size() + ".png";
-				
-				Intent intent = new Intent();
-				intent.setClass(PublishInfoActivity.this, SelectPicDialog.class);
-				intent.putExtra(BaseActivity.EXTRA_PARAM, localPath);
-				startActivityForResult(intent, REQUEST_PIC);
-			}//end onClick
-		});
-		
-		
 		initDialogDate();
-	}//end initData
+	}
 	
 	private void initDialogDate(){
 		dialogDate = new DialogDate(PublishInfoActivity.this);
-		
 		Window window = dialogDate.getWindow();
 		window.setGravity(Gravity.BOTTOM);
 		WindowManager.LayoutParams lParams = window.getAttributes();
@@ -191,31 +154,14 @@ public class PublishInfoActivity extends BaseActivity{
 				tv_time_hint.setText("信息截止时间  (" + dialogDate.getTimeString() + ")");
 			}
 		});
-	}//end initDialogDate
+	}
 	
-	private LinearLayout.LayoutParams params_horizontal = null;
-//	private LinearLayout.LayoutParams params_vertical = null;
-	
-	/** 每个图片子布局中最多3个控件 **/
-	private void addImgView(Bitmap bitmap){
-		LinearLayout view_img = (LinearLayout)layout_img.getChildAt(layout_img.getChildCount() - 1);
-		Context context = PublishInfoActivity.this;
-		view_img.removeView(iv_img_add);
-		
-		ImageView imageView = new ImageView(context);
-		imageView.setScaleType(ScaleType.FIT_CENTER);
-		imageView.setAdjustViewBounds(true);
-		imageView.setImageBitmap(bitmap);
-//		imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.abc_ic_search));
-		view_img.addView(imageView, params_horizontal);
-		
-		if(view_img.getChildCount() ==3){
-			view_img = new LinearLayout(context);
-			layout_img.addView(view_img);
-		}
-		view_img.addView(iv_img_add, params_horizontal);
-		
-	}//end addImgView
+	public void addImg() {
+		Intent intent = new Intent();
+		intent.setClass(PublishInfoActivity.this, SelectPicActivity.class);
+		intent.putExtra(SelectPicActivity.KEY_MAX_COUNT, MAX_PIC_SIZE - pic_adapter.getCount() + 1);
+		startActivityForResult(intent, REQUEST_PIC);
+	}
 	
 	private void setTypeBackground(OverlayType type){
 		this.overlayType = type;
@@ -251,26 +197,20 @@ public class PublishInfoActivity extends BaseActivity{
 		default:
 			break;
 		}
-	}//end setTypeBackground
+	}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data == null){
+		if (data == null || resultCode != RESULT_OK)
 			return;
+		if (requestCode == REQUEST_POS) {
+			tv_position.setText(data.getStringExtra(MapPositionSelectionActivity.RETURN_VALUE));
+		} else if (requestCode == REQUEST_PIC) {
+			ArrayList<String> pics = data.getStringArrayListExtra(SelectPicActivity.KEY_PICS);
+			if (!Validator.isEmptyList(pics))
+				pic_adapter.addPics(pics);
 		}
-		if(requestCode == REQUEST_POS){
-//			getPicture(data);
-			tv_position.setText("" + data.getStringExtra(MapPositionSelectionActivity.RETURN_VALUE));
-		}else if(requestCode == REQUEST_PIC){
-			String filePath = data.getStringExtra(SelectPicDialog.RETURN_VALUE);
-			if(filePath == null) {
-				Toast.makeText(PublishInfoActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			showProgressDialog(false);
-			uploadFile(null, filePath);
-		}
-	}//end onActivityResult
+	}
 	
 	View.OnClickListener onClickListener = new View.OnClickListener() {		
 		@Override
@@ -281,28 +221,18 @@ public class PublishInfoActivity extends BaseActivity{
 			}else if(v.getId() == R.id.tv_submit){
 				showProgressDialog(false);
 				publicActivity();
-			}else if(v.getId() == R.id.layout_position){
+			}else if(v.getId() == R.id.tv_position){
 				Intent intent = new Intent();
 				intent.setClass(PublishInfoActivity.this, MapPositionSelectionActivity.class);
 				startActivityForResult(intent, REQUEST_POS);
 			}else if(v.getId() == R.id.tv_time_hint){
-//				if(findViewById(R.id.layout_time).getVisibility() == View.VISIBLE){
-//					findViewById(R.id.layout_time).setVisibility(View.GONE);
-//					tv_time_hint.setCompoundDrawablesWithIntrinsicBounds(null, null, context.getResources().getDrawable(R.drawable.icon_arrow_top), null);
-//					tv_time_hint.setText("信息截止时间(" + getTimeString() + ")");
-//				}else {
-//					findViewById(R.id.layout_time).setVisibility(View.VISIBLE);
-//					tv_time_hint.setCompoundDrawablesWithIntrinsicBounds(null, null, context.getResources().getDrawable(R.drawable.icon_arrow_down), null);
-//					tv_time_hint.setText("信息截止时间");
-//				}
-				
 				dialogDate.show();
 			}else if(v.getId() == R.id.tv_img_hint){
-				if(findViewById(R.id.layout_img).getVisibility() == View.VISIBLE){
-					findViewById(R.id.layout_img).setVisibility(View.GONE);
+				if(img_gridView.getVisibility() == View.VISIBLE){
+					img_gridView.setVisibility(View.GONE);
 					tv_img_hint.setCompoundDrawablesWithIntrinsicBounds(null, null, context.getResources().getDrawable(R.drawable.icon_arrow_top), null);
 				}else {
-					findViewById(R.id.layout_img).setVisibility(View.VISIBLE);
+					img_gridView.setVisibility(View.VISIBLE);
 					tv_img_hint.setCompoundDrawablesWithIntrinsicBounds(null, null, context.getResources().getDrawable(R.drawable.icon_arrow_down), null);
 				}
 			}else if(v.getId() == R.id.tv_type_hint){
@@ -327,11 +257,9 @@ public class PublishInfoActivity extends BaseActivity{
 				setTypeBackground(OverlayType.STUDY);
 			}else if(v.getId() == R.id.tv_other){
 				setTypeBackground(OverlayType.OTHER);
-			}else {
-				Toast.makeText(PublishInfoActivity.this, "功能未提供", Toast.LENGTH_SHORT).show();
 			}
 		}
-	};//end onClickListener 
+	};
 	
 	/**
 	 * 图片上传
@@ -390,15 +318,9 @@ public class PublishInfoActivity extends BaseActivity{
 					}
 		            
 		            arrayList_pic.add(filePath);
-					Bitmap bitmap = null;
-					bitmap = BitmapFactory.decodeFile(filePath); 
-					addImgView(bitmap);
-					
-		        }
-
-		        @Override
-		        public void onStart() {
-		        	Log.e(TAG, ",,,,,,,,,,onStart");
+//					Bitmap bitmap = null;
+//					bitmap = BitmapFactory.decodeFile(filePath); 
+//					addImgView(bitmap);
 		        }
 
 		        @Override
@@ -407,9 +329,7 @@ public class PublishInfoActivity extends BaseActivity{
 		        	dimissProgressDialog();
 		        }
 		});
-	}//end uploadFile
-	
-	
+	}
 	
 	/** 发布活动 **/
 	private void publicActivity(){
@@ -426,7 +346,6 @@ public class PublishInfoActivity extends BaseActivity{
 		try { jsonObject.put("content", et_content.getText().toString()); } catch (Exception e) { }
 		try { 
 			jsonObject.put("timeto", dialogDate.getTimeString());
-
 		} catch (Exception e) { }
 		try { jsonObject.put("address", tv_position.getText().toString()); } catch (Exception e) { }
 		try { jsonObject.put("picof",jsonArray_pic); } catch (Exception e) { }
@@ -440,10 +359,6 @@ public class PublishInfoActivity extends BaseActivity{
 		   Globals.URL + Cmd.ACTION_PUBLISH,
 		   params,
 		   new RequestCallBack<String>(){
-		        @Override
-		        public void onLoading(long total, long current, boolean isUploading) {
-		        	Log.e(TAG, "nnnnnnnnnn onLoading");
-		        }
 
 		        @Override
 		        public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -455,16 +370,8 @@ public class PublishInfoActivity extends BaseActivity{
 		            	JSONObject jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
 		            	Tools.openEvent(PublishInfoActivity.this, jsonObject.getString("actionid"));
 					} catch (Exception e) {
-						// TODO: handle exception
 					}
-		            
-		            
 		            finish();
-		        }//end onSuccess
-
-		        @Override
-		        public void onStart() {
-		        	Log.e(TAG, ",,,,,,,,,,onStart");
 		        }
 
 		        @Override
@@ -474,7 +381,5 @@ public class PublishInfoActivity extends BaseActivity{
 		        	dimissProgressDialog();
 		        }
 		});
-	}//end publicActivity
-	
-	
+	}
 }

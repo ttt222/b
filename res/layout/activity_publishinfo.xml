@@ -12,7 +12,7 @@
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -230,6 +230,23 @@
                 android:paddingTop="6dp"
                 android:textColor="@color/black" />
 
+            <com.fingertip.blabla.widget.common.GridViewForScroll
+                android:id="@+id/img_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom_layout"
+                android:cacheColorHint="@android:color/transparent"
+                android:clipChildren="true"
+                android:gravity="center"
+                android:horizontalSpacing="3dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="5"
+                android:padding="10dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="3dp" >
+            </com.fingertip.blabla.widget.common.GridViewForScroll>
+            
+            <!-- 
             <LinearLayout
                 android:id="@+id/layout_img"
                 android:layout_width="match_parent"
@@ -240,11 +257,13 @@
                 android:paddingLeft="31px"
                 android:paddingRight="8dp" >
             </LinearLayout>
+             -->
 
             <TextView
                 android:id="@+id/tv_time_hint"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="6dp"
                 android:background="@color/gray_e5"
@@ -303,6 +322,7 @@
                     android:layout_weight="1.0" />
             </LinearLayout>
 
+                <!-- 
             <LinearLayout
                 android:id="@+id/layout_position"
                 android:layout_width="match_parent"
@@ -320,15 +340,32 @@
                     android:layout_height="wrap_content"
                     android:hint="标记活动位置 "
                     android:textColor="@color/black" />
-
+                 -->
+                
                 <TextView
-                    android:id="@+id/tv_positon"
+                    android:id="@+id/tv_position"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="6dp"
+	                android:layout_marginTop="6dp"
+	                android:background="@color/gray_e5"
+	                android:drawableRight="@drawable/icon_arrow_down"
+	                android:gravity="center_vertical"
+	                android:hint="标记活动位置"
+	                android:paddingBottom="6dp"
+	                android:paddingLeft="12dp"
+	                android:paddingRight="16dp"
+	                android:paddingTop="6dp"
+	                android:textColor="@color/black" />
+
+				<!-- 
+                <TextView
+                    android:id="@+id/tv_position"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="未知 "
                     android:singleLine="true" />
-
                 <ImageView
                     android:id="@+id/iv_position_arrow"
                     android:layout_width="wrap_content"
@@ -336,6 +373,7 @@
                     android:layout_marginRight="16dp"
                     android:src="@drawable/icon_arrow_down" />
             </LinearLayout>
+				 -->
 
             <View
                 android:layout_width="match_parent"

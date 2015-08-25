@@ -124,8 +124,11 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	private void loadUser() {
 		Intent intent = this.getIntent();
 		if (intent != null && (intent.hasExtra(KEY_USER) || intent.hasExtra(KEY_USER_ID))) {
-			user = (UserEntity) intent.getSerializableExtra(KEY_USER);
-			if (user == null) {
+			if (intent.hasExtra(KEY_USER)) {
+				user = (UserEntity) intent.getSerializableExtra(KEY_USER);
+				if (user != null)
+					setUserInfo();
+			} else if (intent.hasExtra(KEY_USER_ID)) {
 				String user_id = intent.getStringExtra(KEY_USER_ID);
 				if (user_id == null)
 					toastLong("未选择用户，请返回重试");
@@ -143,8 +146,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 						}
 					});
 				}
-			} else
-				setUserInfo();
+			}
 		}
 	}
 	

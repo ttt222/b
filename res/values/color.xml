@@ -73,5 +73,6 @@
 	<color name="gray_96">#969696</color>
 	<color name="bg_listview">#00000000</color>
 	
+	<color name="selected_img">#77000000</color>
 	
 </resources>

@@ -41,6 +41,7 @@
         android:smallScreens="true" />
     
     <application
+        android:name="com.fingertip.blabla.base.BlablaApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -160,6 +161,10 @@
         <activity 
             android:name="com.fingertip.blabla.account.AccountActivationActivity"
             android:theme="@style/NothingTheme"  />
+
+        <activity 
+            android:name="com.fingertip.blabla.widget.SelectPicActivity"
+            android:theme="@style/NothingTheme"  />
         
         <activity  android:name="com.fingertip.blabla.info.PublishInfoActivity" />
         
@@ -171,6 +176,7 @@
         <activity
             android:name="com.fingertip.blabla.common.SelectPicPopupWindow"
             android:theme="@style/MyDialogStyleBottom" />		
+            
         <!-- 图片选择 -->
         <activity
             android:name="com.fingertip.blabla.common.SelectPicDialog"

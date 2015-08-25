@@ -19,7 +19,6 @@ import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.UserEntity;
-import com.fingertip.blabla.info.PublishInfoActivity;
 import com.fingertip.blabla.setting.SettingActivity;
 import com.fingertip.blabla.util.ImageCache;
 import com.fingertip.blabla.util.Tools;
@@ -143,8 +142,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 				intent.setClass(MyIndexActivity.this, MyWatchListActivity.class);
 				break;
 			case R.id.my_pub_event:
-				intent = new Intent();
-				intent.setClass(MyIndexActivity.this, PublishInfoActivity.class);
+				Tools.pubEvent(this);
 				break;
 			}
 		}
