@@ -45,7 +45,6 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 	private View empty_view;
 	private List<EventEntity> arrayList  = new ArrayList<EventEntity>();
 	private BitmapUtils bitmapUtils;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	private List<String> delete_ids = new ArrayList<String>();
@@ -56,7 +55,6 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 		this.empty_view = empty_view;
 		sp = new SharedPreferenceUtil(activity);
 		bitmapUtils = new BitmapUtils(activity);
-		imageCache = ImageCache.getInstance();
 		this.delete = false;
 	}
 	
@@ -121,7 +119,7 @@ public class AdapterMyFavorEvent extends BaseAdapter implements OnItemClickListe
 		
 		EventEntity event = (EventEntity)getItem(position);
 		try {
-			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHoler.head_img, viewHoler.hidden_img);
+			ImageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHoler.head_img, viewHoler.hidden_img);
 		} catch (Exception e) {
 		}
 		viewHoler.sender_name_text.setText(event.sender.nick_name);

@@ -509,7 +509,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		EventUtil.searchEvents(EventUtil.Type.nearest, longitude + "", latitude + "", 1, new EntityListCallback<EventEntity>(){
 				@Override
 				public void succeed(List<EventEntity> list) {
-					dimissProgressDialog();
+					dismissProgressDialog();
 					arrayList_overlaytEntity.clear();
 		            arrayList_overlaytEntity.addAll(OverlayEntityList.fromEventList(list));
 		            resetOverlay(null);
@@ -517,7 +517,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 
 				@Override
 				public void fail(String error) {
-					dimissProgressDialog();
+					dismissProgressDialog();
 					toastShort(error);
 				}
 			
@@ -538,7 +538,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			
 			@Override
 			public void succeed(EventEntity entity) {
-				dimissProgressDialog();
+				dismissProgressDialog();
 				Marker marker = getMarker(entity.id);
 				if (marker == null)
 					marker = setZoomOverlayData(OverlayEntityList.fromEvent(entity));
@@ -548,7 +548,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			@Override
 			public void fail(String error) {
 				toastShort(error);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 		});
 	}

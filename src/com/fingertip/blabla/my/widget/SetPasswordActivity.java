@@ -116,13 +116,13 @@ public class SetPasswordActivity extends BaseNavActivity implements View.OnClick
 						toastShort("ÐÞ¸Ä³É¹¦");
 						finish();
 					}
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 				
 				@Override
 				public void onFailure(HttpException error, String msg) {
 					toastShort(ServerConstants.NET_ERROR_TIP);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 			});
 		}

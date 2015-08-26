@@ -105,6 +105,5 @@ public class DirAdapter extends BaseAdapter implements OnItemClickListener {
 		ImageView id_dir_item_choose;
 		TextView id_dir_item_name;
 		TextView id_dir_item_count;
-		boolean checked;
 	}
 }

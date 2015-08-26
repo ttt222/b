@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.fingertip.blabla.R;
+import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.widget.SelectPicActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -70,36 +71,44 @@ public class PicAdapter extends BaseAdapter implements OnItemClickListener {
 		}
 		final String path = getItem(position);
 		imageLoader.displayImage("file://" + path, viewHolder.img, options);
+		viewHolder.check_img.setTag(viewHolder);
 		if (select_pics.contains(path)) {
 			viewHolder.img.setColorFilter(activity.getResources().getColor(R.color.selected_img));
 			viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_selected));
 		} else {
 			viewHolder.img.setColorFilter(null);
 			viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_unselected));
+			viewHolder.check_img.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ViewHolder viewHolder = (ViewHolder)v.getTag();
+					boolean selected = false;
+					if (select_pics.contains(path)) {
+						select_pics.remove(path);
+						viewHolder.img.setColorFilter(null);
+						viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_unselected));
+						selected = true;
+						activity.selected(false);
+					} else if (activity.canSelect()) {
+						select_pics.add(path);
+						viewHolder.img.setColorFilter(activity.getResources().getColor(R.color.selected_img));
+						viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_selected));
+						selected = true;
+						activity.selected(true);
+					}
+					if (selected)
+						viewHolder.checked = !viewHolder.checked;
+				}
+			});
 		}
 		return convertView;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		ViewHolder viewHolder = (ViewHolder) view.getTag();
-		String path = getItem(position);
-		boolean selected = false;
-		if (select_pics.contains(path)) {
-			select_pics.remove(path);
-			viewHolder.img.setColorFilter(null);
-			viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_unselected));
-			selected = true;
-			activity.selected(false);
-		} else if (activity.canSelect()) {
-			select_pics.add(path);
-			viewHolder.img.setColorFilter(activity.getResources().getColor(R.color.selected_img));
-			viewHolder.check_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_pic_selected));
-			selected = true;
-			activity.selected(true);
-		}
-		if (selected)
-			viewHolder.checked = !viewHolder.checked;
+		ArrayList<String> preview_pics = new ArrayList<String>();
+		preview_pics.add(getItem(position));
+		Tools.previewPics(activity, preview_pics, 0);
 	}
 	
 	public ArrayList<String> getSelect_pics() {

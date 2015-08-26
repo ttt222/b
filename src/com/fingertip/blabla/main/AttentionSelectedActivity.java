@@ -140,7 +140,7 @@ public class AttentionSelectedActivity extends BaseActivity implements View.OnCl
 	private void deleteReduce(){
 		deleteCount--;
 		if(deleteCount <= 0){
-			dimissProgressDialog();
+			dismissProgressDialog();
 			Toast.makeText(AttentionSelectedActivity.this, "·¢ËÍÍê³É", Toast.LENGTH_SHORT).show();
 			finish();
 		}

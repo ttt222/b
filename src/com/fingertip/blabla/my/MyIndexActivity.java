@@ -45,7 +45,6 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 	
 	private BitmapUtils bitmapUtils;
 	private UserSession session;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	private Timer timer;
@@ -87,7 +86,6 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 		bitmapUtils = new BitmapUtils(this);
 		sp = new SharedPreferenceUtil(this);
 		session = UserSession.getInstance();
-		imageCache = ImageCache.getInstance();
 		
 		my_info.setOnClickListener(this);
 		my_pub_event.setOnClickListener(this);
@@ -173,7 +171,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 		String place = user.place;
 		if (!Validator.isEmptyString(head_img_url)) {
 			session.setHead_url(user.head_img_url);
-			imageCache.loadUserHeadImg(head_img_url, session.getId(), sp, bitmapUtils, my_head_img, hidden_img);
+			ImageCache.loadUserHeadImg(head_img_url, session.getId(), sp, bitmapUtils, my_head_img, hidden_img);
 		}
 		if (!Validator.isEmptyString(nick_name)) {
 			session.setNick_name(nick_name);
@@ -208,7 +206,7 @@ public class MyIndexActivity extends BaseActivity implements View.OnClickListene
 		my_nick_txt.setText(session.getNick_name());
 		my_place_txt.setText(session.getPlace());
 		String head_img_url = session.getHead_url();
-		if (!imageCache.setUserHeadImg(session.getId(), my_head_img) && !Validator.isEmptyString(head_img_url))
-			imageCache.loadUserHeadImg(head_img_url, session.getId(), sp, bitmapUtils, my_head_img, hidden_img);
+		if (!ImageCache.setUserHeadImg(session.getId(), my_head_img) && !Validator.isEmptyString(head_img_url))
+			ImageCache.loadUserHeadImg(head_img_url, session.getId(), sp, bitmapUtils, my_head_img, hidden_img);
 	}
 }

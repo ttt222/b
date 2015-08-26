@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.string;
 import android.util.Base64;
 
 import com.fingertip.blabla.common.UserSession;

@@ -1,5 +1,6 @@
 package com.fingertip.blabla.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import android.graphics.Bitmap;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
+import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.util.http.UploadImgEntity;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
@@ -26,39 +29,31 @@ public class ImageCache {
 	private static String IMG_HD_FORMAT = ".hd.png";
 	private static String IMG_TMP_FORMAT = ".tmp";
 	
-	private static ImageCache imageCache;
+	private static String IMG_UPLOAD_SMALL = "small.png";
+	private static String IMG_UPLOAD_BIG = "big.png";
 	
-	private ImageCache() {
-	}
-	
-	public static ImageCache getInstance() {
-		if (imageCache == null)
-			imageCache = new ImageCache();
-		return imageCache;
-	}
-	
-	public String getUserImgPath(String user_id) {
+	public static String getUserImgPath(String user_id) {
 		return getUserImgPath(user_id, true, false);
 	}
 
-	public String getUserImgPath(String user_id, boolean small) {
+	public static String getUserImgPath(String user_id, boolean small) {
 		return getUserImgPath(user_id, small, false);
 	}
 
-	public String getUserImgPath(String user_id, boolean small, boolean tmp) {
+	public static String getUserImgPath(String user_id, boolean small, boolean tmp) {
 		String img_path = IMG_PATH + user_id;
 		if (tmp)
 			img_path += IMG_TMP_FORMAT;
 		return img_path += (small ? IMG_FORMAT : IMG_HD_FORMAT);
 	}
 	
-	public boolean saveUserImg(Bitmap img, String user_id, boolean small, boolean tmp) {
+	public static boolean saveUserImg(Bitmap img, String user_id, boolean small, boolean tmp) {
 		if (checkImgDir())
 			return FileUtil.saveImage(img, getUserImgPath(user_id, small, tmp));
 		return false;
 	}
 	
-	public boolean saveTmpImg(String user_id, boolean small) {
+	public static boolean saveTmpImg(String user_id, boolean small) {
 		File tmp_img = new File(getUserImgPath(user_id, small, true));
 		if (!tmp_img.exists())
 			return false;
@@ -68,7 +63,7 @@ public class ImageCache {
 		}
 	}
 	
-	private boolean checkImgDir() {
+	private static boolean checkImgDir() {
 		File dir = new File(IMG_PATH);
 		if (!dir.exists())
 			return dir.mkdirs();
@@ -82,7 +77,7 @@ public class ImageCache {
 	 * @param head_img
 	 * @return
 	 */
-	public boolean setUserHeadImg(String user_id, ImageView head_img) {
+	public static boolean setUserHeadImg(String user_id, ImageView head_img) {
 		String img_path = getUserImgPath(user_id);
 		if (new File(img_path).exists()) {
 			head_img.setImageBitmap(BitmapFactory.decodeFile(img_path));
@@ -101,7 +96,7 @@ public class ImageCache {
 	 * @param image
 	 * @param hidden_image
 	 */
-	public void loadUserHeadImg(final String down_url, final String user_id, final SharedPreferenceUtil sp,
+	public static void loadUserHeadImg(final String down_url, final String user_id, final SharedPreferenceUtil sp,
 			final BitmapUtils bitmapUtils, final ImageView image, final ImageView hidden_image) {
 		String last_url = sp.getStringValue(user_id, SharedPreferenceUtil.HEADIMAGE);
 		boolean download_img = false;
@@ -169,7 +164,7 @@ public class ImageCache {
 	 * @param image
 	 * @param bitmapUtils
 	 */
-	public void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils) {
+	public static void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils) {
 		loadUrlImg(url, image, bitmapUtils, false);
 	}
 
@@ -181,7 +176,7 @@ public class ImageCache {
 	 * @param bitmapUtils
 	 * @param cache	 «∑Òª∫¥ÊµΩ±æµÿ
 	 */
-	public void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils, final boolean cache) {
+	public static void loadUrlImg(final String url, final ImageView image, final BitmapUtils bitmapUtils, final boolean cache) {
 		if (Validator.isEmptyString(url))
 			return;
 		boolean has_cache = false;
@@ -207,5 +202,70 @@ public class ImageCache {
 					Log.e("ImageCache", "œ¬‘ÿÕº∆¨ ß∞‹");
 				}
 			});
+	}
+	
+	public static boolean checkImgSize(String path, int kb) {
+		Bitmap image = BitmapFactory.decodeFile(path);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		return baos.toByteArray().length / 1024 <= kb;
+	}
+	
+	public static UploadImgEntity compressImageForUpload(String path) {
+		File file = new File(path);
+		long kb = file.length() / 1024;
+		boolean save_big = false;
+		UploadImgEntity entity = new UploadImgEntity();
+		if (kb <= ServerConstants.SMALL_PIC_KB) {
+			entity.small_file = file;
+			entity.big_file = file;
+			return entity;
+		}
+		if (kb <= ServerConstants.BIG_PIC_KB) {
+			entity.big_file = file;
+			save_big = true;
+		}
+		if (!save_big)
+			entity.big_file = new File(compressImageForUpload(path, true, kb));
+		entity.small_file = new File(compressImageForUpload(path, false, kb));
+		return entity;
+	}
+	
+	private static String compressImageForUpload(String image_path, boolean big, long kb) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        int size = (int)kb / (big ? ServerConstants.BIG_PIC_KB : ServerConstants.SMALL_PIC_KB);
+        int i = 1;
+        while (i < size)
+        	i = i<<1;
+        options.inSampleSize = i;
+        Bitmap image = BitmapFactory.decodeFile(image_path, options);
+		String path = getUploadImgPath(big);
+		FileUtil.saveImage(image, path);
+		if (big)
+			Log.e("saveImage  big", (new File(path).length() / 1024) + " " + path);
+		else
+			Log.e("saveImage  small", (new File(path).length() / 1024) + " " + path);
+		return path;
+	}
+
+//	private static String compressImageForUpload(Bitmap image, boolean big, long kb) {
+//		int option = (int)(100 *  (big ? ServerConstants.BIG_PIC_KB : ServerConstants.SMALL_PIC_KB) / kb);
+//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//		image.compress(Bitmap.CompressFormat.JPEG, option, baos);
+//		String path = getUploadImgPath(big);
+//		FileUtil.saveImage(BitmapFactory.decodeStream(new ByteArrayInputStream(baos.toByteArray()), null, null), path);
+//		if (big)
+//			Log.e("saveImage  big", (baos.toByteArray().length / 1024) + " " + path);
+//		else
+//			Log.e("saveImage  small", (baos.toByteArray().length / 1024) + " " + path);
+//		return path;
+//	}
+	
+	private static String getUploadImgPath(boolean big) {
+		File dir = new File(IMG_PATH + Globals.UPLOAD_CACH);
+		if (!dir.exists())
+			dir.mkdirs();
+		return IMG_PATH + Globals.UPLOAD_CACH + File.separator + (big ? IMG_UPLOAD_BIG : IMG_UPLOAD_SMALL);
 	}
 }

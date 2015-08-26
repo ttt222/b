@@ -17,7 +17,6 @@ public class MyBarcodeActivity extends BaseNavActivity {
 	private TextView my_name_txt, my_place_txt;
 	
 	private UserSession session;
-	private ImageCache imageCache;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,6 @@ public class MyBarcodeActivity extends BaseNavActivity {
 		my_barcode_img = (ImageView) findViewById(R.id.my_barcode_img);
 		
 		session = UserSession.getInstance();
-		imageCache = ImageCache.getInstance();
 	}
 	
 	protected void setupViews() {
@@ -49,7 +47,7 @@ public class MyBarcodeActivity extends BaseNavActivity {
 			e.printStackTrace();
 			toastShort("Éú³É¶þÎ¬ÂëÊ§°Ü\n" + e.getMessage());
 		}
-		imageCache.setUserHeadImg(session.getId(), my_head_img);
+		ImageCache.setUserHeadImg(session.getId(), my_head_img);
 	}
 
 }

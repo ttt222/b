@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.fingertip.blabla.R;
+import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,6 +57,15 @@ public class PublishPicAdapter extends BaseAdapter implements OnClickListener, O
 		if (size == max_size && !ADD_STR.equals(last_path))
 			pics.add(ADD_STR);
 		notifyDataSetChanged();
+	}
+	
+	public ArrayList<String> getPics() {
+		ArrayList<String> preview_pics = new ArrayList<String>();
+		for (int i = 0; i < pics.size(); i++) {
+			if (i != pics.size() -1 || !ADD_STR.equals(pics.get(i)))
+				preview_pics.add(pics.get(i));
+		}
+		return preview_pics;
 	}
 
 	@Override
@@ -116,6 +126,9 @@ public class PublishPicAdapter extends BaseAdapter implements OnClickListener, O
 		//Ìí¼ÓÍ¼Æ¬
 		if (position == pics.size() - 1 && ADD_STR.equals(path))
 			activity.addImg();
+		//Ô¤ÀÀ
+		else if (pics.size() > 1)
+			Tools.previewPics(activity, getPics(), position);
 	}
 	
 	class ViewHolder {

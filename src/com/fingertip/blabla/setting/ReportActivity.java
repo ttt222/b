@@ -178,7 +178,7 @@ public class ReportActivity extends BaseNavActivity implements View.OnClickListe
 
 				        @Override
 				        public void onSuccess(ResponseInfo<String> responseInfo) {
-				        	dimissProgressDialog();
+				        	dismissProgressDialog();
 				        	String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
 							String error = null;
 							JSONObject json = null;
@@ -201,7 +201,7 @@ public class ReportActivity extends BaseNavActivity implements View.OnClickListe
 
 				        @Override
 				        public void onFailure(HttpException error, String msg) {
-				        	dimissProgressDialog();
+				        	dismissProgressDialog();
 				        	toastShort(ServerConstants.NET_ERROR_TIP);
 				        }
 				});

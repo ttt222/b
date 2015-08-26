@@ -106,7 +106,7 @@ public class SuggestActivity extends BaseNavActivity implements View.OnClickList
 								e.printStackTrace();
 								error = "²Ù×÷Ê§°Ü:" + e.getMessage();
 							}
-							dimissProgressDialog();
+							dismissProgressDialog();
 							if (error != null)
 								toastShort(error);
 							else {
@@ -118,7 +118,7 @@ public class SuggestActivity extends BaseNavActivity implements View.OnClickList
 				        @Override
 				        public void onFailure(HttpException error, String msg) {
 				        	toastShort(ServerConstants.NET_ERROR_TIP);
-				        	dimissProgressDialog();
+				        	dismissProgressDialog();
 				        }
 				});
 			} catch (JSONException e) {

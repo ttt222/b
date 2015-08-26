@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * 文件工具类
@@ -36,16 +37,15 @@ public class FileUtil {
 	public static boolean saveImage(Bitmap photo, String spath) {
 		try {
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(spath, false));
-//			photo.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-			photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+			photo.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			bos.flush();
 			bos.close();
 		} catch (Exception e) {
-//			e.printStackTrace();
+			Log.e("saveImage", spath + " " + e.getMessage());
 			return false;
 		}
 		return true;
-	}//end saveImage
+	}
 	
 	/**
 	 * Java文件操作 获取文件扩展名

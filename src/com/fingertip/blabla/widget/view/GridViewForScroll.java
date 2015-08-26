@@ -1,4 +1,4 @@
-package com.fingertip.blabla.widget.common;
+package com.fingertip.blabla.widget.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

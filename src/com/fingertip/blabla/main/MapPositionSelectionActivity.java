@@ -33,8 +33,7 @@ import com.fingertip.blabla.db.SharedPreferenceUtil;
 
 public class MapPositionSelectionActivity extends BaseActivity implements OnGetGeoCoderResultListener{
 	
-	public static final int RESULT_POS = 2000;
-	public static final String RETURN_VALUE = "return_value";
+	public static final String KEY_ADDRESS = "address", KEY_LAT = "lat", KEY_LONG = "long";
 	
 	private MapView mMapView;
 	private BaiduMap baiduMap;
@@ -43,22 +42,19 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 	private LocationClient mLocationClient;
 	private MyLocationListenner myLocationListenner = new MyLocationListenner();
 	
-	
 	private Marker marker = null;
-	
 	private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
 
+	private LatLng position;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.activity_mappoistionselection);
-		
 		findViews();
 		setupViews();
-		
 		initData();
-	}//end onCreate
+	}
 
 	private void findViews() {
 		
@@ -84,16 +80,20 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 					Toast.makeText(MapPositionSelectionActivity.this, "位置错误", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
-				Intent intent = new Intent();
-				intent.putExtra(RETURN_VALUE, tv_marker.getText().toString());
-				setResult(RESULT_OK, intent);
-				finish();
+				if (position == null) {
+					toastShort("请点击选择位置");
+				} else {
+					Intent intent = new Intent();
+					intent.putExtra(KEY_ADDRESS, tv_marker.getText().toString().trim());
+					intent.putExtra(KEY_LAT, position.latitude);
+					intent.putExtra(KEY_LONG, position.longitude);
+					setResult(RESULT_OK, intent);
+					finish();
+				}
 			}
 		});
 		
-	}//end setupViews
-	
+	}
 	
 	private void initData(){
 		mMapView = (MapView)findViewById(R.id.bmapView);
@@ -131,17 +131,13 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 				if(latLng != null){
 					// 反Geo搜索
 					mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
-					
 					tv_marker.setText("正在搜索位置...");
 					baiduMap.clear();
 					setMarker(latLng);
 				}
 			}
 		});
-		
-	}//end initData
-	
-	
+	}
 	
 	@Override
 	protected void onResume(){
@@ -151,15 +147,12 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 	
 	@Override
 	protected void onDestroy(){
-		
 		mLocationClient.stop();
 		baiduMap.setMyLocationEnabled(false);
 		mMapView.onDestroy();
 		mMapView = null;
-		
 		super.onDestroy();
-	}//end onDestroy
-	
+	}
 	
 	/**
 	 * 定位SDK监听函数
@@ -172,7 +165,6 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 			if (location == null || mMapView == null){
 				return;
 			}
-			
 			@SuppressWarnings("unused")
 			float zoom = baiduMap.getMapStatus().zoom;
 			
@@ -185,33 +177,27 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 					if(getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT) > 0){
 						isFirstLoc = false;
 						LatLng ll = new LatLng(getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT), getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG));
-						
 						setMarker(ll);
 					}else {
 //						Toast.makeText(MapPositionSelectionActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
-			
-			
-		}//end onReceiveLocation
+		}
 		public void onReceivePoi(BDLocation poiLocation) { }
-	}//end MyLocationListenner class
+	}
 	
 	private void setMarker(LatLng point){
-		
 		OverlayOptions options = new MarkerOptions()
 				.position(point)
 				.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding)).draggable(false);
-
 		marker = (Marker)(baiduMap.addOverlay(options));
 		MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(point ,16);
 		baiduMap.animateMapStatus(u);
-	}//end setMarker
+	}
 
 	@Override
 	public void onGetGeoCodeResult(GeoCodeResult arg0) {
-		
 	}
 
 	@Override
@@ -221,6 +207,6 @@ public class MapPositionSelectionActivity extends BaseActivity implements OnGetG
 			return;
 		}
 		tv_marker.setText("" +  result.getAddress());
-	}//end onGetReverseGeoCodeResult
-	
+		position = result.getLocation();
+	}
 }

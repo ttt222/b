@@ -1,10 +1,7 @@
 package com.fingertip.blabla.info;
 
-import java.io.File;
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.List;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,50 +17,37 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.fingertip.blabla.Cmd;
-import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
-import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.main.DialogDate;
 import com.fingertip.blabla.main.MapPositionSelectionActivity;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
-import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
+import com.fingertip.blabla.util.http.EntityCallback;
+import com.fingertip.blabla.util.http.EventUtil;
+import com.fingertip.blabla.util.http.UploadImgEntity;
+import com.fingertip.blabla.util.http.UploadUtil;
+import com.fingertip.blabla.util.http.UploadUtil.UploadCallback;
 import com.fingertip.blabla.widget.SelectPicActivity;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
-import com.lidroid.xutils.util.LogUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PublishInfoActivity extends BaseActivity{
-	private static final String TAG = "PublishInfoActivity";
 	
 	private static final int REQUEST_POS = 1000;
 	private static final int REQUEST_PIC = 1001;
 	public static int MAX_PIC_SIZE = 9;
 	
-//	private LinearLayout layout_img;
-	
 	private GridView img_gridView;
 	private PublishPicAdapter pic_adapter;
 	
-	@SuppressWarnings("unused")
 	private TextView tv_submit;
 	
-	@SuppressWarnings("unused")
-	private View view_title;
 	private TextView tv_position;
 	private TextView tv_type_hint;
 	private TextView tv_img_hint;
 	private TextView tv_time_hint;
-//	private ImageView iv_img_add;
 	
 	private TextView tv_special,tv_perform,tv_sociality,tv_sports,tv_study,tv_other;
 	
@@ -72,12 +56,10 @@ public class PublishInfoActivity extends BaseActivity{
 	
 	private DialogDate dialogDate;
 	
-	private ArrayList<String> arrayList_pic = new ArrayList<String>();
-	private JSONArray jsonArray_pic = new JSONArray();
-	
 	private OverlayType overlayType = null;
 	
 	private static String hintText = "活动介绍：\n活动地点：\n活动时间：\n报名方式：\n活动费用：\n提示： \n";
+	private double latitude = 0, longitude = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +73,6 @@ public class PublishInfoActivity extends BaseActivity{
 	private void setupViews() {
 		img_gridView = (GridView)findViewById(R.id.img_gridView);
 		tv_submit = (TextView)findViewById(R.id.tv_submit);
-		view_title = findViewById(R.id.view_title);
 		tv_position = (TextView)findViewById(R.id.tv_position);
 		et_title = (EditText)findViewById(R.id.et_title);
 		et_content =(EditText)findViewById(R.id.et_content);
@@ -101,7 +82,7 @@ public class PublishInfoActivity extends BaseActivity{
 		findViewById(R.id.tv_more).setVisibility(View.GONE);
 		
 		findViewById(R.id.iv_back).setOnClickListener(onClickListener);
-		findViewById(R.id.tv_submit).setOnClickListener(onClickListener);
+		tv_submit.setOnClickListener(onClickListener);
 		
 		
 		tv_type_hint = (TextView)findViewById(R.id.tv_type_hint);
@@ -204,7 +185,9 @@ public class PublishInfoActivity extends BaseActivity{
 		if (data == null || resultCode != RESULT_OK)
 			return;
 		if (requestCode == REQUEST_POS) {
-			tv_position.setText(data.getStringExtra(MapPositionSelectionActivity.RETURN_VALUE));
+			tv_position.setText(data.getStringExtra(MapPositionSelectionActivity.KEY_ADDRESS));
+			latitude = data.getDoubleExtra(MapPositionSelectionActivity.KEY_LAT, 0);
+			longitude = data.getDoubleExtra(MapPositionSelectionActivity.KEY_LONG, 0);
 		} else if (requestCode == REQUEST_PIC) {
 			ArrayList<String> pics = data.getStringArrayListExtra(SelectPicActivity.KEY_PICS);
 			if (!Validator.isEmptyList(pics))
@@ -219,7 +202,6 @@ public class PublishInfoActivity extends BaseActivity{
 			if(v.getId() == R.id.iv_back){
 				finish();
 			}else if(v.getId() == R.id.tv_submit){
-				showProgressDialog(false);
 				publicActivity();
 			}else if(v.getId() == R.id.tv_position){
 				Intent intent = new Intent();
@@ -261,125 +243,80 @@ public class PublishInfoActivity extends BaseActivity{
 		}
 	};
 	
-	/**
-	 * 图片上传
-	 * @param smallPath:缩略图路径
-	 * @param filePath:原图路径
-	 */
-	private void uploadFile(final String smallPath, final String filePath){
-		if(filePath == null){
-			Toast.makeText(PublishInfoActivity.this, "上传图片不能为空", Toast.LENGTH_SHORT).show();
+	/** 发布活动 **/
+	private void publicActivity(){
+		//标题
+		final String title = et_title.getText().toString().trim();
+		if (Validator.isEmptyString(title)) {
+			toastShort("请输入活动标题");
 			return;
 		}
-		File small = null;
-		File file = new File(filePath); 
-		if(smallPath ==null){
-			small = file;
+		//内容
+		final String content = et_content.getText().toString().trim();
+		if (Validator.isEmptyString(content)) {
+			toastShort("请输入活动内容");
+			return;
 		}
-		
-		HttpUtils http_upload = Tools.getHttpUtils();
-		
-		JSONObject jsonObject = new JSONObject();
-		try { jsonObject.put("fc", "upload_file"); } catch (Exception e) { }
-		try { jsonObject.put("userid", getSP().getStringValue(SharedPreferenceUtil.LAST_UID)); } catch (Exception e) { }
-		try { jsonObject.put("loginid", getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID)); } catch (Exception e) { }
-		try { jsonObject.put("filefor", "活动"); } catch (Exception e) { }
-		
-		RequestParams params = new RequestParams();  
-	    params.addQueryStringParameter("command", Tools.encodeString(jsonObject.toString()));  
-	    params.addBodyParameter(PARAM_KEYS.UPLOAD_SFILE, small);
-	    params.addBodyParameter(PARAM_KEYS.UPLOAD_SFULL, file);
-		
-	    http_upload.send(HttpRequest.HttpMethod.POST,
-		   Globals.URL + Cmd.ACTION_UPLLOADFILE,
-		   params,
-		   new RequestCallBack<String>(){
-		        @Override
-		        public void onLoading(long total, long current, boolean isUploading) {
-		        	Log.e(TAG, "nnnnnnnnnn onLoading");
-		        }
-
-		        @Override
-		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dimissProgressDialog();
-//		            Log.e(TAG, ".......upload........onSuccess:" + Tools.decodeString(responseInfo.result));
-		            
-		            try {
-						JSONObject jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
-						JSONObject jsonObject_new = new JSONObject();
-						jsonObject_new.put("s", jsonObject.getString("urlfile"));
-						jsonObject_new.put("b", jsonObject.getString("urlfull"));
-						
-						jsonArray_pic.put(jsonObject_new);
-						
-						LogUtils.i(jsonObject_new.toString() + "," + jsonArray_pic.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
+		//类型
+		final String type = overlayType.getType();
+		if (Validator.isEmptyString(type)) {
+			toastShort("请选择活动类型");
+			return;
+		}
+		//图片
+		List<String> pics = pic_adapter.getPics();
+		if (Validator.isEmptyList(pics)) {
+			toastShort("请选择活动图片");
+			return;
+		}
+		//截止时间
+		final String timeto = dialogDate.getTimeString();
+		if (Validator.isEmptyString(tv_time_hint.getText().toString().trim())) {
+			toastShort("请选择活动截止时间");
+			return;
+		}
+		//坐标
+		final String address = tv_position.getText().toString();
+		if (Validator.isEmptyString(address) || latitude == 0 || longitude == 0) {
+			toastShort("请标记活动位置");
+			return;
+		}
+		//发布活动
+		showProgressDialog(false);
+		//先上传图片
+		final List<UploadImgEntity> entitys = new ArrayList<UploadImgEntity>();
+		UploadUtil.uplodaImg(pics, entitys, new UploadCallback() {
+			
+			@Override
+			public void succeed() {
+				EventUtil.publishEvent(title, content, type, address, timeto, latitude + "", longitude + "", entitys, new EntityCallback<String>() {
+					@Override
+					public void succeed(String event_id) {
+						dismissProgressDialog();
+						Tools.openEvent(PublishInfoActivity.this, event_id);
+						finish();
 					}
-		            
-		            arrayList_pic.add(filePath);
-//					Bitmap bitmap = null;
-//					bitmap = BitmapFactory.decodeFile(filePath); 
-//					addImgView(bitmap);
-		        }
 
-		        @Override
-		        public void onFailure(HttpException error, String msg) {
-		        	Log.e(TAG, "............onFailure:" + msg);
-		        	dimissProgressDialog();
-		        }
+					@Override
+					public void fail(String error) {
+						dismissProgressDialog();
+						toastShort(error);
+					}
+				});
+			}
+			
+			@Override
+			public void fail(int index, String error) {
+				Log.e("uploadFile", index + " " + error);
+				toastShort("上传图片失败");
+				dismissProgressDialog();
+			}
 		});
 	}
 	
-	/** 发布活动 **/
-	private void publicActivity(){
-		HttpUtils http_upload = Tools.getHttpUtils();
-		
-		JSONObject jsonObject = new JSONObject();
-		try { jsonObject.put("fc", "action_post"); } catch (Exception e) { }
-		try { jsonObject.put("userid", getSP().getStringValue(SharedPreferenceUtil.LAST_UID)); } catch (Exception e) { }
-		try { jsonObject.put("loginid", getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID)); } catch (Exception e) { }
-		try { jsonObject.put("poslong", getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG)); } catch (Exception e) { }
-		try { jsonObject.put("poslat", getSP().getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT)); } catch (Exception e) { }
-		try { jsonObject.put("kindof", overlayType.getType()); } catch (Exception e) { }
-		try { jsonObject.put("titleof", et_title.getText().toString()); } catch (Exception e) { }
-		try { jsonObject.put("content", et_content.getText().toString()); } catch (Exception e) { }
-		try { 
-			jsonObject.put("timeto", dialogDate.getTimeString());
-		} catch (Exception e) { }
-		try { jsonObject.put("address", tv_position.getText().toString()); } catch (Exception e) { }
-		try { jsonObject.put("picof",jsonArray_pic); } catch (Exception e) { }
-		
-		RequestParams params = new RequestParams();  
-	    params.addQueryStringParameter("command", Tools.encodeString(jsonObject.toString())); 
-	    
-	    LogUtils.e(jsonObject.toString());
-		
-	    http_upload.send(HttpRequest.HttpMethod.POST,
-		   Globals.URL + Cmd.ACTION_PUBLISH,
-		   params,
-		   new RequestCallBack<String>(){
-
-		        @Override
-		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		            Log.e(TAG, ".......upload........onSuccess:" + Tools.decodeString(responseInfo.result));
-		            Toast.makeText(PublishInfoActivity.this, "内容发布成功", Toast.LENGTH_SHORT).show();
-		            dimissProgressDialog();
-		            
-		            try {
-		            	JSONObject jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
-		            	Tools.openEvent(PublishInfoActivity.this, jsonObject.getString("actionid"));
-					} catch (Exception e) {
-					}
-		            finish();
-		        }
-
-		        @Override
-		        public void onFailure(HttpException error, String msg) {
-		        	Log.e(TAG, "............onFailure:" + msg);
-		        	Toast.makeText(PublishInfoActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
-		        	dimissProgressDialog();
-		        }
-		});
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ImageLoader.getInstance().clearMemoryCache();
 	}
 }

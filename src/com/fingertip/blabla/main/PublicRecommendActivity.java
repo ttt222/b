@@ -125,7 +125,7 @@ public class PublicRecommendActivity extends BaseActivity{
 		        public void onLoading(long total, long current, boolean isUploading) { }
 		        @Override
 		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
 		            
 		            JSONObject jsonObject = null;
@@ -147,7 +147,7 @@ public class PublicRecommendActivity extends BaseActivity{
 		        public void onStart() { }
 		        @Override
 		        public void onFailure(HttpException error, String msg) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		        	Toast.makeText(PublicRecommendActivity.this, "ÍøÂç´íÎó", Toast.LENGTH_SHORT).show();
 		        	Log.e(TAG, "............onFailure:" + msg);
 		        }//end onFailure
@@ -179,7 +179,7 @@ public class PublicRecommendActivity extends BaseActivity{
 		        public void onLoading(long total, long current, boolean isUploading) { }
 		        @Override
 		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
 		            
 		            JSONObject jsonObject = null;
@@ -201,7 +201,7 @@ public class PublicRecommendActivity extends BaseActivity{
 		        public void onStart() { }
 		        @Override
 		        public void onFailure(HttpException error, String msg) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		        	Toast.makeText(PublicRecommendActivity.this, "ÍøÂç´íÎó", Toast.LENGTH_SHORT).show();
 		        }//end onFailure
 		});

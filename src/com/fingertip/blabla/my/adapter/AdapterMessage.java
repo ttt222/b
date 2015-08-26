@@ -32,7 +32,6 @@ public class AdapterMessage extends BaseAdapter implements OnItemClickListener, 
 	private List<MessageEntity> arrayList = new ArrayList<MessageEntity>();
 	
 	private BitmapUtils bitmapUtils;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	private boolean delete;
@@ -43,7 +42,6 @@ public class AdapterMessage extends BaseAdapter implements OnItemClickListener, 
 		this.empty_view = empty_view;
 		sp = new SharedPreferenceUtil(activity);
 		bitmapUtils = new BitmapUtils(activity);
-		imageCache = ImageCache.getInstance();
 		this.delete = false;
 	}
 
@@ -116,7 +114,7 @@ public class AdapterMessage extends BaseAdapter implements OnItemClickListener, 
 		
 		MessageEntity msg = (MessageEntity)getItem(position);
 		try {
-			imageCache.loadUserHeadImg(msg.sender.head_img_url, msg.sender.id, sp, bitmapUtils, viewHoler.head_img, viewHoler.hidden_img);
+			ImageCache.loadUserHeadImg(msg.sender.head_img_url, msg.sender.id, sp, bitmapUtils, viewHoler.head_img, viewHoler.hidden_img);
 		} catch (Exception e) {
 		}
 		viewHoler.sender_name_text.setText(msg.sender.nick_name);
@@ -204,7 +202,7 @@ public class AdapterMessage extends BaseAdapter implements OnItemClickListener, 
 					it.remove();
 			}
 			notifyDataSetChanged();
-			activity.dimissProgressDialog();
+			activity.dismissProgressDialog();
 			activity.finishDelete();
 		}
 	}

@@ -51,7 +51,6 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 	private TextView my_nick_txt, my_sex_txt, my_mark_txt, my_place_txt;
 	
 	private UserSession session;
-	private ImageCache imageCache;
 	private BitmapUtils bitmapUtils;
 	
 	@Override
@@ -92,7 +91,6 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 		my_reset_password.setOnClickListener(this);
 		
 		session = UserSession.getInstance();
-		imageCache = ImageCache.getInstance();
 		bitmapUtils = new BitmapUtils(this);
 		initData();
 	}
@@ -114,8 +112,8 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 			my_sex_img.setImageResource(R.drawable.icon_male);
 		}
 		
-		if (!imageCache.setUserHeadImg(session.getId(), my_head_img))
-			imageCache.loadUserHeadImg(session.getHead_url(), session.getId(), getSP(), bitmapUtils, my_head_img, hidden_img);
+		if (!ImageCache.setUserHeadImg(session.getId(), my_head_img))
+			ImageCache.loadUserHeadImg(session.getHead_url(), session.getId(), getSP(), bitmapUtils, my_head_img, hidden_img);
 	}
 
 	@Override
@@ -229,12 +227,12 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
         	String user_id = session.getId();
         	final Bitmap head_img = image;
     		//´óÍ¼
-    		final String big_head = imageCache.getUserImgPath(user_id, false, true);
-    		imageCache.saveUserImg(head_img, user_id, false, true);
+    		final String big_head = ImageCache.getUserImgPath(user_id, false, true);
+    		ImageCache.saveUserImg(head_img, user_id, false, true);
     		//Ð¡Í¼
-    		final String small_head = imageCache.getUserImgPath(user_id, true, true);
+    		final String small_head = ImageCache.getUserImgPath(user_id, true, true);
     		//Ñ¹Ëõ
-    		imageCache.saveUserImg(compressImage(head_img), user_id, true, true);
+    		ImageCache.saveUserImg(compressImage(head_img), user_id, true, true);
 //    		"fc":"upload_file", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",
 //    		 "filefor":"Í·Ïñ"
 //    		sfile ËõÂÔÍ¼, sfull Ô­Í¼
@@ -274,10 +272,10 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
     					}
     					if (file_url == null || full_url == null) {
     						toastShort("ÉÏ´«Í¼Æ¬Ê§°Ü");
-    						dimissProgressDialog();
+    						dismissProgressDialog();
     					} else if (error != null) {
     						toastShort(error);
-    						dimissProgressDialog();
+    						dismissProgressDialog();
     					} else {
     						modifyUserInfo(new String[]{PARAM_KEYS.USER_HEAD, PARAM_KEYS.USER_HEAD_BIG}, 
     								new String[]{file_url, full_url});
@@ -287,7 +285,7 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
     		        @Override
     		        public void onFailure(HttpException error, String msg) {
     		        	toastLong(ServerConstants.NET_ERROR_TIP);
-    		        	dimissProgressDialog();
+    		        	dismissProgressDialog();
     		        }
     		});
         }
@@ -334,13 +332,13 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 					toastLong(error);
 				else
 					editCallBack(keys, values);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 			
 			@Override
 			public void onFailure(HttpException error, String msg) {
 				toastLong(ServerConstants.NET_ERROR_TIP);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 		});
 	}
@@ -352,11 +350,11 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 			String value = values[i];
 			//Í·Ïñ
 			if (PARAM_KEYS.USER_HEAD.equals(key)) {
-				imageCache.saveTmpImg(user_id, true);
+				ImageCache.saveTmpImg(user_id, true);
 				getSP().setStringValue(user_id, SharedPreferenceUtil.HEADIMAGE, value);
-				imageCache.setUserHeadImg(session.getId(), my_head_img);
+				ImageCache.setUserHeadImg(session.getId(), my_head_img);
 			} else if (PARAM_KEYS.USER_HEAD_BIG.equals(key)) {
-				imageCache.saveTmpImg(user_id, false);
+				ImageCache.saveTmpImg(user_id, false);
 				getSP().setStringValue(user_id, SharedPreferenceUtil.HEADIMAGE_FULL, value);
 			//êÇ³Æ
 			} else if (PARAM_KEYS.USER_NICK_NAME.equals(key)) {

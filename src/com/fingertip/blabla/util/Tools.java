@@ -1,5 +1,7 @@
 package com.fingertip.blabla.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +16,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -36,6 +39,7 @@ import com.fingertip.blabla.info.PublishInfoActivity;
 import com.fingertip.blabla.main.MainActivity;
 import com.fingertip.blabla.my.UserInfoActivity;
 import com.fingertip.blabla.util.http.ServerConstants;
+import com.fingertip.blabla.widget.PicPreviewActivity;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -354,5 +358,32 @@ public class Tools {
 	
 	public static HttpUtils getHttpUtils() {
 		return new HttpUtils(ServerConstants.HTTP_TIME_OUT);
+	}
+	
+	public static void previewPics(Context context, ArrayList<String> pics, int index) {
+		Intent intent = new Intent();
+		intent.setClass(context, PicPreviewActivity.class);
+		intent.putStringArrayListExtra(PicPreviewActivity.KEY_PICS, pics);
+		intent.putExtra(PicPreviewActivity.KEY_INDEX, index);
+		context.startActivity(intent);
+	}
+	
+	public static Bitmap compressImage(Bitmap image, int kb) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+		int options = 100;
+		while (baos.toByteArray().length / 1024 > kb) {	//循环判断如果压缩后图片是否大于100kb,大于继续压缩		
+			baos.reset();//重置baos即清空baos
+			image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+			options /= 2;//每次都减半
+		}
+		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+		return bitmap;
+	}
+
+	public static Bitmap compressImage(String path, int kb) {
+		Bitmap image = BitmapFactory.decodeFile(path);
+		return compressImage(image, kb);
 	}
 }

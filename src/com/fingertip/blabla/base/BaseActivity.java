@@ -50,7 +50,7 @@ public class BaseActivity extends Activity{
 		progressLoading.show();
 	}//end showProgressDialog
 	
-	public void dimissProgressDialog() {
+	public void dismissProgressDialog() {
 		if(progressLoading != null){
 			progressLoading.dismiss();
 		}
@@ -88,7 +88,7 @@ public class BaseActivity extends Activity{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		dimissProgressDialog();
+		dismissProgressDialog();
 		Globals.removeActivity(this);
 	}
 	

@@ -555,7 +555,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		        public void onLoading(long total, long current, boolean isUploading) { }
 		        @Override
 		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
 		            
 		            JSONObject jsonObject = null;
@@ -578,7 +578,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		        public void onStart() { }
 		        @Override
 		        public void onFailure(HttpException error, String msg) {
-		        	dimissProgressDialog();
+		        	dismissProgressDialog();
 		        	Toast.makeText(OverlayBigActivity.this, "ÍøÂç´íÎó", Toast.LENGTH_SHORT).show();
 		        	Log.e(TAG, "............onFailure:" + msg);
 		        }//end onFailure

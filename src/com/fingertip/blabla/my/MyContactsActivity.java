@@ -108,13 +108,13 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
 				contact.status = ContactEntity.WATCHED;
 				listAdapter.notifyDataSetChanged();
 				session.getWatcher_list().add(phone);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 			
 			@Override
 			public void fail(String error) {
 				toastShort("¹Ø×¢Ê§°Ü\n" + error);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 		});
 	}
@@ -169,13 +169,13 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
 					toastShort(error);
 				else
 					setList(json);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 			
 			@Override
 			public void onFailure(HttpException error, String msg) {
 				toastShort(ServerConstants.NET_ERROR_TIP);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 		});
 	}

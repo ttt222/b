@@ -27,14 +27,12 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 	private List<EventEntity> arrayList = new ArrayList<EventEntity>();
 	
 	private BitmapUtils bitmapUtils;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	public AdapterSearch(Context context){
 		this.context = context;
 		sp = new SharedPreferenceUtil(context);
 		bitmapUtils = new BitmapUtils(context);
-		imageCache = ImageCache.getInstance();
 	}
 	
 	public void addAllData(List<EventEntity> list){
@@ -91,12 +89,12 @@ public class AdapterSearch extends BaseAdapter implements OnItemClickListener {
 		viewHolder.tv_name.setText(event.sender.nick_name);
 	viewHolder.iv_head.setTag(event.sender.id);
 		try {
-			imageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHolder.iv_head, viewHolder.hidden_img);				
+			ImageCache.loadUserHeadImg(event.sender.head_img_url, event.sender.id, sp, bitmapUtils, viewHolder.iv_head, viewHolder.hidden_img);				
 		} catch (Exception e) {
 		}
 		try {
 			if (!Validator.isEmptyList(event.pics_small)) 
-				imageCache.loadUrlImg(event.pics_small.get(0), viewHolder.iv_topic, bitmapUtils);
+				ImageCache.loadUrlImg(event.pics_small.get(0), viewHolder.iv_topic, bitmapUtils);
 			else
 				viewHolder.iv_topic.setVisibility(View.GONE);
 		} catch (Exception e) {

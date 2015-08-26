@@ -97,13 +97,13 @@ public class AddWatchActivity extends BaseNavActivity implements View.OnClickLis
 				@Override
 				public void succeed(UserEntity user) {
 					Tools.openUser(AddWatchActivity.this, user);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 				
 				@Override
 				public void fail(String error) {
 					toastShort(error);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 			});
 		}

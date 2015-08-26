@@ -15,6 +15,8 @@ public class Globals {
 	public static final String PATH_BASE = "blabla";
 	/** »º´æÄ¿Â¼ **/
 	public static final String PATH_CACH = PATH_BASE + File.separator + "cache";
+
+	public static final String UPLOAD_CACH = "upload";
 	
 	
 	/** ÍøÖ·¸ùÄ¿Â¼ **/

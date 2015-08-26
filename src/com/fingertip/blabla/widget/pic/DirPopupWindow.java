@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -34,9 +35,11 @@ public class DirPopupWindow extends PopupWindow {
 		initViews();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void init() {
 		setTouchable(true);
 		setOutsideTouchable(true);
+		setBackgroundDrawable(new BitmapDrawable());
 		setTouchInterceptor(new OnTouchListener() {
 			@SuppressLint("ClickableViewAccessibility")
 			@Override

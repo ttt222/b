@@ -2,6 +2,7 @@ package com.fingertip.blabla.util.http;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -192,6 +193,64 @@ public class EventUtil {
 					callback.succeed(list);
 			}
 			
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				callback.fail(ServerConstants.NET_ERROR_TIP);
+			}
+		});
+	}
+	
+	public static void publishEvent(String title, String content, String type, String address, String timeto, String latitude, String longitude, 
+			List<UploadImgEntity> entitys, final EntityCallback<String> callback) {
+		UserSession session = UserSession.getInstance();
+		JSONObject data = new JSONObject();
+		try {
+			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_PUBLISH_EVENT);
+			data.put(PARAM_KEYS.USERID, session.getId());
+			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
+			data.put(PARAM_KEYS.TITLEOF, title);
+			data.put(PARAM_KEYS.CONTENT, content);
+			data.put(PARAM_KEYS.KINDOF, type);
+			data.put(PARAM_KEYS.TIMETO, timeto);
+			data.put(PARAM_KEYS.ADDRESS, address);
+			data.put(PARAM_KEYS.POSLAT, latitude);
+			data.put(PARAM_KEYS.POSLONG, longitude);
+			JSONArray pics = new JSONArray();
+			for (UploadImgEntity entity : entitys) {
+				JSONObject json = new JSONObject();
+				json.put(PARAM_KEYS.S, entity.small_url);
+				json.put(PARAM_KEYS.B, entity.big_url);
+				pics.put(json);
+			}
+			data.put(PARAM_KEYS.PICOF, pics);
+		} catch (JSONException e) {
+		}
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+		HttpUtils http = Tools.getHttpUtils();
+		http.send(HttpRequest.HttpMethod.POST, URL.PUBLISH_EVENT, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+				String error = null;
+				JSONObject json = null;
+				String event_id = null;
+				try {
+					json = new JSONObject(result);
+					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
+						error = json.getString(PARAM_KEYS.RESULT_ERROR);
+					else
+						event_id = json.getString(PARAM_KEYS.ACTIONID);
+				} catch (Exception e) {
+					error = "·¢²¼Ê§°Ü:" + e.getMessage();
+				}
+				if (error != null)
+					callback.fail(error);
+				else
+					callback.succeed(event_id);
+			}
+
 			@Override
 			public void onFailure(HttpException error, String msg) {
 				callback.fail(ServerConstants.NET_ERROR_TIP);

@@ -195,7 +195,7 @@ public class LoginActivity extends BaseNavActivity implements View.OnClickListen
 				
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
-					dimissProgressDialog();
+					dismissProgressDialog();
 					
 					String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
 					String error = null;
@@ -219,7 +219,7 @@ public class LoginActivity extends BaseNavActivity implements View.OnClickListen
 				
 				@Override
 				public void onFailure(HttpException error, String msg) {
-					dimissProgressDialog();
+					dismissProgressDialog();
 					toastShort(ServerConstants.NET_ERROR_TIP);
 				}
 			});

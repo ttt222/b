@@ -2,6 +2,19 @@ package com.fingertip.blabla.util.http;
 
 public class ServerConstants {
 
+	public static String SEX_MALE = "m", SEX_FEMALE = "f", SEX_UNKNOW = "x",
+			SEX_MALE_S = "男", SEX_FEMALE_S = "女", SEX_UNKNOW_S = "未知";
+	
+	//从服务器获取消息的时间间隔
+	public static int GET_MESSAGE_GAP = 30;
+
+	//http请求的超时时间
+	public static int HTTP_TIME_OUT = 15 * 1000;
+	public static int SMALL_PIC_KB = 200;
+	public static int BIG_PIC_KB = 500;
+	
+	public static String NET_ERROR_TIP = "网络异常，请确认打开网络或稍后再试";
+	
 	public static class URL {
 		public static String BASE_URL = "http://tutuapp.aliapp.com";
 		
@@ -35,6 +48,8 @@ public class ServerConstants {
 
 		public static String GET_EVENT_INFO = BASE_URL + "/_action/get_action_byactionid.php";
 		public static String GET_EVENT_COMMENTS = BASE_URL + "/_action/get_action_reply_list.php";
+
+		public static String PUBLISH_EVENT = BASE_URL + "/_action/action_post.php";
 		
 		/**
 		 * msg
@@ -184,6 +199,8 @@ public class ServerConstants {
 
 		public static String FC_GET_EVENT_INFO = "get_action_byactionid";
 		public static String FC_GET_EVENT_COMMENTS = "get_action_reply_list";
+
+		public static String FC_PUBLISH_EVENT = "action_post";
 		
 		/**
 		 * msg
@@ -219,16 +236,6 @@ public class ServerConstants {
 		public static String INFOR_STAND = "stand";
 		public static String INFOR_PLUS = "plus";
 		public static String UPLOAD_HEAD = "头像";
+		public static String UPLOAD_EVENT = "活动";
 	}
-	
-	public static String SEX_MALE = "m", SEX_FEMALE = "f", SEX_UNKNOW = "x",
-			SEX_MALE_S = "男", SEX_FEMALE_S = "女", SEX_UNKNOW_S = "未知";
-	
-	//从服务器获取消息的时间间隔
-	public static int GET_MESSAGE_GAP = 30;
-
-	//http请求的超时时间
-	public static int HTTP_TIME_OUT = 15 * 1000;
-	
-	public static String NET_ERROR_TIP = "网络异常，请确认打开网络或稍后再试";
 }

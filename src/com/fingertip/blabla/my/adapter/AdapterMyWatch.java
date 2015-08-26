@@ -45,7 +45,6 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 	private List<WatchEntity> arrayList  = new ArrayList<WatchEntity>();
 	
 	private BitmapUtils bitmapUtils;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	private boolean delete;
@@ -57,7 +56,6 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 		
 		sp = new SharedPreferenceUtil(activity);
 		bitmapUtils = new BitmapUtils(activity);
-		imageCache = ImageCache.getInstance();
 		this.delete = false;
 	}
 
@@ -117,7 +115,7 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 		}
 		WatchEntity watch = (WatchEntity)getItem(position);
 		try {
-			imageCache.loadUserHeadImg(watch.user.head_img_url, watch.user.id, sp, bitmapUtils, viewHoler.my_watcher_head, viewHoler.hidden_img);
+			ImageCache.loadUserHeadImg(watch.user.head_img_url, watch.user.id, sp, bitmapUtils, viewHoler.my_watcher_head, viewHoler.hidden_img);
 		} catch (Exception e) {
 		}
 		viewHoler.my_watcher_name.setText(watch.user.nick_name);
@@ -258,7 +256,7 @@ public class AdapterMyWatch extends BaseAdapter implements OnItemClickListener, 
 		}
 		if (delete_ids.isEmpty()) {
 			activity.finishDelete();
-			activity.dimissProgressDialog();
+			activity.dismissProgressDialog();
 		}
 	}
 }

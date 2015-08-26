@@ -49,7 +49,6 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	
 	private BitmapUtils bitmapUtils;
 	private UserSession session;
-	private ImageCache imageCache;
 	private SharedPreferenceUtil sp;
 	
 	@Override
@@ -93,7 +92,6 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 		
 		bitmapUtils = new BitmapUtils(this);
 		session = UserSession.getInstance();
-		imageCache = ImageCache.getInstance();
 		sp = new SharedPreferenceUtil(this);
 		
 		adapter = new AdapterUserEvent(this, empty_area);
@@ -153,8 +151,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 	private void setUserInfo() {
 //		 user_info_head_img, user_info_sex_img;
 //		TextView user_info_name_txt, user_info_up_count_txt, user_info_province_txt, user_info_city_txt, user_info_mark_txt, user_info_event_empty_txt
-		
-		imageCache.loadUserHeadImg(user.head_img_url, user.id, sp, bitmapUtils, user_info_head_img, hidden_img);
+		ImageCache.loadUserHeadImg(user.head_img_url, user.id, sp, bitmapUtils, user_info_head_img, hidden_img);
 		if (ServerConstants.SEX_FEMALE.equals(user.sex))
 			user_info_sex_img.setImageDrawable(getResources().getDrawable(R.drawable.icon_female));
 		user_info_name_txt.setText(user.nick_name);
@@ -205,13 +202,13 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 					user_info_watch_btn.setBackgroundColor(getResources().getColor(R.color.gray_ad));
 					user_info_watch_btn.setText("已关注");
 					user_info_watch_btn.setOnClickListener(null);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 				
 				@Override
 				public void fail(String error) {
 					toastShort("关注失败\n" + error);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 			});
 		}
@@ -231,13 +228,13 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 			@Override
 			public void succeed() {
 				toastShort("发送成功");
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 			
 			@Override
 			public void fail(String error) {
 				toastShort("发送失败\n" + error);
-				dimissProgressDialog();
+				dismissProgressDialog();
 			}
 		});
 	}
@@ -260,13 +257,13 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 				@Override
 				public void succeed() {
 					toastShort("屏蔽成功");
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 				
 				@Override
 				public void fail(String error) {
 					toastShort("屏蔽失败\n" + error);
-					dimissProgressDialog();
+					dismissProgressDialog();
 				}
 			});
 		}

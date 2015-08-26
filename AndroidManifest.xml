@@ -166,6 +166,10 @@
             android:name="com.fingertip.blabla.widget.SelectPicActivity"
             android:theme="@style/NothingTheme"  />
         
+        <activity 
+            android:name="com.fingertip.blabla.widget.PicPreviewActivity"
+            android:theme="@style/NothingTheme"  />
+        
         <activity  android:name="com.fingertip.blabla.info.PublishInfoActivity" />
         
         <activity 

@@ -230,7 +230,7 @@
                 android:paddingTop="6dp"
                 android:textColor="@color/black" />
 
-            <com.fingertip.blabla.widget.common.GridViewForScroll
+            <com.fingertip.blabla.widget.view.GridViewForScroll
                 android:id="@+id/img_gridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -244,7 +244,7 @@
                 android:padding="10dp"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="3dp" >
-            </com.fingertip.blabla.widget.common.GridViewForScroll>
+            </com.fingertip.blabla.widget.view.GridViewForScroll>
             
             <!-- 
             <LinearLayout
@@ -269,7 +269,7 @@
                 android:background="@color/gray_e5"
                 android:drawableRight="@drawable/icon_arrow_down"
                 android:gravity="center_vertical"
-                android:hint="信息截止时间"
+                android:hint="活动截止时间"
                 android:paddingBottom="6dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="16dp"
