@@ -94,10 +94,10 @@
 
             <ImageView
                 android:id="@+id/iv_topic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true" />
+                android:layout_width="match_parent"
+                android:layout_height="134dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,14 +141,14 @@
                 android:visibility="gone" />
 
             <TextView
-                android:paddingLeft="8dp"
                 android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ellipsize="end"
-                android:text="未知"
+                android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:text="未知"
                 android:textColor="@color/gray_6c"
                 android:textSize="13sp" />
 
@@ -238,7 +238,6 @@
     </ScrollView>
 
     <LinearLayout
-        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -301,12 +300,11 @@
                 android:id="@+id/btn_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/iv_collection_starts"
-                
                 android:gravity="center_vertical"
-                android:text="收藏"
                 android:paddingLeft="10dp"
+                android:text="收藏"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -336,8 +334,8 @@
                 android:id="@+id/btn_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="45dp"
                 android:text="邀请"
                 android:textColor="@color/white"
