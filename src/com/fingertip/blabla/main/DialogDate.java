@@ -1,5 +1,7 @@
 package com.fingertip.blabla.main;
 
+import java.util.Calendar;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -12,7 +14,7 @@ import com.fingertip.blabla.common.wheelview.listener.ArrayWheelAdapter;
 import com.fingertip.blabla.common.wheelview.listener.OnWheelChangedListener;
 import com.fingertip.blabla.common.wheelview.listener.OnWheelScrollListener;
 
-public class DialogDate extends Dialog{
+public class DialogDate extends Dialog {
 	
 	private WheelView wheel_year;
 	private WheelView wheel_month;
@@ -26,10 +28,15 @@ public class DialogDate extends Dialog{
 	private ArrayWheelAdapter<String> adapter_hour;
 	private ArrayWheelAdapter<String> adapter_minute;
 	
-	public DialogDate(Context context) {
+	private OnDateSelectdListener onDateSelectdListener;
+	
+	private Calendar calendar;
+	
+	public DialogDate(Context context, OnDateSelectdListener onDateSelectdListener) {
 		super(context, R.style.MyDialogStyleBottom);
+		this.onDateSelectdListener = onDateSelectdListener;
+		this.calendar = Calendar.getInstance();
 		setContentView(R.layout.dialog_date);
-		
 		setupViews();
 	}
 
@@ -40,6 +47,8 @@ public class DialogDate extends Dialog{
 			@Override
 			public void onClick(View arg0) {
 				dismiss();
+				if (onDateSelectdListener != null)
+					onDateSelectdListener.onDateSelectd(getTimeString());
 			}
 		});
 	}
@@ -54,7 +63,7 @@ public class DialogDate extends Dialog{
 		adapter_year = new ArrayWheelAdapter<String>(CommonData.YEAR_STRING);
 		wheel_year.setAdapter(adapter_year);
 		// 设置滑轮当前所在值
-		wheel_year.setCurrentItem(wheel_year.getCurrentVal("15"));
+		wheel_year.setCurrentItem(wheel_year.getCurrentVal(getYear()));
 		// 设置滑轮是否可以循环滑动
 		wheel_year.setCyclic(true);
 		// 设置滑轮标题
@@ -68,7 +77,7 @@ public class DialogDate extends Dialog{
 		wheel_month.setTag("month");
 		adapter_month = new ArrayWheelAdapter<String>(CommonData.MONTH_STRING);
 		wheel_month.setAdapter(adapter_month);
-		wheel_month.setCurrentItem(wheel_month.getCurrentVal("02"));
+		wheel_month.setCurrentItem(wheel_month.getCurrentVal(getMonth()));
 		wheel_month.setCyclic(true);
 		wheel_month.setLabel("月");
 		wheel_month.addChangingListener(wheelChangeListener);
@@ -76,7 +85,7 @@ public class DialogDate extends Dialog{
 		wheel_day = (WheelView)findViewById(R.id.fast_day);
 		adapter_day = new ArrayWheelAdapter<String>(CommonData.DAY_STRING);
 		wheel_day.setAdapter(adapter_day);
-		wheel_day.setCurrentItem(3);
+		wheel_day.setCurrentItem(calendar.get(Calendar.DATE) - 1);
 		wheel_day.setLabel("日");
 		wheel_day.setTag("day");
 		wheel_day.setCyclic(true);
@@ -94,8 +103,8 @@ public class DialogDate extends Dialog{
 		wheel_minute.setTag("minute");
 		wheel_minute.setLabel("分");
 		wheel_hours.setLabel("时");
-		wheel_hours.setCurrentItem(1);
-		wheel_minute.setCurrentItem(2);
+		wheel_hours.setCurrentItem(23);
+		wheel_minute.setCurrentItem(59);
 		wheel_minute.addScrollingListener(wheelScrolledListener, null);
 		wheel_minute.addChangingListener(wheelChangeListener);
 		wheel_minute.addScrollingListener(wheelScrolledListener, null);
@@ -114,8 +123,16 @@ public class DialogDate extends Dialog{
 					+ " " + adapter_hour.getItem(wheel_hours.getCurrentItem())
 					+ ":" + adapter_minute.getItem(wheel_minute.getCurrentItem())
 					+ ":" + "00";
-	}//end getTimeString
+	}
 	
+	private String getYear() {
+		return (calendar.get(Calendar.YEAR) % 100) + "";
+	}
+
+	private String getMonth() {
+		int month = calendar.get(Calendar.MONTH) + 1;
+		return month < 10 ? "0" + month : "" + month;
+	}
 	
 	private OnWheelScrollListener wheelScrolledListener = new OnWheelScrollListener() {
 		public void onScrollingStarted(WheelView wheel) {
@@ -134,4 +151,8 @@ public class DialogDate extends Dialog{
 		public void onLayChanged(WheelView wheel, int oldValue, int newValue, LinearLayout layout) {
 		}
 	};
+	
+	public interface OnDateSelectdListener {
+		public void onDateSelectd(String time);
+	}
 }

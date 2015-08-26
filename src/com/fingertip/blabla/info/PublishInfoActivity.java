@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -22,6 +20,7 @@ import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.main.DialogDate;
+import com.fingertip.blabla.main.DialogDate.OnDateSelectdListener;
 import com.fingertip.blabla.main.MapPositionSelectionActivity;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.Validator;
@@ -119,7 +118,13 @@ public class PublishInfoActivity extends BaseActivity{
 	}
 	
 	private void initDialogDate(){
-		dialogDate = new DialogDate(PublishInfoActivity.this);
+		dialogDate = new DialogDate(this, new OnDateSelectdListener() {
+			@Override
+			public void onDateSelectd(String time) {
+				tv_time_hint.setText("活动截止时间  (" + dialogDate.getTimeString() + ")");
+			}
+		});
+		
 		Window window = dialogDate.getWindow();
 		window.setGravity(Gravity.BOTTOM);
 		WindowManager.LayoutParams lParams = window.getAttributes();
@@ -127,14 +132,6 @@ public class PublishInfoActivity extends BaseActivity{
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		lParams.width = dm.widthPixels;
 		window.setAttributes(lParams);
-		
-		dialogDate.setCancelable(false);
-		dialogDate.setOnDismissListener(new OnDismissListener() {		
-			@Override
-			public void onDismiss(DialogInterface arg0) {
-				tv_time_hint.setText("信息截止时间  (" + dialogDate.getTimeString() + ")");
-			}
-		});
 	}
 	
 	public void addImg() {
