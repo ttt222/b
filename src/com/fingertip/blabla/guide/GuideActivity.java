@@ -5,29 +5,32 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.main.SplashActivity;
 import com.fingertip.blabla.main.ViewPagerAdapter;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GuideActivity extends BaseActivity implements OnPageChangeListener, OnTouchListener {
 
 	private ViewPager vp;
 	private ViewPagerAdapter vpAdapter;
 	private List<View> views;
-	private TextView skip_txt;
 
 	// 引导图片资源
 	private static final int[] pics = { R.drawable.guide_1, R.drawable.guide_2,
@@ -35,6 +38,9 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 
 	// 底部小店图片
 	private ImageView[] dots;
+	
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 
 	// 记录当前选中位置
 	private int currentIndex;
@@ -44,6 +50,7 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 	private SharedPreferenceUtil sp;
 
 	/** Called when the activity is first created. */
+	@SuppressLint("InflateParams")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,29 +60,41 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 		if (!guide)
 			gotoMain(false);
 		else {
+			this.options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.icon_pic_empty)
+				.cacheInMemory(true)
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.build();
 			views = new ArrayList<View>();
-			LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.WRAP_CONTENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT);
 			// 初始化引导图片列表
 			for (int i = 0; i < pics.length; i++) {
-				ImageView iv = new ImageView(this);
-				iv.setLayoutParams(mParams);
-				iv.setImageResource(pics[i]);
-				iv.setScaleType(ScaleType.FIT_XY);
-				views.add(iv);
-			}
-			skip_txt = (TextView) findViewById(R.id.skip_txt);
-			skip_txt.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					gotoMain(true);
+				View view = LayoutInflater.from(this).inflate(R.layout.view_guide_page, null);
+				ImageView img = (ImageView)view.findViewById(R.id.guide_img);
+				img.setTag(pics[i]);
+				ImageView btn = (ImageView)view.findViewById(R.id.guide_btn);
+				if (i == pics.length -1) {
+					btn.setVisibility(View.VISIBLE);
+					btn.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							gotoMain(true);
+						}
+					});
 				}
-			});
+				views.add(view);
+			}
 			vp = (ViewPager) findViewById(R.id.viewpager);
 			// 初始化Adapter
-			vpAdapter = new ViewPagerAdapter(views);
+			vpAdapter = new ViewPagerAdapter(views) {
+				@Override
+				public Object instantiateItem(ViewGroup container, int position) {
+					View view = views.get(position);
+					container.addView(view, 0);
+					ImageView img = (ImageView)view.findViewById(R.id.guide_img);
+					imageLoader.displayImage("drawable://" + Integer.parseInt(img.getTag().toString()), img, options);
+					return view;
+				}
+			};
 			vp.setAdapter(vpAdapter);
 			// 绑定回调
 			vp.setOnPageChangeListener(this);
@@ -88,7 +107,6 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 	private void initDots() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.dot_line);
 		dots = new ImageView[pics.length];
-
 		// 循环取得小点图片
 		for (int i = 0; i < pics.length; i++) {
 			dots[i] = (ImageView) ll.getChildAt(i);
@@ -150,5 +168,11 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 			break;
 		}
 		return false;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		imageLoader.clearMemoryCache();
 	}
 }

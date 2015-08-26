@@ -7,7 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ViewPagerAdapter extends PagerAdapter{
+public class ViewPagerAdapter extends PagerAdapter {
 	private List<View> list_view;
 	
 	public ViewPagerAdapter(){ }
@@ -26,13 +26,13 @@ public class ViewPagerAdapter extends PagerAdapter{
 			this.list_view = new ArrayList<View>();
 		}
 		this.list_view.add(view);
-	}//end addView
+	}
 	
 	public void removeAllViews(){
 		if(this.list_view != null){
 			this.list_view.clear();
 		}
-	}//end removeAllViews
+	}
 	
 	@Override
 	public int getCount() {	
@@ -44,18 +44,14 @@ public class ViewPagerAdapter extends PagerAdapter{
 		return arg0 == arg1;
 	}
 
-
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		container.removeView(list_view.get(position));// 删除页卡
 	}
 
 	@Override
-	public Object instantiateItem(ViewGroup container, int position) { // 这个方法用来实例化页卡
-		container.addView(list_view.get(position), 0);// 添加页卡
+	public Object instantiateItem(ViewGroup container, int position) {
+		container.addView(list_view.get(position), 0);
 		return list_view.get(position);
-
 	}
-
-
 }
