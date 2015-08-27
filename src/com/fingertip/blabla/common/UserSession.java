@@ -10,7 +10,7 @@ import com.fingertip.blabla.util.Validator;
 public class UserSession {
 	
 	private String id, login_id, nick_name, head_url, sex, place, mark;
-	private boolean login, load_info;
+	private boolean login, load_info, load_watcher, load_favor;
 	private Set<String> watcher_list, favor_event_list;
 
 	private static UserSession session;
@@ -128,5 +128,21 @@ public class UserSession {
 
 	public void setFavor_event_list(Set<String> favor_event_list) {
 		this.favor_event_list = favor_event_list;
+	}
+
+	public boolean isLoad_watcher() {
+		return load_watcher;
+	}
+
+	public void setLoad_watcher(boolean load_watcher) {
+		this.load_watcher = load_watcher;
+	}
+
+	public boolean isLoad_favor() {
+		return load_favor;
+	}
+
+	public void setLoad_favor(boolean load_favor) {
+		this.load_favor = load_favor;
 	}
 }

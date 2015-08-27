@@ -31,6 +31,10 @@ public class EventUtil {
 		nearest, newest, hotest
 	}
 	
+	public static void searchEvents(Type type, String poslong, String poslat, int page, final EntityListCallback<EventEntity> callback) {
+		searchEvents(type, KINDOF, poslong, poslat, page, callback);
+	}
+	
 	/**
 	 * 查询活动
 	 * 
@@ -39,7 +43,7 @@ public class EventUtil {
 	 * @param page
 	 * @param callback
 	 */
-	public static void searchEvents(Type type, String poslong, String poslat, int page, final EntityListCallback<EventEntity> callback) {
+	public static void searchEvents(Type type, String kind, String poslong, String poslat, int page, final EntityListCallback<EventEntity> callback) {
 		UserSession session = UserSession.getInstance();
 		String url = null, fc = null;
 		switch (type) {
@@ -69,7 +73,7 @@ public class EventUtil {
 //			data.put(PARAM_KEYS.KINDOF, "社交/聚会");
 			data.put(PARAM_KEYS.POSLONG, poslong);
 			data.put(PARAM_KEYS.POSLAT, poslat);
-			data.put(PARAM_KEYS.KINDOF, KINDOF);
+			data.put(PARAM_KEYS.KINDOF, kind);
 			data.put(PARAM_KEYS.PAGENO, page);
 		} catch (JSONException e) {
 		}
@@ -249,6 +253,46 @@ public class EventUtil {
 					callback.fail(error);
 				else
 					callback.succeed(event_id);
+			}
+
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				callback.fail(ServerConstants.NET_ERROR_TIP);
+			}
+		});
+	}
+	
+	public static void favorEvent(String event_id, final DefaultCallback callback) {
+		UserSession session = UserSession.getInstance();
+		JSONObject data = new JSONObject();
+		try {
+			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_FAV_EVENT);
+			data.put(PARAM_KEYS.USERID, session.getId());
+			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
+			data.put(PARAM_KEYS.ACTIONID, event_id);
+		} catch (JSONException e) {
+		}
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+		HttpUtils http = Tools.getHttpUtils();
+		http.send(HttpRequest.HttpMethod.POST, URL.FAV_EVENT, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+				String error = null;
+				JSONObject json = null;
+				try {
+					json = new JSONObject(result);
+					if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
+						error = json.getString(PARAM_KEYS.RESULT_ERROR);
+				} catch (Exception e) {
+					error = "收藏失败:" + e.getMessage();
+				}
+				if (error != null)
+					callback.fail(error);
+				else
+					callback.succeed();
 			}
 
 			@Override

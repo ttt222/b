@@ -7,7 +7,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.fingertip.blabla.CommonData;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.common.wheelview.WheelView;
 import com.fingertip.blabla.common.wheelview.listener.ArrayWheelAdapter;
@@ -60,7 +59,7 @@ public class DialogDate extends Dialog {
 		// 设置滑轮标记
 		wheel_year.setTag("year");
 		// 设置滑轮数据集
-		adapter_year = new ArrayWheelAdapter<String>(CommonData.YEAR_STRING);
+		adapter_year = new ArrayWheelAdapter<String>(YEAR_STRING);
 		wheel_year.setAdapter(adapter_year);
 		// 设置滑轮当前所在值
 		wheel_year.setCurrentItem(wheel_year.getCurrentVal(getYear()));
@@ -75,7 +74,7 @@ public class DialogDate extends Dialog {
 		
 		wheel_month = (WheelView) findViewById(R.id.fast_month);
 		wheel_month.setTag("month");
-		adapter_month = new ArrayWheelAdapter<String>(CommonData.MONTH_STRING);
+		adapter_month = new ArrayWheelAdapter<String>(MONTH_STRING);
 		wheel_month.setAdapter(adapter_month);
 		wheel_month.setCurrentItem(wheel_month.getCurrentVal(getMonth()));
 		wheel_month.setCyclic(true);
@@ -83,7 +82,7 @@ public class DialogDate extends Dialog {
 		wheel_month.addChangingListener(wheelChangeListener);
 		wheel_month.addScrollingListener(wheelScrolledListener, null);
 		wheel_day = (WheelView)findViewById(R.id.fast_day);
-		adapter_day = new ArrayWheelAdapter<String>(CommonData.DAY_STRING);
+		adapter_day = new ArrayWheelAdapter<String>(DAY_STRING);
 		wheel_day.setAdapter(adapter_day);
 		wheel_day.setCurrentItem(calendar.get(Calendar.DATE) - 1);
 		wheel_day.setLabel("日");
@@ -92,12 +91,12 @@ public class DialogDate extends Dialog {
 		wheel_day.addChangingListener(wheelChangeListener);
 		wheel_day.addScrollingListener(wheelScrolledListener, null);
 		wheel_hours = (WheelView)findViewById(R.id.fast_hours);
-		adapter_hour = new ArrayWheelAdapter<String>(CommonData.HOUR_STRING);
+		adapter_hour = new ArrayWheelAdapter<String>(HOUR_STRING);
 		wheel_hours.setAdapter(adapter_hour);
 		wheel_hours.setCyclic(true);
 		wheel_hours.setTag("hours");
 		wheel_minute = (WheelView)findViewById(R.id.fast_mintue);
-		adapter_minute = new ArrayWheelAdapter<String>(CommonData.MINTUE_STRING);
+		adapter_minute = new ArrayWheelAdapter<String>(MINTUE_STRING);
 		wheel_minute.setAdapter(adapter_minute);
 		wheel_minute.setCyclic(true);
 		wheel_minute.setTag("minute");
@@ -155,4 +154,26 @@ public class DialogDate extends Dialog {
 	public interface OnDateSelectdListener {
 		public void onDateSelectd(String time);
 	}
+	
+	public static final String[] HOUR_STRING = { "00", "01", "02", "03", "04",
+			"05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
+			"16", "17", "18", "19", "20", "21", "22", "23" };
+
+	public static final String[] MINTUE_STRING = { "00", "01", "02", "03",
+			"04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14",
+			"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25",
+			"26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36",
+			"37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
+			"48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58",
+			"59" };
+	public static final String[] DAY_STRING = { "01", "02", "03", "04", "05",
+			"06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16",
+			"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
+			"28", "29", "30", "31" };
+	public static final String[] MONTH_STRING = { "01", "02", "03", "04", "05",
+			"06", "07", "08", "09", "10", "11", "12" };
+
+	public static final String[] YEAR_STRING = { "13", "14", "15", "16", "17",
+			"18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
+			"29", "30", "31", "32", "33", "34", "35" };
 }

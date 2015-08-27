@@ -267,16 +267,18 @@ public class UserUtil {
 	 * 加载用户关注列表到内存
 	 */
 	public static void loadWatchList() {
-		UserSession session = UserSession.getInstance();
+		final UserSession session = UserSession.getInstance();
 		if (session.isLogin()) {
 			final Set<String> watch_set = session.getWatcher_list();
 			getUserWatchList(new EntityListCallback<WatchEntity>() {
 				@Override
 				public void succeed(List<WatchEntity> list) {
+					watch_set.clear();
 					if (!Validator.isEmptyList(list)) {
 						for (WatchEntity watchEntity : list)
 							watch_set.add(watchEntity.user.id);
 					}
+					session.setLoad_watcher(true);
 					Log.e("loadWatchList", "succeed");
 				}
 				
@@ -339,10 +341,27 @@ public class UserUtil {
 	}
 	
 	public static void loadFavorList() {
-		UserSession session = UserSession.getInstance();
+		final UserSession session = UserSession.getInstance();
 		if (session.isLogin()) {
-			Set<String> favor_set = session.getFavor_event_list();
-			loadFavorList0(favor_set);
+			final Set<String> favor_set = session.getFavor_event_list();
+			getUserFavorEvents(new EntityListCallback<EventEntity>() {
+				@Override
+				public void succeed(List<EventEntity> list) {
+					favor_set.clear();
+					if (!Validator.isEmptyList(list)) {
+						for (EventEntity eventEntity : list)
+							favor_set.add(eventEntity.id);
+					}
+					session.setLoad_favor(true);
+					Log.e("loadFavorList0", "succeed");
+				}
+				
+				@Override
+				public void fail(String error) {
+					Log.e("loadFavorList0", error);
+				}
+			});
+//			loadFavorList0(favor_set);
 //			loadFavorList0(1, favor_set);
 		}
 	}
@@ -354,25 +373,25 @@ public class UserUtil {
 	 */
 //	private static void loadFavorList0(final int page, final Set<String> favor_set) {
 //		getUserFavorEvents(page, new EntityListCallback<EventEntity>() {
-	private static void loadFavorList0(final Set<String> favor_set) {
-		getUserFavorEvents(new EntityListCallback<EventEntity>() {
-			@Override
-			public void succeed(List<EventEntity> list) {
-				favor_set.clear();
-				if (!Validator.isEmptyList(list)) {
-					for (EventEntity eventEntity : list)
-						favor_set.add(eventEntity.id);
-//					loadFavorList0((page + 1), favor_set);
-				}
-				Log.e("loadFavorList0", "succeed");
-			}
-			
-			@Override
-			public void fail(String error) {
-				Log.e("loadFavorList0", error);
-			}
-		});
-	}
+//	private static void loadFavorList0(final Set<String> favor_set) {
+//		getUserFavorEvents(new EntityListCallback<EventEntity>() {
+//			@Override
+//			public void succeed(List<EventEntity> list) {
+//				favor_set.clear();
+//				if (!Validator.isEmptyList(list)) {
+//					for (EventEntity eventEntity : list)
+//						favor_set.add(eventEntity.id);
+////					loadFavorList0((page + 1), favor_set);
+//				}
+//				Log.e("loadFavorList0", "succeed");
+//			}
+//			
+//			@Override
+//			public void fail(String error) {
+//				Log.e("loadFavorList0", error);
+//			}
+//		});
+//	}
 	
 	/**
 	 * 获取用户的消息

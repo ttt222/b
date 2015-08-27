@@ -3,15 +3,12 @@ package com.fingertip.blabla.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,15 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fingertip.blabla.Cmd;
-import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseActivity;
 import com.fingertip.blabla.common.ShareDialog;
 import com.fingertip.blabla.common.UserSession;
-import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.CommentEntity;
-import com.fingertip.blabla.entity.EventEntity;
 import com.fingertip.blabla.entity.ImgEntityList.ImgEntity;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.entity.OverlayType;
@@ -42,19 +35,13 @@ import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.my.UserInfoActivity;
 import com.fingertip.blabla.setting.ReportActivity;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.http.DefaultCallback;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.EventUtil;
-import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.util.LogUtils;
 
 /**
@@ -63,7 +50,6 @@ import com.lidroid.xutils.util.LogUtils;
  *
  */
 public class OverlayBigActivity extends BaseActivity implements View.OnClickListener{
-	private static final String TAG = "OverlayBigActivity";
 	
 	private LinearLayout layout_main;
 	private ImageView iv_head;
@@ -101,6 +87,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	//收藏和邀请的布局
 	private RelativeLayout relayout_collection,relayout_share;
 	
+	private UserSession session = UserSession.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -297,37 +284,19 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	}//end initEntity
 	
 	private void setCollected(){
+		findViewById(R.id.iv_collection_starts).setBackgroundResource(R.drawable.collection_starts_p);
 		tv_btnCollection.setOnClickListener(null);
 		tv_btnCollection.setText("已收藏");
 	}
 	
 	private void initFavor(){
-		
-		if(getSP().getStringValue(SharedPreferenceUtil.LAST_UID).trim().length() == 0|| getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID).trim().length() == 0){
-			return;
+		if (session.isLogin()) {
+			if (session.isLoad_favor()) {
+				if(session.getFavor_event_list().contains(overlayEntity.actionid))
+					setCollected();
+			} else
+				session.isLoad_favor();
 		}
-		
-		UserUtil.getUserFavorEvents(new EntityListCallback<EventEntity>() {
-			@Override
-			public void succeed(List<EventEntity> list) {
-				if(list == null || overlayEntity == null){
-					return;
-				}
-				for (int i = 0; i < list.size(); i++) {
-					if(overlayEntity.actionid.equals(list.get(i).id)){
-						LogUtils.i("..............collected:" + overlayEntity.actionid);
-						setCollected();
-						break;
-					}
-				}
-			}
-			
-			@Override
-			public void fail(String error) {
-				
-			}
-		});
-		
 	}
 	
 	private View.OnClickListener imgOnClickListener = new View.OnClickListener() {		
@@ -474,15 +443,18 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 			startActivity(intent);
 			break;
 		case R.id.tv_recommend://评论
-			intent = new Intent();
-			intent.setClass(OverlayBigActivity.this, PublicRecommendActivity.class);
-			intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
-			startActivity(intent);
+			if (Tools.checkLogin(this)) {
+				intent = new Intent();
+				intent.setClass(OverlayBigActivity.this, PublicRecommendActivity.class);
+				intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+				startActivity(intent);
+			}
 			break;
 		case R.id.relayout_collection://
-			findViewById(R.id.iv_collection_starts).setBackgroundResource(R.drawable.collection_starts_p);
-			showProgressDialog(false);
-			requestCollecion();
+			if (Tools.checkLogin(this)) {
+				showProgressDialog(false);
+				requestCollecion();
+			}
 			break;
 		case R.id.relayout_share://
 			ShareEntity shareEntity = new ShareEntity();
@@ -505,10 +477,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	private View.OnClickListener onClickListener = new View.OnClickListener() {		
 		@Override
 		public void onClick(View view) {
-			Intent intent = new Intent();
-			intent.setClass(OverlayBigActivity.this, UserInfoActivity.class);
-			intent.putExtra(UserInfoActivity.KEY_USER_ID, ((UserEntity)view.getTag()).id);
-			startActivity(intent);
+			Tools.openUser(OverlayBigActivity.this, ((UserEntity)view.getTag()).id);
 		}
 	};
 	
@@ -516,11 +485,13 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	private View.OnClickListener onClickListener_reply = new View.OnClickListener() {		
 		@Override
 		public void onClick(View view) {
-			Intent intent = new Intent();
-			intent.setClass(OverlayBigActivity.this, PublicRecommendActivity.class);
-			intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
-			intent.putExtra(PublicRecommendActivity.EXTRA_COMMENT, (CommentEntity)view.getTag());
-			startActivity(intent);
+			if (Tools.checkLogin(OverlayBigActivity.this)) {
+				Intent intent = new Intent();
+				intent.setClass(OverlayBigActivity.this, PublicRecommendActivity.class);
+				intent.putExtra(BaseActivity.EXTRA_PARAM, overlayEntity);
+				intent.putExtra(PublicRecommendActivity.EXTRA_COMMENT, (CommentEntity)view.getTag());
+				startActivity(intent);
+			}
 		}
 	};
 	
@@ -531,61 +502,24 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		requestRecommendList();
 	}
 	
-	
 	/** 收藏 **/
 	private void requestCollecion(){
-		HttpUtils http_getpos = Tools.getHttpUtils();
-		
-		JSONObject jsonObject = new JSONObject();
-		try { jsonObject.put("fc", "action_fav_add"); } catch (Exception e) { }
-		try { jsonObject.put("userid", getSP().getStringValue(SharedPreferenceUtil.LAST_UID)); } catch (Exception e) { }
-		try { jsonObject.put("loginid", getSP().getStringValue(SharedPreferenceUtil.LAST_LOGIN_ID)); } catch (Exception e) { }
-		try { jsonObject.put("actionid", "" + overlayEntity.actionid); } catch (Exception e) { }
-		
-		RequestParams params = new RequestParams();  
-	    params.addQueryStringParameter("command", Tools.encodeString(jsonObject.toString()));  
-	    
-	    Log.e(TAG, "onLoad before:" + jsonObject.toString());
-		
-		http_getpos.send(HttpRequest.HttpMethod.POST,
-		   Globals.URL + Cmd.ACTION_COLLECTION,
-		   params,
-		   new RequestCallBack<String>(){
-		        @Override
-		        public void onLoading(long total, long current, boolean isUploading) { }
-		        @Override
-		        public void onSuccess(ResponseInfo<String> responseInfo) {
-		        	dismissProgressDialog();
-		            Log.e(TAG, "...............onSuccess:" + Tools.decodeString(responseInfo.result));
-		            
-		            JSONObject jsonObject = null;
-		            try {
-						jsonObject = new JSONObject(Tools.decodeString(responseInfo.result));
-						
-						if("y".equals(jsonObject.getString("ok"))){
-							Toast.makeText(OverlayBigActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-							setCollected();
-							UserSession.getInstance().getFavor_event_list().add(overlayEntity.actionid);
-						}else {
-							Toast.makeText(OverlayBigActivity.this, "收藏失败", Toast.LENGTH_SHORT).show();
-						}
-					} catch (Exception e) {
-						Toast.makeText(OverlayBigActivity.this, "数据错误", Toast.LENGTH_SHORT).show();
-						return;
-					}
-		        }//end onSuccess
-		        @Override
-		        public void onStart() { }
-		        @Override
-		        public void onFailure(HttpException error, String msg) {
-		        	dismissProgressDialog();
-		        	Toast.makeText(OverlayBigActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
-		        	Log.e(TAG, "............onFailure:" + msg);
-		        }//end onFailure
+		EventUtil.favorEvent(overlayEntity.actionid, new DefaultCallback() {
+			@Override
+			public void succeed() {
+				dismissProgressDialog();
+				setCollected();
+				toastShort("收藏成功");
+				session.getFavor_event_list().add(overlayEntity.actionid);
+			}
+			
+			@Override
+			public void fail(String error) {
+				dismissProgressDialog();
+				toastShort(error);
+			}
 		});
-		
-	}//end requestCollecion
-	
+	}
 	
 	/** 评论列表 **/
 	private void requestRecommendList(){

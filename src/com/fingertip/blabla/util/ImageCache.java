@@ -25,12 +25,12 @@ public class ImageCache {
 
 	private static String IMG_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator 
 			+ Globals.PATH_CACH + File.separator + "img" + File.separator;
-	private static String IMG_FORMAT = ".png";
-	private static String IMG_HD_FORMAT = ".hd.png";
+	private static String IMG_FORMAT = ".h";
+	private static String IMG_HD_FORMAT = ".hd.h";
 	private static String IMG_TMP_FORMAT = ".tmp";
 	
-	private static String IMG_UPLOAD_SMALL = "small.png";
-	private static String IMG_UPLOAD_BIG = "big.png";
+	private static String IMG_UPLOAD_SMALL = "small.u";
+	private static String IMG_UPLOAD_BIG = "big.u";
 	
 	public static String getUserImgPath(String user_id) {
 		return getUserImgPath(user_id, true, false);

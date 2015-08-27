@@ -181,11 +181,6 @@
             android:name="com.fingertip.blabla.common.SelectPicPopupWindow"
             android:theme="@style/MyDialogStyleBottom" />		
             
-        <!-- 图片选择 -->
-        <activity
-            android:name="com.fingertip.blabla.common.SelectPicDialog"
-            android:theme="@style/MyDialogStyleBottom" />		
-        
         <!-- 检索 -->
         <activity android:name="com.fingertip.blabla.search.SearchMainActivity" />
         <!-- 标记位置 -->

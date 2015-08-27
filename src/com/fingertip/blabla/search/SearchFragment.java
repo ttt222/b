@@ -11,6 +11,7 @@ import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseFragment;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.EventEntity;
+import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.search.widget.RefreshableListView;
 import com.fingertip.blabla.search.widget.RefreshableListView.RefreshListener;
 import com.fingertip.blabla.util.Tools;
@@ -83,7 +84,7 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 		float latitude = sp.getFloatValue(SharedPreferenceUtil.LASTLOCATIONLAT);
 		float longitude = sp.getFloatValue(SharedPreferenceUtil.LASTLOCATIONLONG);
 		if (latitude != 0 && longitude!= 0) {
-			EventUtil.searchEvents(seach_type, longitude + "", latitude + "", page, new EntityListCallback<EventEntity>() {
+			EventUtil.searchEvents(seach_type, OverlayType.ALL.getType(), longitude + "", latitude + "", page, new EntityListCallback<EventEntity>() {
 				@Override
 				public void succeed(List<EventEntity> list) {
 					if (append)

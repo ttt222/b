@@ -50,6 +50,7 @@ public class ServerConstants {
 		public static String GET_EVENT_COMMENTS = BASE_URL + "/_action/get_action_reply_list.php";
 
 		public static String PUBLISH_EVENT = BASE_URL + "/_action/action_post.php";
+		public static String FAV_EVENT = BASE_URL + "/_action/action_fav_add.php";
 		
 		/**
 		 * msg
@@ -201,6 +202,7 @@ public class ServerConstants {
 		public static String FC_GET_EVENT_COMMENTS = "get_action_reply_list";
 
 		public static String FC_PUBLISH_EVENT = "action_post";
+		public static String FC_FAV_EVENT = "action_fav_add";
 		
 		/**
 		 * msg

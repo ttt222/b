@@ -31,6 +31,7 @@ public class PicAdapter extends BaseAdapter implements OnItemClickListener {
 		this.pics = pics;
 		this.options = new DisplayImageOptions.Builder()
 			.showImageOnLoading(R.drawable.icon_pic_empty)
+			.showImageOnFail(R.drawable.icon_pic_empty)
 			.cacheInMemory(true)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.build();
