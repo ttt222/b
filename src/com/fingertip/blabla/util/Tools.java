@@ -13,15 +13,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
-import android.graphics.BitmapFactory;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
@@ -385,5 +386,13 @@ public class Tools {
 	public static Bitmap compressImage(String path, int kb) {
 		Bitmap image = BitmapFactory.decodeFile(path);
 		return compressImage(image, kb);
+	}
+	
+	public static void viewWeb(Context context, String url) {
+		Intent intent = new Intent();
+		intent.setAction("android.intent.action.VIEW");
+		Uri content_url = Uri.parse(url);
+		intent.setData(content_url);
+		context.startActivity(intent);
 	}
 }

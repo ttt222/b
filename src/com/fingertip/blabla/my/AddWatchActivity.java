@@ -70,17 +70,17 @@ public class AddWatchActivity extends BaseNavActivity implements View.OnClickLis
 		switch (v.getId()) {
 		case R.id.my_watch_myinfo:
 			intent = new Intent();
-			intent.setClass(AddWatchActivity.this, MyBarcodeActivity.class);
+			intent.setClass(this, MyBarcodeActivity.class);
 			break;
 		case R.id.my_watch_scan:
 			Intent in = new Intent();
-			in.setClass(AddWatchActivity.this, ScanBarcodeActivity.class);
+			in.setClass(this, ScanBarcodeActivity.class);
 			in.putExtra(ScanBarcodeActivity.KEY_VALIDATOR, barcodeValidater);
 			startActivityForResult(in, R.id.decode);
 			break;
 		case R.id.my_watch_contacts:
 			intent = new Intent();
-			intent.setClass(AddWatchActivity.this, MyContactsActivity.class);
+			intent.setClass(this, MyContactsActivity.class);
 			break;
 		}
 		if (intent != null)
@@ -114,7 +114,12 @@ public class AddWatchActivity extends BaseNavActivity implements View.OnClickLis
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case R.id.decode:
-				Tools.openUser(this, UserUtil.parseBarcode(data.getExtras().getString(Globals.COMMON_RESULT)));
+				String result = data.getStringExtra(Globals.COMMON_RESULT);
+				String user_id = UserUtil.parseBarcode(result);
+				if (user_id != null)
+					Tools.openUser(this, user_id);
+				else
+					Tools.viewWeb(this, result);
 				break;
 			}
 		}
@@ -127,7 +132,10 @@ class BarcodeValidater implements BarcodeValidator, Serializable {
 	
 	@Override
 	public boolean canProcess(Result result) {
-		return UserUtil.parseBarcode(result.getText()) != null;
+		String str = result.getText();
+		if (UserUtil.parseBarcode(str) != null || str.startsWith("http://"))
+			return true;
+		return false;
 	}
 	
 }

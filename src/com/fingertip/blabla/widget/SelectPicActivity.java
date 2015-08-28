@@ -9,6 +9,8 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -37,8 +39,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SelectPicActivity extends BaseActivity implements OnDirSelectListener {
 	
-	public static String KEY_MAX_COUNT = "max_count", KEY_PICS = "pics";
-	private static int DEFAULT_MAX_COUNT = 9;
+	public static String KEY_MAX_COUNT = "max_count", KEY_PICS = "pics", KEY_SINGLE = "single", KEY_CUT = "cut";
+	public static int DEFAULT_MAX_COUNT = 9, CUT_CODE = 100;
 	
 	private ProgressDialog progress_dialog;
 	private GridView gird_view;
@@ -58,6 +60,9 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 	private int max_count = DEFAULT_MAX_COUNT;
 	private int selected_count = 0;
 	private int selected_folder_index = 0;
+	
+	private boolean single = false;
+	private boolean cut_pic = false;
 
 	private DirPopupWindow dir_popup;
 
@@ -84,8 +89,12 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 	
 	private void initConfig() {
 		Intent intent = getIntent();
-		if (intent.hasExtra(KEY_MAX_COUNT))
+		if (intent.hasExtra(KEY_SINGLE))
+			single = true;
+		else if (intent.hasExtra(KEY_MAX_COUNT))
 			max_count = intent.getIntExtra(KEY_MAX_COUNT, DEFAULT_MAX_COUNT);
+		if (intent.hasExtra(KEY_CUT))
+			cut_pic = true;
 	}
 
 	private void initView() {
@@ -98,8 +107,10 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 		selected_count_txt = (TextView) findViewById(R.id.selected_count_txt);
 		bottom_layout = (RelativeLayout) findViewById(R.id.bottom_layout);
 		ok_btn = (Button) findViewById(R.id.submit_btn);
-		
-		selected_count_txt.setText("已选(0/" + max_count + ")张");
+		if (!single)
+			selected_count_txt.setText("已选(0/" + max_count + ")张");
+		else
+			selected_count_txt.setVisibility(View.GONE);
 	}
 	
 	private void getImages() {
@@ -155,10 +166,10 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 	
 	private void setGridView() {
 		if (pic_folders.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "一张图片没扫描到", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "没有图片", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		adapter = new PicAdapter(this, pics);
+		adapter = new PicAdapter(this, pics, single, cut_pic);
 		gird_view.setAdapter(adapter);
 		gird_view.setOnItemClickListener(adapter);
 	};
@@ -191,22 +202,27 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 			}
 		});
 
-		ok_btn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent data = new Intent();
-				Bundle bundle = new Bundle();
-				bundle.putStringArrayList(KEY_PICS, adapter.getSelect_pics());
-				data.putExtras(bundle);
-				setResult(RESULT_OK, data);
-				finish();
-			}
-		});
+		if (!single) {
+			ok_btn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent data = new Intent();
+					Bundle bundle = new Bundle();
+					bundle.putStringArrayList(KEY_PICS, adapter.getSelect_pics());
+					data.putExtras(bundle);
+					setResult(RESULT_OK, data);
+					finish();
+				}
+			});
+		} else
+			ok_btn.setVisibility(View.GONE);
 	}
 	
 	public void selected(boolean select) {
-		selected_count = select ? selected_count + 1 : selected_count - 1;
-		selected_count_txt.setText("已选(" + selected_count + "/" + max_count + ")张");
+		if (!single) {
+			selected_count = select ? selected_count + 1 : selected_count - 1;
+			selected_count_txt.setText("已选(" + selected_count + "/" + max_count + ")张");
+		}
 	}
 
 	public boolean canSelect() {
@@ -236,5 +252,26 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 		pic_folders = null;
 		dir_map.clear();
 		dir_map = null;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK && data != null) {
+			Bitmap bitmap = data.getParcelableExtra("data");
+			if (bitmap != null) {
+				Intent intent = new Intent();
+				intent.putExtras(data.getExtras());
+				setResult(RESULT_OK, intent);
+				finish();
+			} else
+				toastShort("无法选择该图片");
+		}
+	}
+	
+	public void returnSinglePath(String path) {
+		Intent data = new Intent();
+		data.setData(Uri.fromFile(new File(path)));
+		setResult(RESULT_OK, data);
+		finish();
 	}
 }

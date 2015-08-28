@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.SelectPicPopupWindow;
+import com.fingertip.blabla.widget.SelectPicActivity;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.RGBLuminanceSource;
@@ -44,7 +44,6 @@ public class ScanBarcodeActivity extends BaseNavActivity implements SurfaceHolde
 	
 	private BarcodeValidator validator;
 	
-//	private ImageView scan_franme;
 	private SurfaceView surface;
 	
 	private ImageView right_btn;
@@ -160,13 +159,13 @@ public class ScanBarcodeActivity extends BaseNavActivity implements SurfaceHolde
 			return;
 		}
 		try {
+			decodePicHandler = new DecodePicHandler(this);
 			cameraManager.openDriver(surfaceHolder);
 			setCamerRect();
 			// Creating the handler starts the preview, which can also throw a RuntimeException.
 			if (scanBarcodeHandler == null) {
 				scanBarcodeHandler = new ScanBarcodeHandler(this, cameraManager);
 			}
-    		decodePicHandler = new DecodePicHandler(this);
 //			decodeOrStoreSavedBitmap(null, null);
 		} catch (IOException ioe) {
 			Log.w(TAG, ioe);
@@ -258,8 +257,8 @@ public class ScanBarcodeActivity extends BaseNavActivity implements SurfaceHolde
 		switch (v.getId()) {
 		case R.id.nav_right_btn:
 			Intent intent = new Intent();
-			intent.setClass(ScanBarcodeActivity.this, SelectPicPopupWindow.class);
-			intent.putExtra(SelectPicPopupWindow.KEY_CUT, false);
+			intent.setClass(this, SelectPicActivity.class);
+			intent.putExtra(SelectPicActivity.KEY_SINGLE, true);
 			startActivityForResult(intent, R.id.decode);
 			break;
 		}
@@ -269,26 +268,19 @@ public class ScanBarcodeActivity extends BaseNavActivity implements SurfaceHolde
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && data != null && requestCode == R.id.decode) {
 			Uri img_uri = data.getData();   
-			Bitmap image = null;
-            //返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取   
             if (img_uri != null) {   
                 try {   
-                    //这个方法是根据Uri获取Bitmap图片的静态方法   
-                    image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), img_uri);   
+                	Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), img_uri);   
+                	if (image != null) {
+                    	Message message = Message.obtain(decodePicHandler, R.id.decode, image);
+        				message.sendToTarget();
+                    } else
+                    	toastShort("无法选择该图片");
                 } catch (Exception e) {   
                     e.printStackTrace();   
+                    toastShort("无法选择该图片");
                 }   
-            } else {   
-                Bundle extras = data.getExtras();   
-                if (extras != null) {   
-                    //这里是有些拍照后的图片是直接存放到Bundle中的所以我们可以从这里面获取Bitmap图片   
-                    image = extras.getParcelable("data");   
-                }   
-            }
-            if (image != null) {
-            	Message message = Message.obtain(decodePicHandler, R.id.decode, image);
-				message.sendToTarget();
-            }   
+            } 
 		}
 	}
 	

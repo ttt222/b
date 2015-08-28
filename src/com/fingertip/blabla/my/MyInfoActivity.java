@@ -10,9 +10,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.R;
 import com.fingertip.blabla.base.BaseNavActivity;
-import com.fingertip.blabla.common.SelectPicPopupWindow;
 import com.fingertip.blabla.common.UserSession;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.my.widget.SetMarkActivity;
@@ -36,6 +33,7 @@ import com.fingertip.blabla.util.http.ServerConstants;
 import com.fingertip.blabla.util.http.ServerConstants.PARAM_KEYS;
 import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
 import com.fingertip.blabla.util.http.ServerConstants.URL;
+import com.fingertip.blabla.widget.SelectPicActivity;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -142,42 +140,41 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 	
 	private void setSex() {
 		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SetSexActivity.class);
+		intent.setClass(this, SetSexActivity.class);
 		startActivityForResult(intent, R.id.my_info_set_sex);
 	}
 
 	private void setNick() {
 		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SetNickActivity.class);
+		intent.setClass(this, SetNickActivity.class);
 		intent.putExtra(PARAM_KEYS.USER_NICK_NAME, my_nick_txt.getText().toString());
 		startActivityForResult(intent, R.id.my_info_set_nick);
 	}
 
 	private void setMark() {
 		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SetMarkActivity.class);
+		intent.setClass(this, SetMarkActivity.class);
 		intent.putExtra(PARAM_KEYS.USER_MARK, my_mark_txt.getText().toString());
 		startActivityForResult(intent, R.id.my_info_set_mark);
 	}
 	
 	private void setHead() {
-		if (Tools.hasSDCard()) {
-			Intent intent = new Intent();
-			intent.setClass(MyInfoActivity.this, SelectPicPopupWindow.class);
-			startActivityForResult(intent, R.id.my_info_set_head);
-		} else
-			toastShort("无sd卡，不能裁剪图片");
+		Intent intent = new Intent();
+		intent.setClass(this, SelectPicActivity.class);
+		intent.putExtra(SelectPicActivity.KEY_SINGLE, true);
+		intent.putExtra(SelectPicActivity.KEY_CUT, true);
+		startActivityForResult(intent, R.id.my_info_set_head);
 	}
 	
 	private void setPlace() {
 		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SetZoomActivity.class);
+		intent.setClass(this, SetZoomActivity.class);
 		startActivityForResult(intent, R.id.my_info_set_place);
 	}
 	
 	private void setPassword() {
 		Intent intent = new Intent();
-		intent.setClass(MyInfoActivity.this, SetPasswordActivity.class);
+		intent.setClass(this, SetPasswordActivity.class);
 		startActivity(intent);
 	}
 	
@@ -205,27 +202,11 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 	}
 	
 	private void uploadHeadImg(Intent intent) {
-		Uri img_uri = intent.getData();   
-		Bitmap image = null;
-        //返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取   
-        if (img_uri != null) {
-            try {   
-                //这个方法是根据Uri获取Bitmap图片的静态方法   
-                image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), img_uri);   
-            } catch (Exception e) {   
-                e.printStackTrace();   
-            }   
-        } else {   
-            Bundle extras = intent.getExtras();   
-            if (extras != null) {   
-                //这里是有些拍照后的图片是直接存放到Bundle中的所以我们可以从这里面获取Bitmap图片   
-                image = extras.getParcelable("data");   
-            }   
-        }
-        if (image != null) {
+		Bitmap bitmap = intent.getParcelableExtra("data");
+        if (bitmap != null) {
         	showProgressDialog(false);
         	String user_id = session.getId();
-        	final Bitmap head_img = image;
+        	final Bitmap head_img = bitmap;
     		//大图
     		final String big_head = ImageCache.getUserImgPath(user_id, false, true);
     		ImageCache.saveUserImg(head_img, user_id, false, true);
@@ -233,9 +214,9 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
     		final String small_head = ImageCache.getUserImgPath(user_id, true, true);
     		//压缩
     		ImageCache.saveUserImg(compressImage(head_img), user_id, true, true);
-//    		"fc":"upload_file", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",
-//    		 "filefor":"头像"
-//    		sfile 缩略图, sfull 原图
+//            		"fc":"upload_file", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",
+//            		 "filefor":"头像"
+//            		sfile 缩略图, sfull 原图
     		JSONObject data = new JSONObject();
     		try {
     			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_UPLOAD_FILE);
@@ -263,9 +244,7 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
     						JSONObject json = new JSONObject(result);
     						file_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFILE);
     						full_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFULL);
-//    						上传图片返回结果无状态码
-//    						if (PARAM_VALUES.RESULT_FAIL.equals(json.getString(PARAM_KEYS.RESULT_STATUS)))
-//    							error = json.getString(PARAM_KEYS.RESULT_ERROR);
+//            						上传图片返回结果无状态码
     					} catch (JSONException e) {
     						e.printStackTrace();
     						error = e.getMessage();
@@ -288,7 +267,8 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
     		        	dismissProgressDialog();
     		        }
     		});
-        }
+        } else
+    		toastShort("裁剪图片失败");
 	}
 
 	private void modifyUserInfo(final String key, final String value) {
