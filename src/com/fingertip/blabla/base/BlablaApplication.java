@@ -1,8 +1,11 @@
 package com.fingertip.blabla.base;
 
+import android.os.Process;
+
 import android.app.Application;
 import android.content.Context;
 
+import com.fingertip.blabla.Globals;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -12,6 +15,8 @@ public class BlablaApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		initImageLoader(getApplicationContext());
+		CrashHandler crashHandler = new CrashHandler(this);
+		Thread.setDefaultUncaughtExceptionHandler(crashHandler);
 	}
 
 	public static void initImageLoader(Context context) {
@@ -23,5 +28,10 @@ public class BlablaApplication extends Application {
 //				.writeDebugLogs()
 				.build();
 		ImageLoader.getInstance().init(config);
+	}
+	
+	public void finishActivity() {
+		Globals.clearActivityList(true);
+		Process.killProcess(Process.myPid());    
 	}
 }

@@ -44,7 +44,7 @@ public class Globals {
 	public static void clearActivityList(boolean all) {
 		for (Iterator<Activity> it = activity_list.iterator(); it.hasNext(); ) {
 			Activity activity = it.next();
-			if (all || activity.getClass() != MainActivity.class) {
+			if (activity != null && (all || activity.getClass() != MainActivity.class)) {
 				activity.finish();
 				it.remove();
 			}

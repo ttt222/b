@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
+
+import com.fingertip.blabla.Globals;
 
 /**
  * 文件工具类
@@ -128,5 +131,21 @@ public class FileUtil {
 			return sizes[0] + "." + s + "M";
 		} else
 			return sizes[0] + ".0M";
+	}
+	
+	public static void writeLog(String log) {
+		try {
+			String log_path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator 
+				+ Globals.PATH_CACH + File.separator + "log";
+			File dir = new File(log_path);
+			if (!dir.exists())
+				dir.mkdirs();
+			FileOutputStream fos = new FileOutputStream(log_path + File.separator + System.currentTimeMillis() + ".log");
+			fos.write(log.getBytes());
+			fos.flush();
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
