@@ -115,7 +115,8 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 	
 	private void getImages() {
 		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(this, "暂无外部存储", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "无外部存储", Toast.LENGTH_SHORT).show();
+			finish();
 			return;
 		}
 		// 显示进度条
@@ -193,12 +194,14 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 		bottom_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dir_popup.setAnimationStyle(R.style.anim_popup_dir);
-				dir_popup.showAsDropDown(bottom_layout, 0, 0);
-				// 设置背景颜色变暗
-				WindowManager.LayoutParams lp = getWindow().getAttributes();
-				lp.alpha = 0.3f;
-				getWindow().setAttributes(lp);
+				if (dir_popup != null) {
+					dir_popup.setAnimationStyle(R.style.anim_popup_dir);
+					dir_popup.showAsDropDown(bottom_layout, 0, 0);
+					// 设置背景颜色变暗
+					WindowManager.LayoutParams lp = getWindow().getAttributes();
+					lp.alpha = 0.3f;
+					getWindow().setAttributes(lp);
+				}
 			}
 		});
 
@@ -206,11 +209,13 @@ public class SelectPicActivity extends BaseActivity implements OnDirSelectListen
 			ok_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent data = new Intent();
-					Bundle bundle = new Bundle();
-					bundle.putStringArrayList(KEY_PICS, adapter.getSelect_pics());
-					data.putExtras(bundle);
-					setResult(RESULT_OK, data);
+					if (adapter != null) {
+						Intent data = new Intent();
+						Bundle bundle = new Bundle();
+						bundle.putStringArrayList(KEY_PICS, adapter.getSelect_pics());
+						data.putExtras(bundle);
+						setResult(RESULT_OK, data);
+					}
 					finish();
 				}
 			});
