@@ -20,9 +20,12 @@ import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.MessageEntity;
 import com.fingertip.blabla.my.adapter.AdapterMessage;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
+import com.fingertip.blabla.util.UmengConfig.PAGE;
 import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.UserUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class MessageCenterActivity extends BaseNavActivity implements View.OnClickListener {
 	
@@ -48,6 +51,7 @@ public class MessageCenterActivity extends BaseNavActivity implements View.OnCli
 		
 		showLoadingView(true);
 		loadData();
+		MobclickAgent.onEvent(this, EVENT.MSG_CENTER);
 	}
 	
 	protected void findViews() {
@@ -201,5 +205,10 @@ public class MessageCenterActivity extends BaseNavActivity implements View.OnCli
 			btn_delete.setText("É¾³ý");
 			btn_delete.setBackgroundColor(getResources().getColor(R.color.gray_ad));
 		}
+	}
+	
+	@Override
+	protected void setPageCount() {
+		setPageName(PAGE.MSG_CENTER);
 	}
 }

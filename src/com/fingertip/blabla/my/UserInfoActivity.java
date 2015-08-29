@@ -23,6 +23,8 @@ import com.fingertip.blabla.my.adapter.AdapterUserEvent;
 import com.fingertip.blabla.my.widget.SendMsgActivity;
 import com.fingertip.blabla.util.ImageCache;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
+import com.fingertip.blabla.util.UmengConfig.PAGE;
 import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.DefaultCallback;
 import com.fingertip.blabla.util.http.EntityCallback;
@@ -31,6 +33,7 @@ import com.fingertip.blabla.util.http.ServerConstants;
 import com.fingertip.blabla.util.http.ServerConstants.PARAM_VALUES;
 import com.fingertip.blabla.util.http.UserUtil;
 import com.lidroid.xutils.BitmapUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class UserInfoActivity extends BaseNavActivity implements View.OnClickListener {
 	
@@ -211,6 +214,7 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 					dismissProgressDialog();
 				}
 			});
+			MobclickAgent.onEvent(this, EVENT.ADD_WATCHER, user.id);
 		}
 	}
 	
@@ -267,5 +271,10 @@ public class UserInfoActivity extends BaseNavActivity implements View.OnClickLis
 				}
 			});
 		}
+	}
+	
+	@Override
+	protected void setPageCount() {
+		setPageName(PAGE.USER_DETAIL);
 	}
 }

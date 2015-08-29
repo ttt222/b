@@ -51,4 +51,9 @@ public class SearchMainActivity extends BaseFragmentActivity{
 			}
 		});
 	}
+	
+	@Override
+	protected void setPageCount() {
+		_count = true;
+	}
 }

@@ -38,6 +38,7 @@ public class MyEventFragment extends BaseFragment implements Deleteable {
 		super();
 		this.activity = activity;
 		this.loaded = false;
+		setPageName("my_pub_event");
 	}
 
 	@Override

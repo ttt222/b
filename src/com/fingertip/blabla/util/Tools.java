@@ -39,12 +39,14 @@ import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.info.PublishInfoActivity;
 import com.fingertip.blabla.main.MainActivity;
 import com.fingertip.blabla.my.UserInfoActivity;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
 import com.fingertip.blabla.util.http.ServerConstants;
 import com.fingertip.blabla.widget.PicPreviewActivity;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.exception.DbException;
+import com.umeng.analytics.MobclickAgent;
 
 public class Tools {
 	/**
@@ -224,6 +226,7 @@ public class Tools {
 		intent.setClass(context, UserInfoActivity.class);
 		intent.putExtra(UserInfoActivity.KEY_USER_ID, id);
 		context.startActivity(intent);
+		MobclickAgent.onEvent(context, EVENT.CLICK_USER, id);
 	}
 
 	/**

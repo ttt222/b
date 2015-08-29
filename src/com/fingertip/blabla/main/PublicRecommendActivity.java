@@ -17,12 +17,14 @@ import com.fingertip.blabla.db.SharedPreferenceUtil;
 import com.fingertip.blabla.entity.CommentEntity;
 import com.fingertip.blabla.entity.OverlayEntityList.OverlayEntity;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.umeng.analytics.MobclickAgent;
 
 public class PublicRecommendActivity extends BaseActivity{
 	private static final String TAG = "PublicRecommendActivity";
@@ -152,6 +154,7 @@ public class PublicRecommendActivity extends BaseActivity{
 		        	Log.e(TAG, "............onFailure:" + msg);
 		        }//end onFailure
 		});
+		MobclickAgent.onEvent(this, EVENT.PUB_COMMENT);
 	}//end requestPublicRecommend
 	
 	/** ÆÀÂÛ»Ø¸´ **/

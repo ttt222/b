@@ -3,6 +3,7 @@ package com.fingertip.blabla.base;
 import android.support.v4.app.Fragment;
 
 import com.fingertip.blabla.common.ProgressLoading;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 界面(Fragment)基类，目前只设置竖屏，设置页面名称（友盟统计）
@@ -10,6 +11,9 @@ import com.fingertip.blabla.common.ProgressLoading;
  * 
  */
 public class BaseFragment extends Fragment {
+	
+	protected boolean _count = false;
+	protected String _page_name = null;
 	
 	private ProgressLoading progressLoading;
 	
@@ -22,41 +26,31 @@ public class BaseFragment extends Fragment {
 			progressLoading.setCancelable(isDismiss);
 		}
 		progressLoading.show();
-	}//end showProgressDialog
+	}
 	
 	protected void dimissProgressDialog() {
-		if(progressLoading != null){
+		if(progressLoading != null)
 			progressLoading.dismiss();
-		}
-	}//end dimissProgressDialog
+	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-//		// 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-//		if(isPageCount){
-//			if (page != null && page.trim().length() != 0){
-//				MobclickAgent.onPageEnd(getClass().getCanonicalName() + "_" + page);
-//			} else {
-//				MobclickAgent.onPageEnd(getClass().getCanonicalName());
-//			}
-//		}
-//		MobclickAgent.onPause(getActivity().getApplicationContext());
-	}//end onPause
+		if (_count)
+			MobclickAgent.onPageEnd(_page_name);
+	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-//		//统计页面
-//		if(isPageCount){
-//			if (page != null && page.trim().length() != 0){
-//				MobclickAgent.onPageStart(getClass().getCanonicalName() + "_" + page);
-//			} else {
-//				MobclickAgent.onPageStart(getClass().getCanonicalName());
-//			}
-//		}
-//		MobclickAgent.onResume(getActivity().getApplicationContext());
-	}//end onResume
+		if (_count)
+			MobclickAgent.onPageStart(_page_name);
+	}
+	
+	protected void setPageName(String page_name) {
+		this._count = true;
+		this._page_name = page_name;
+	}
 
 	@Override
 	public void onDestroy() {

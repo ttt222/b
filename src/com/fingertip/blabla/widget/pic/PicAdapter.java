@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.fingertip.blabla.R;
+import com.fingertip.blabla.util.ImageCache;
 import com.fingertip.blabla.util.Tools;
 import com.fingertip.blabla.util.UriUtil;
 import com.fingertip.blabla.widget.SelectPicActivity;
@@ -153,8 +154,8 @@ public class PicAdapter extends BaseAdapter implements OnItemClickListener {
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("outputX", CUT_WIDTH);
 		intent.putExtra("outputY", CUT_HEIGHT);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, CUT_HEIGHT);
-		intent.putExtra("return-data", true);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(ImageCache.getCutImgPath())));
+//		intent.putExtra("return-data", true);
 		intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
 		intent.putExtra("noFaceDetection", true);
 		activity.startActivityForResult(intent, SelectPicActivity.CUT_CODE);

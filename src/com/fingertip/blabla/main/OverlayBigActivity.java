@@ -35,6 +35,8 @@ import com.fingertip.blabla.entity.UserEntity;
 import com.fingertip.blabla.my.UserInfoActivity;
 import com.fingertip.blabla.setting.ReportActivity;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
+import com.fingertip.blabla.util.UmengConfig.PAGE;
 import com.fingertip.blabla.util.http.DefaultCallback;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.EventUtil;
@@ -43,6 +45,7 @@ import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
 import com.lidroid.xutils.util.LogUtils;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 地图大气泡
@@ -519,6 +522,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 				toastShort(error);
 			}
 		});
+		MobclickAgent.onEvent(this, EVENT.ADD_FAV, overlayEntity.actionid);
 	}
 	
 	/** 评论列表 **/
@@ -539,5 +543,10 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 				toastShort(error);
 			}
 		});
+	}
+	
+	@Override
+	protected void setPageCount() {
+		setPageName(PAGE.EVENT_DETAIL);
 	}
 }

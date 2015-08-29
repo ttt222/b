@@ -77,9 +77,11 @@ public class AccountActivationActivity extends BaseNavActivity implements View.O
 		int id = v.getId();
 		switch (id) {
 		case R.id.tv_noreceive:
-//			Intent intent = new Intent();
-//			intent.setClass(LoginActivity.this, RegisterActivity.class);
-//			startActivity(intent);
+			Intent intent = new Intent();
+			intent.setClass(this, RegisterActivity.class);
+			intent.putExtra(RegisterActivity.RESET_PASSWORD, true);
+			startActivity(intent);
+			finish();
 			break;
 		case R.id.tv_submit:
 			active();

@@ -1,13 +1,14 @@
 package com.fingertip.blabla.base;
 
-import com.fingertip.blabla.Globals;
-import com.fingertip.blabla.common.ProgressLoading;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.fingertip.blabla.Globals;
+import com.fingertip.blabla.common.ProgressLoading;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 界面(FragmentActivity)基类，目前只设置竖屏，设置页面名称（友盟统计）
@@ -15,6 +16,8 @@ import android.widget.Toast;
  *
  */
 public class BaseFragmentActivity extends FragmentActivity {
+	
+	protected boolean _count = false;
 	
 	private ProgressLoading progressLoading;
 
@@ -24,6 +27,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 竖屏
 		Globals.addActivity(this);
+		setPageCount();
 	}
 
 	/** 
@@ -35,41 +39,25 @@ public class BaseFragmentActivity extends FragmentActivity {
 			progressLoading.setCancelable(isDismiss);
 		}
 		progressLoading.show();
-	}//end showProgressDialog
+	}
 	
 	public void dimissProgressDialog() {
-		if(progressLoading != null){
+		if(progressLoading != null)
 			progressLoading.dismiss();
-		}
-	}//end dimissProgressDialog
+	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		// 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-//		if(isCountPage){
-//			if (page != null && page.trim().length() != 0){
-//				MobclickAgent.onPageEnd(getClass().getCanonicalName() + "_" + page);
-//			} else {
-//				MobclickAgent.onPageEnd(getClass().getCanonicalName());
-//			}
-//		}
-//		MobclickAgent.onPause(this);
+		if (_count)
+			MobclickAgent.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-//		// 统计页面
-//		if(isCountPage){
-//			if (page != null && page.trim().length() != 0){
-//				MobclickAgent.onPageStart(getClass().getCanonicalName() + "_" + page);
-//			} else {
-//				MobclickAgent.onPageStart(getClass().getCanonicalName());
-//			}
-//		}
-//		MobclickAgent.onResume(this); // 统计时长
+		if (_count)
+			MobclickAgent.onResume(this);
 	}
 	
 	@Override
@@ -77,6 +65,9 @@ public class BaseFragmentActivity extends FragmentActivity {
 		super.onDestroy();
 		dimissProgressDialog();
 		Globals.removeActivity(this);
+	}
+	
+	protected void setPageCount() {
 	}
 	
 	public void toastShort(String msg) {

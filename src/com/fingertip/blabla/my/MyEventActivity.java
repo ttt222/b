@@ -148,4 +148,9 @@ public class MyEventActivity extends BaseFragmentActivity implements View.OnClic
 			btn_delete.setBackgroundColor(getResources().getColor(R.color.gray_ad));
 		}
 	}
+	
+	@Override
+	protected void setPageCount() {
+		_count = true;
+	}
 }

@@ -38,6 +38,7 @@ public class MyFavorEventFragment extends BaseFragment implements Deleteable {
 		super();
 		this.activity = activity;
 		this.loaded = false;
+		setPageName("my_favor_event");
 	}
 
 	@Override

@@ -181,8 +181,11 @@ public class RegisterActivity extends BaseNavActivity implements View.OnClickLis
 					if (error != null)
 						toastShort(error);
 					else {
-						finish();
 						toastShort(getString(R.string.account_reset_pwd_succeed));
+						Intent intent = new Intent();
+						intent.setClass(RegisterActivity.this, LoginActivity.class);
+						startActivity(intent);
+						finish();
 					}
 				}
 				

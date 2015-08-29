@@ -30,7 +30,7 @@
             android:paddingStart="16dp"
             android:text="关于兔丁"
             android:textColor="@color/gray_67"
-            android:textSize="@dimen/font_size_common_15"/>
+            android:textSize="15sp"/>
         
         <TextView  
 	        android:layout_width="0dp"  
@@ -39,7 +39,7 @@
         
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_common_15"
+            android:textSize="15sp"
             android:textColor="@color/gray_ad"
             android:paddingRight="19dp"
             android:paddingEnd="19dp"
@@ -85,7 +85,7 @@
             android:paddingStart="16dp"
             android:text="意见反馈"
             android:textColor="@color/gray_67"
-            android:textSize="@dimen/font_size_common_15"/>
+            android:textSize="15sp"/>
         
         <TextView  
 	        android:layout_width="0dp"  
@@ -132,7 +132,7 @@
             android:paddingStart="16dp"
             android:text="清除缓存"
             android:textColor="@color/gray_67"
-            android:textSize="@dimen/font_size_common_15"/>
+            android:textSize="15sp"/>
         
         <TextView  
 	        android:layout_width="0dp"  
@@ -142,7 +142,7 @@
         <TextView android:id="@+id/cache_size_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_common_15"
+            android:textSize="15sp"
             android:textColor="@color/ffa200"
             android:paddingRight="10dp"
             android:paddingEnd="19dp"
@@ -182,7 +182,7 @@
             android:paddingStart="16dp"
             android:text="退出登录"
             android:textColor="@color/gray_67"
-            android:textSize="@dimen/font_size_common_15"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
     

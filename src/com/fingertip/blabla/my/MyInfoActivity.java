@@ -202,73 +202,79 @@ public class MyInfoActivity extends BaseNavActivity implements View.OnClickListe
 	}
 	
 	private void uploadHeadImg(Intent intent) {
-		Bitmap bitmap = intent.getParcelableExtra("data");
-        if (bitmap != null) {
-        	showProgressDialog(false);
-        	String user_id = session.getId();
-        	final Bitmap head_img = bitmap;
-    		//´óÍ¼
-    		final String big_head = ImageCache.getUserImgPath(user_id, false, true);
-    		ImageCache.saveUserImg(head_img, user_id, false, true);
-    		//Ð¡Í¼
-    		final String small_head = ImageCache.getUserImgPath(user_id, true, true);
-    		//Ñ¹Ëõ
-    		ImageCache.saveUserImg(compressImage(head_img), user_id, true, true);
-//            		"fc":"upload_file", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",
-//            		 "filefor":"Í·Ïñ"
-//            		sfile ËõÂÔÍ¼, sfull Ô­Í¼
-    		JSONObject data = new JSONObject();
-    		try {
-    			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_UPLOAD_FILE);
-    			data.put(PARAM_KEYS.UPLOAD_FILEFOR, PARAM_VALUES.UPLOAD_HEAD);
-    			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
-    			data.put(PARAM_KEYS.USERID, session.getId());
-    		} catch (JSONException e) {
-    		}
-    		RequestParams params = new RequestParams();
-    		params.addQueryStringParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
-    		params.addBodyParameter(PARAM_KEYS.UPLOAD_SFULL, new File(big_head));
-    		params.addBodyParameter(PARAM_KEYS.UPLOAD_SFILE, new File(small_head));
+		File img_file = new File(ImageCache.getCutImgPath());
+		if (!img_file.exists())
+			toastShort("²Ã¼ôÍ¼Æ¬Ê§°Ü");
+		else {
+			Bitmap bitmap = BitmapFactory.decodeFile(ImageCache.getCutImgPath());
+	        if (bitmap != null) {
+	        	showProgressDialog(false);
+	        	String user_id = session.getId();
+	        	final Bitmap head_img = bitmap;
+	    		//´óÍ¼
+	    		final String big_head = ImageCache.getUserImgPath(user_id, false, true);
+	    		ImageCache.saveUserImg(head_img, user_id, false, true);
+	    		//Ð¡Í¼
+	    		final String small_head = ImageCache.getUserImgPath(user_id, true, true);
+	    		//Ñ¹Ëõ
+	    		ImageCache.saveUserImg(compressImage(head_img), user_id, true, true);
+//	            		"fc":"upload_file", "userid":18979528420, "loginid":"t4etskerghskdryhgsdfklhs",
+//	            		 "filefor":"Í·Ïñ"
+//	            		sfile ËõÂÔÍ¼, sfull Ô­Í¼
+	    		JSONObject data = new JSONObject();
+	    		try {
+	    			data.put(PARAM_KEYS.FC, PARAM_VALUES.FC_UPLOAD_FILE);
+	    			data.put(PARAM_KEYS.UPLOAD_FILEFOR, PARAM_VALUES.UPLOAD_HEAD);
+	    			data.put(PARAM_KEYS.LOGINID, session.getLogin_id());
+	    			data.put(PARAM_KEYS.USERID, session.getId());
+	    		} catch (JSONException e) {
+	    		}
+	    		RequestParams params = new RequestParams();
+	    		params.addQueryStringParameter(PARAM_KEYS.COMMAND, Base64.encodeToString(data.toString().getBytes(), Base64.DEFAULT));
+	    		params.addBodyParameter(PARAM_KEYS.UPLOAD_SFULL, new File(big_head));
+	    		params.addBodyParameter(PARAM_KEYS.UPLOAD_SFILE, new File(small_head));
 
-    		HttpUtils http = Tools.getHttpUtils();
-    		http.send(HttpRequest.HttpMethod.POST, ServerConstants.URL.UPLOAD_IMG, params,
-    		    new RequestCallBack<String>() {
+	    		HttpUtils http = Tools.getHttpUtils();
+	    		http.send(HttpRequest.HttpMethod.POST, ServerConstants.URL.UPLOAD_IMG, params,
+	    		    new RequestCallBack<String>() {
 
-    		        @Override
-    		        public void onSuccess(ResponseInfo<String> responseInfo) {
-    		        	String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
-    					String error = null;
-    					String file_url = null;
-    					String full_url = null;
-    					try {
-    						JSONObject json = new JSONObject(result);
-    						file_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFILE);
-    						full_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFULL);
-//            						ÉÏ´«Í¼Æ¬·µ»Ø½á¹ûÎÞ×´Ì¬Âë
-    					} catch (JSONException e) {
-    						e.printStackTrace();
-    						error = e.getMessage();
-    					}
-    					if (file_url == null || full_url == null) {
-    						toastShort("ÉÏ´«Í¼Æ¬Ê§°Ü");
-    						dismissProgressDialog();
-    					} else if (error != null) {
-    						toastShort(error);
-    						dismissProgressDialog();
-    					} else {
-    						modifyUserInfo(new String[]{PARAM_KEYS.USER_HEAD, PARAM_KEYS.USER_HEAD_BIG}, 
-    								new String[]{file_url, full_url});
-    					}
-    		        }
+	    		        @Override
+	    		        public void onSuccess(ResponseInfo<String> responseInfo) {
+	    		        	String result = new String(Base64.decode(responseInfo.result, Base64.DEFAULT));
+	    					String error = null;
+	    					String file_url = null;
+	    					String full_url = null;
+	    					try {
+	    						JSONObject json = new JSONObject(result);
+	    						file_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFILE);
+	    						full_url = json.getString(PARAM_KEYS.UPLOAD_RESULT_URLFULL);
+//	            						ÉÏ´«Í¼Æ¬·µ»Ø½á¹ûÎÞ×´Ì¬Âë
+	    					} catch (JSONException e) {
+	    						e.printStackTrace();
+	    						error = e.getMessage();
+	    					}
+	    					if (file_url == null || full_url == null) {
+	    						toastShort("ÉÏ´«Í¼Æ¬Ê§°Ü");
+	    						dismissProgressDialog();
+	    					} else if (error != null) {
+	    						toastShort(error);
+	    						dismissProgressDialog();
+	    					} else {
+	    						modifyUserInfo(new String[]{PARAM_KEYS.USER_HEAD, PARAM_KEYS.USER_HEAD_BIG}, 
+	    								new String[]{file_url, full_url});
+	    					}
+	    		        }
 
-    		        @Override
-    		        public void onFailure(HttpException error, String msg) {
-    		        	toastLong(ServerConstants.NET_ERROR_TIP);
-    		        	dismissProgressDialog();
-    		        }
-    		});
-        } else
-    		toastShort("²Ã¼ôÍ¼Æ¬Ê§°Ü");
+	    		        @Override
+	    		        public void onFailure(HttpException error, String msg) {
+	    		        	toastLong(ServerConstants.NET_ERROR_TIP);
+	    		        	dismissProgressDialog();
+	    		        }
+	    		});
+	        } else
+	    		toastShort("²Ã¼ôÍ¼Æ¬Ê§°Ü");
+		}
+		
 	}
 
 	private void modifyUserInfo(final String key, final String value) {

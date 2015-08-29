@@ -15,6 +15,7 @@ import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.search.widget.RefreshableListView;
 import com.fingertip.blabla.search.widget.RefreshableListView.RefreshListener;
 import com.fingertip.blabla.util.Tools;
+import com.fingertip.blabla.util.UmengConfig.PAGE;
 import com.fingertip.blabla.util.Validator;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.EventUtil;
@@ -36,6 +37,17 @@ public class SearchFragment extends BaseFragment implements RefreshListener {
 		super();
 		this.seach_type = seach_type;
 		this.search_activity = search_activity;
+		switch (seach_type) {
+		case nearest:
+			setPageName(PAGE.SEARCH_EVENT_NEAR);
+			break;
+		case newest:
+			setPageName(PAGE.SEARCH_EVENT_NEW);
+			break;
+		case hotest:
+			setPageName(PAGE.SEARCH_EVENT_HOT);
+			break;
+		}
 	}
 
 	@Override

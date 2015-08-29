@@ -32,6 +32,8 @@ public class ImageCache {
 	private static String IMG_UPLOAD_SMALL = "small.u";
 	private static String IMG_UPLOAD_BIG = "big.u";
 	
+	private static String IMG_CUT = "cut.u";
+	
 	public static String getUserImgPath(String user_id) {
 		return getUserImgPath(user_id, true, false);
 	}
@@ -267,5 +269,12 @@ public class ImageCache {
 		if (!dir.exists())
 			dir.mkdirs();
 		return IMG_PATH + Globals.UPLOAD_CACH + File.separator + (big ? IMG_UPLOAD_BIG : IMG_UPLOAD_SMALL);
+	}
+	
+	public static String getCutImgPath() {
+		File dir = new File(IMG_PATH);
+		if (!dir.exists())
+			dir.mkdirs();
+		return IMG_PATH + IMG_CUT;
 	}
 }

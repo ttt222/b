@@ -31,7 +31,7 @@
     <string name="enterRightPhone">请输入正确的手机号码</string>
     <string name="phoneNoRegister">号码未注册</string>
     <string name="phoneHasRegister">该账号已注册</string>
-    <string name="enterRightPwd">请输入6-8位数字或密码</string>
+    <string name="enterRightPwd">请输入6-8位数字或字母</string>
     <string name="errorpwd">密码错误</string>
     <string name="pwdHint">密码为6-8个数字或字母</string>
     <string name="pwdHint2">输入6-8位随机密码</string>
@@ -47,6 +47,7 @@
     <string name="load_full">已加载全部</string>
     <string name="no_data">暂无数据</string>
     <string name="more">加载中</string>
+    <string name="share_sms">我在\"图丁\"上发现一个好玩的活动，快来参加吧。</string>
     
     <drawable  name="bg_listview">#00000000</drawable>
 </resources>

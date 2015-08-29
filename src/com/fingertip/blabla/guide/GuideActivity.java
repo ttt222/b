@@ -12,9 +12,9 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,6 +25,7 @@ import com.fingertip.blabla.main.SplashActivity;
 import com.fingertip.blabla.main.ViewPagerAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 public class GuideActivity extends BaseActivity implements OnPageChangeListener, OnTouchListener {
 
@@ -55,6 +56,7 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide);
+		MobclickAgent.openActivityDurationTrack(false);
 		sp = new SharedPreferenceUtil(this);
 		boolean guide = sp.getBooleanValue(SharedPreferenceUtil.NEED_GUIDE, true);
 		if (!guide)

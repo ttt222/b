@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.fingertip.blabla.Globals;
 import com.fingertip.blabla.common.ProgressLoading;
 import com.fingertip.blabla.db.SharedPreferenceUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 界面(Activity)基类，目前只设置竖屏，设置页面名称（友盟统计）
@@ -18,18 +19,19 @@ import com.fingertip.blabla.db.SharedPreferenceUtil;
 public class BaseActivity extends Activity{
 	public static final String EXTRA_PARAM = "extra_param";
 	
-	private ProgressLoading progressLoading;
+	protected boolean _count = false;
+	protected String _page_name = null;
 	
+	private ProgressLoading progressLoading;
 	private SharedPreferenceUtil sharedPreferenceUtil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏 
-		
 		Globals.addActivity(this);
+		setPageCount();
 	}
 	
 	/** 获取共享参数 **/
@@ -48,42 +50,38 @@ public class BaseActivity extends Activity{
 			progressLoading.setCancelable(isDismiss);
 		}
 		progressLoading.show();
-	}//end showProgressDialog
+	}
 	
 	public void dismissProgressDialog() {
-		if(progressLoading != null){
+		if(progressLoading != null)
 			progressLoading.dismiss();
-		}
-	}//end dimissProgressDialog
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		
-//		// 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-//		if(page != null && page.trim().length() != 0){
-//			MobclickAgent.onPageEnd(getClass().getCanonicalName() + "_" + page); 
-//		}else {
-//			MobclickAgent.onPageEnd(getClass().getCanonicalName()); 
-//		}
-//		
-//		MobclickAgent.onPause(this);
-	}//end onPause
+	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-//		//统计页面
-//		if(page != null && page.trim().length() != 0){
-//			MobclickAgent.onPageStart(getClass().getCanonicalName() + "_" + page); 
-//		}else {
-//			MobclickAgent.onPageStart(getClass().getCanonicalName()); 
-//		}
-//		
-//		MobclickAgent.onResume(this);          //统计时长
-		
-	}//end onResume
+		if (_count) {
+			MobclickAgent.onPageStart(_page_name);
+			MobclickAgent.onResume(this);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (_count) {
+			MobclickAgent.onPageEnd(_page_name);
+			MobclickAgent.onPause(this);
+		}
+	}
+	
+	protected void setPageCount() {
+	}
+	
+	protected void setPageName(String page_name) {
+		this._count = true;
+		this._page_name = page_name;
+	}
 	
 	@Override
 	protected void onDestroy() {

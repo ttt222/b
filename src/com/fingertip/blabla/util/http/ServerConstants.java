@@ -6,7 +6,7 @@ public class ServerConstants {
 			SEX_MALE_S = "男", SEX_FEMALE_S = "女", SEX_UNKNOW_S = "未知";
 	
 	//从服务器获取消息的时间间隔
-	public static int GET_MESSAGE_GAP = 30;
+	public static int GET_MESSAGE_GAP = 60;
 
 	//http请求的超时时间
 	public static int HTTP_TIME_OUT = 15 * 1000;

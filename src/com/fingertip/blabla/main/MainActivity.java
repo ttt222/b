@@ -58,10 +58,13 @@ import com.fingertip.blabla.entity.OverlayType;
 import com.fingertip.blabla.my.MyIndexActivity;
 import com.fingertip.blabla.search.SearchMainActivity;
 import com.fingertip.blabla.services.MessageService;
+import com.fingertip.blabla.util.UmengConfig.EVENT;
+import com.fingertip.blabla.util.UmengConfig.PAGE;
 import com.fingertip.blabla.util.http.EntityCallback;
 import com.fingertip.blabla.util.http.EntityListCallback;
 import com.fingertip.blabla.util.http.EventUtil;
 import com.fingertip.blabla.util.http.ServerConstants;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends BaseActivity implements UpdateNotify{
 	private static final String TAG = "MainActivity";
@@ -597,6 +600,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         //¸Ä±äµØÍ¼×´Ì¬
         baiduMap.setMapStatus(mMapStatusUpdate);
+        MobclickAgent.onEvent(this, EVENT.CLICK_EVENT, overlayEntity.actionid);
 		return true;
 	}
 	
@@ -613,5 +617,10 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 		}
 		if (quit)
 			finish();
+	}
+	
+	@Override
+	protected void setPageCount() {
+		setPageName(PAGE.MAIN);
 	}
 }
