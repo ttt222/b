@@ -288,7 +288,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	}
 	
 	@SuppressLint("InflateParams")
-	private void setOverlayData(OverlayEntity overlayEntity){
+	private Marker setOverlayData(OverlayEntity overlayEntity){
 		LatLng point = new LatLng(overlayEntity.lat, overlayEntity.lng);
 		Context context = MainActivity.this;
 		View view_markerImage = LayoutInflater.from(context).inflate(R.layout.view_marker_img, null);
@@ -324,26 +324,9 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 			arrayList_marker.add(marker);
 		hashMap_overlayMarket.put(marker, overlayEntity);
 		overlayEntity.isIcon = true;
-	}
-	
-	private Marker setZoomOverlayData(OverlayEntity overlayEntity){
-		LatLng point = new LatLng(overlayEntity.lat, overlayEntity.lng);
-		
-		ViewMapOverlay viewMapOverlay = new ViewMapOverlay(getApplicationContext());
-		viewMapOverlay.setOverlayEntity(overlayEntity);
-		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(viewMapOverlay));;
-		
-		OverlayOptions options = new MarkerOptions().position(point).icon(bitmapDescriptor).draggable(false);
-		Marker marker = (Marker)(baiduMap.addOverlay(options));
-		if(!arrayList_marker.contains(marker)){
-			arrayList_marker.add(marker);
-		}
-		
-		hashMap_overlayMarket.put(marker, overlayEntity);
-		
-		overlayEntity.isIcon = false;
 		return marker;
 	}
+	
 	/* ´Óview µÃµ½Í¼Æ¬
 	 * @param view
 	 * @return
@@ -359,24 +342,14 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 	
 	private void resetOverlay(MapStatus mapStatus){
 		clearMarkerList();
-//		if(lastZoom >= 17){
-//			resetZoomData(mapStatus);
-//		}else {
-			resetOverlayData(mapStatus);
-//		}
-	}//end resetOverlay
+		resetOverlayData(mapStatus);
+	}
 	
 	private void resetOverlayData(MapStatus mapStatus){
 		for (int i = 0; i < arrayList_overlaytEntity.size(); i++) {
 			setOverlayData(arrayList_overlaytEntity.get(i));
 		}
 	}
-	
-//	private void resetZoomData(MapStatus mapStatus){
-//		for (int i = 0; i < arrayList_overlaytEntity.size(); i++) {
-//			setZoomOverlayData(arrayList_overlaytEntity.get(i));
-//		}
-//	}//end resetData
 	
 	private float lastZoom = 16;
 	private OnMapStatusChangeListener onMapStatusChangeListener = new OnMapStatusChangeListener() {		
@@ -544,7 +517,7 @@ public class MainActivity extends BaseActivity implements UpdateNotify{
 				dismissProgressDialog();
 				Marker marker = getMarker(entity.id);
 				if (marker == null)
-					marker = setZoomOverlayData(OverlayEntityList.fromEvent(entity));
+					marker = setOverlayData(OverlayEntityList.fromEvent(entity));
 				clickMarker(marker);
 			}
 			
