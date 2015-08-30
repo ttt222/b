@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="msg_ContentSize">14sp</dimen>
+    <dimen name="msg_TitleSize">13sp</dimen>
+    <dimen name="msg_TypeSize">14sp</dimen>
+    <dimen name="msg_Sender">13sp</dimen>
+    
+    <!-- index页面的大小 -->
+    <dimen name="pub_eventTextSize">15sp</dimen>
+    <dimen name="my_nick_txtSize">18sp</dimen>
+    <dimen name="my_place_txtSize">13sp</dimen>
+    <!-- 检索页面字体 -->
+    <dimen name="tv_nameSize">10sp</dimen>
+    <dimen name="tv_titleSize">13sp</dimen>
+    <dimen name="tv_typeSize">13sp</dimen>
+    <dimen name="tv_belowSize">12sp</dimen>
+</resources>

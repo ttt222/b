@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 消息中心的文字大小 -->
+    <dimen name="msg_ContentSize">16sp</dimen>
+    <dimen name="msg_TitleSize">12sp</dimen>
+    <dimen name="msg_TypeSize">15sp</dimen>
+    <dimen name="msg_Sender">13sp</dimen>
+</resources>

@@ -101,7 +101,7 @@
             android:paddingTop="3dp"
             android:text="珠三角相亲大会"
             android:textColor="@color/blue_msg"
-            android:textSize="30px" />
+            android:textSize="16sp" />
         <RelativeLayout 
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
         android:layout_gravity="center"
         android:text="进行中"
         android:textColor="@color/green_event"
-        android:textSize="30px" />
+        android:textSize="16sp" />
 
     <!--
     <TextView android:id="@+id/tv_delete"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="msg_ContentSize">16sp</dimen>
+    <dimen name="msg_TitleSize">12sp</dimen>
+    <dimen name="msg_TypeSize">15sp</dimen>
+    <dimen name="msg_Sender">13sp</dimen>
+    
+    <!-- 检索页面字体 -->
+    <dimen name="tv_nameSize">13sp</dimen>
+    <dimen name="tv_titleSize">15sp</dimen>
+    <dimen name="tv_typeSize">15sp</dimen>
+    <dimen name="tv_belowSize">14sp</dimen>
+</resources>

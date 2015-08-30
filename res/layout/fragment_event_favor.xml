@@ -37,16 +37,16 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_b9"
-            android:textSize="36px"
-            android:layout_marginTop="318px"
+            android:textSize="24sp"
+            android:layout_marginTop="210dp"
             android:text="你没有收藏的活动"/>
         
         <Button android:id="@+id/my_event_find_btn"
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:background="@drawable/blue_button"
-            android:layout_marginTop="48px"
-            android:textSize="30px"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:text="找活动"/>
         

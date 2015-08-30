@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black_39"
-                android:textSize="32px" />
+                android:textSize="@dimen/my_nick_txtSize" />
 
             <TextView
                 android:id="@+id/my_place_txt"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/gray_b5"
-                android:textSize="28px" />
+                android:textSize="@dimen/my_place_txtSize" />
         </LinearLayout>
 
         <TextView
@@ -69,7 +69,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="20dp" >
 
@@ -86,7 +86,7 @@
             android:paddingStart="20dp"
             android:text="发布活动"
             android:textColor="@color/black_42"
-            android:textSize="28px" />
+            android:textSize="@dimen/pub_eventTextSize" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +96,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="10dp" >
 
@@ -122,7 +122,7 @@
                 android:paddingStart="20dp"
                 android:text="我的活动"
                 android:textColor="@color/black_42"
-                android:textSize="28px" />
+                android:textSize="@dimen/pub_eventTextSize" />
 
             <TextView
                 android:layout_centerVertical="true"
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="33px"
+                android:layout_marginRight="24sp"
                 android:text="" />
         </RelativeLayout>
     </LinearLayout>
@@ -142,7 +142,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="10dp" >
 
@@ -160,7 +160,7 @@
             android:paddingStart="20dp"
             android:text="消息中心"
             android:textColor="@color/black_42"
-            android:textSize="28px" />
+            android:textSize="@dimen/pub_eventTextSize" />
     </LinearLayout>
 
     <ImageView
@@ -175,7 +175,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="10dp"
         android:visibility="gone" >
@@ -193,7 +193,7 @@
             android:paddingStart="20dp"
             android:text="关注圈"
             android:textColor="@color/black_42"
-            android:textSize="28px" />
+            android:textSize="@dimen/pub_eventTextSize" />
     </LinearLayout>
 
     <LinearLayout
@@ -203,7 +203,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="10dp" >
 
@@ -220,7 +220,7 @@
             android:paddingStart="20dp"
             android:text="关注列表"
             android:textColor="@color/black_42"
-            android:textSize="28px" />
+            android:textSize="@dimen/pub_eventTextSize" />
     </LinearLayout>
 
     <ImageView
@@ -235,7 +235,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
-        android:paddingLeft="46px"
+        android:paddingLeft="30dp"
         android:paddingStart="40dp"
         android:paddingTop="10dp" >
 
@@ -252,7 +252,7 @@
             android:paddingStart="20dp"
             android:text="设置"
             android:textColor="@color/black_42"
-            android:textSize="28px" />
+            android:textSize="@dimen/pub_eventTextSize" />
     </LinearLayout>
 
     <ImageView

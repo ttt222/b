@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- 检索页面字体 -->
+    <dimen name="tv_nameSize">20sp</dimen>
+    <dimen name="tv_titleSize">18sp</dimen>
+    <dimen name="tv_typeSize">18sp</dimen>
+    <dimen name="tv_belowSize">20sp</dimen>
+</resources>

@@ -55,7 +55,7 @@
                     android:paddingTop="8dp"
                     android:singleLine="false"
                     android:text="活动介绍:\n活动地点:\n活动时间:\n报名方式:\n活动费用:\n提示:\n\n"
-                    android:textSize="28px" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <TextView

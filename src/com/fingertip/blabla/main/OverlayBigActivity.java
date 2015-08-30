@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,7 +87,7 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 	private TextView tv_accusation;
 	
 	//收藏和邀请的布局
-	private RelativeLayout relayout_collection,relayout_share;
+	private LinearLayout layout_collection, layout_share;
 	
 	private UserSession session = UserSession.getInstance();
 	
@@ -127,8 +126,8 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		tv_accusation=(TextView) findViewById(R.id.tv_accusation);
 		
 		
-		relayout_collection=(RelativeLayout) findViewById(R.id.relayout_collection);
-		relayout_share = (RelativeLayout) findViewById(R.id.relayout_share);
+		layout_collection=(LinearLayout) findViewById(R.id.layout_collection);
+		layout_share = (LinearLayout) findViewById(R.id.layout_share);
 	}
 
 	private void setupViews() {		
@@ -154,8 +153,8 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 		findViewById(R.id.btn_share).setOnClickListener(this);
 		iv_head.setOnClickListener(this);
 		
-		relayout_collection.setOnClickListener(this);
-		relayout_share.setOnClickListener(this);
+		layout_collection.setOnClickListener(this);
+		layout_share.setOnClickListener(this);
 	}//end setupViews
 	private boolean isFirst = true;
 	
@@ -453,13 +452,13 @@ public class OverlayBigActivity extends BaseActivity implements View.OnClickList
 				startActivity(intent);
 			}
 			break;
-		case R.id.relayout_collection://
+		case R.id.layout_collection://
 			if (Tools.checkLogin(this)) {
 				showProgressDialog(false);
 				requestCollecion();
 			}
 			break;
-		case R.id.relayout_share://
+		case R.id.layout_share://
 			ShareEntity shareEntity = new ShareEntity();
 			shareEntity.shareTitle = overlayEntity.title;
 			shareEntity.shareContent = overlayEntity.getShareContent();

@@ -20,9 +20,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13px"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:paddingLeft="21px" >
+            android:paddingLeft="14dp" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,12 +30,15 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:maxEms="4"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="饭冰冰"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -59,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginRight="6dp"
-                    android:drawableLeft="@drawable/black_heart"
+                    android:drawableLeft="@drawable/white_heart"
                     android:drawablePadding="2dp"
                     android:gravity="center"
                     android:text="未知"
@@ -72,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="4"
                 android:text="未知"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -95,7 +98,7 @@
             <ImageView
                 android:id="@+id/iv_topic"
                 android:layout_width="match_parent"
-                android:layout_height="134dp"
+                android:layout_height="320dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop" />
 
@@ -282,32 +285,28 @@
         android:layout_height="50dp"
         android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:id="@+id/relayout_collection"
+        <LinearLayout
+            android:id="@+id/layout_collection"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:gravity="center" >
 
             <ImageView
                 android:id="@+id/iv_collection_starts"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="45dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:background="@drawable/collection_starts_n" />
 
             <TextView
                 android:id="@+id/btn_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/iv_collection_starts"
-                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="收藏"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="0.5dp"
@@ -316,31 +315,28 @@
             android:layout_marginTop="5dp"
             android:background="@color/white" />
 
-        <RelativeLayout
-            android:id="@+id/relayout_share"
+        <LinearLayout
+            android:id="@+id/layout_share"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:gravity="center"  >
 
             <ImageView
                 android:id="@+id/iv_img_invite"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="45dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:background="@drawable/img_invite" />
 
             <TextView
                 android:id="@+id/btn_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="45dp"
+                android:paddingLeft="10dp"
                 android:text="邀请"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
