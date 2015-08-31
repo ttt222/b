@@ -214,7 +214,7 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
             while (cur.moveToNext()) {
             	contact = new ContactEntity();
             	contact.name = cur.getString(cur.getColumnIndex(Phone.DISPLAY_NAME));
-            	String phone_number = cur.getString(cur.getColumnIndex(Phone.NUMBER));
+            	String phone_number = trimPhone(cur.getString(cur.getColumnIndex(Phone.NUMBER)));
             	if (Validator.isMobilePhone(phone_number)) {
             		contact.phone_numbers.add(phone_number);
             		result.add(contact);
@@ -245,6 +245,19 @@ public class MyContactsActivity extends BaseNavActivity implements View.OnClickL
         }
         return result;  
     }  
+	
+	private String trimPhone(String phone) {
+		if (Validator.isEmptyString(phone))
+			return null;
+		StringBuilder buffer = new StringBuilder();
+		phone = phone.trim();
+		for (int i = 0; i < phone.length(); i++) {
+			char c = phone.charAt(i);
+			if (c != ' ')
+				buffer.append(phone.charAt(i));
+		}
+		return buffer.length() > 0 ? buffer.toString() : null;
+	}
   
 	public List<ContactEntity> getSIMContactsInfos() {
 		List<ContactEntity> result = new ArrayList<ContactEntity>();
